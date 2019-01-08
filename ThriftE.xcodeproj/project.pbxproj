@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A721E01A5C00109FC8 /* AppDelegate.swift */; };
-		943170AA21E01A5C00109FC8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A921E01A5C00109FC8 /* ViewController.swift */; };
+		943170AA21E01A5C00109FC8 /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */; };
 		943170AD21E01A5C00109FC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 943170AB21E01A5C00109FC8 /* Main.storyboard */; };
 		943170AF21E01A5D00109FC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 943170AE21E01A5D00109FC8 /* Assets.xcassets */; };
 		943170B221E01A5D00109FC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 943170B021E01A5D00109FC8 /* LaunchScreen.storyboard */; };
 		943170BD21E01A5D00109FC8 /* ThriftETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170BC21E01A5D00109FC8 /* ThriftETests.swift */; };
 		943170C821E01A5D00109FC8 /* ThriftEUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170C721E01A5D00109FC8 /* ThriftEUITests.swift */; };
+		9436AD2921E027F000A2A86A /* ExpenseListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9436AD2821E027F000A2A86A /* ExpenseListItem.swift */; };
+		949FD71821E1337D00B4212D /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949FD71721E1337D00B4212D /* AddExpenseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +38,7 @@
 /* Begin PBXFileReference section */
 		943170A421E01A5C00109FC8 /* ThriftE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThriftE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		943170A721E01A5C00109FC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		943170A921E01A5C00109FC8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewController.swift; sourceTree = "<group>"; };
 		943170AC21E01A5C00109FC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		943170AE21E01A5D00109FC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		943170B121E01A5D00109FC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +49,8 @@
 		943170C321E01A5D00109FC8 /* ThriftEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThriftEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		943170C721E01A5D00109FC8 /* ThriftEUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThriftEUITests.swift; sourceTree = "<group>"; };
 		943170C921E01A5D00109FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9436AD2821E027F000A2A86A /* ExpenseListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListItem.swift; sourceTree = "<group>"; };
+		949FD71721E1337D00B4212D /* AddExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +102,13 @@
 			isa = PBXGroup;
 			children = (
 				943170A721E01A5C00109FC8 /* AppDelegate.swift */,
-				943170A921E01A5C00109FC8 /* ViewController.swift */,
+				943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */,
 				943170AB21E01A5C00109FC8 /* Main.storyboard */,
+				9436AD2821E027F000A2A86A /* ExpenseListItem.swift */,
 				943170AE21E01A5D00109FC8 /* Assets.xcassets */,
 				943170B021E01A5D00109FC8 /* LaunchScreen.storyboard */,
 				943170B321E01A5D00109FC8 /* Info.plist */,
+				949FD71721E1337D00B4212D /* AddExpenseViewController.swift */,
 			);
 			path = ThriftE;
 			sourceTree = "<group>";
@@ -256,8 +262,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				943170AA21E01A5C00109FC8 /* ViewController.swift in Sources */,
+				943170AA21E01A5C00109FC8 /* ExpenseListViewController.swift in Sources */,
+				949FD71821E1337D00B4212D /* AddExpenseViewController.swift in Sources */,
 				943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */,
+				9436AD2921E027F000A2A86A /* ExpenseListItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
