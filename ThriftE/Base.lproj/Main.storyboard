@@ -18,30 +18,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThriftEItem" id="tJs-YB-LUC">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ThriftEItem" id="tJs-YB-LUC">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tJs-YB-LUC" id="CAX-1A-2Q8">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="307" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PX0-mY-xLp">
-                                            <rect key="frame" x="16" y="11" width="134" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ir0-ye-ds5">
+                                            <rect key="frame" x="235" y="10" width="72" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="72" id="SYO-TJ-UNC"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ir0-ye-ds5">
-                                            <rect key="frame" x="262" y="10" width="72" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PX0-mY-xLp">
+                                            <rect key="frame" x="16" y="11" width="200" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="134" id="2FD-y8-3vJ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Ir0-ye-ds5" secondAttribute="bottom" constant="2" id="558-wM-r9H"/>
+                                        <constraint firstItem="Ir0-ye-ds5" firstAttribute="top" secondItem="CAX-1A-2Q8" secondAttribute="topMargin" constant="-1" id="AQZ-BP-fcR"/>
+                                        <constraint firstItem="Ir0-ye-ds5" firstAttribute="leading" secondItem="PX0-mY-xLp" secondAttribute="trailing" constant="85" id="Adt-0k-G3Q"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="PX0-mY-xLp" secondAttribute="bottom" constant="1" id="AyT-au-7BQ"/>
+                                        <constraint firstItem="PX0-mY-xLp" firstAttribute="top" secondItem="CAX-1A-2Q8" secondAttribute="topMargin" id="Tf3-vz-iUx"/>
+                                        <constraint firstItem="PX0-mY-xLp" firstAttribute="leading" secondItem="CAX-1A-2Q8" secondAttribute="leadingMargin" id="bxW-Dl-ZJw"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Ir0-ye-ds5" secondAttribute="trailing" constant="-7" id="eNz-C0-ATy"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration" identifier="ThriftEItem"/>
+                                <connections>
+                                    <segue destination="vGT-Gc-zra" kind="show" identifier="EditExpenseItem" trigger="accessoryAction" id="TqL-bj-jiL"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -173,4 +189,7 @@
             <point key="canvasLocation" x="151.19999999999999" y="89.505247376311857"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="TqL-bj-jiL"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -77,6 +77,12 @@ class ExpenseListViewController: UITableViewController, AddExpenseViewController
         if segue.identifier == "AddExpenseItem" {
             let controller = segue.destination as! AddExpenseViewController
             controller.delegate = self
+        } else if segue.identifier == "EditExpenseItem" {
+            let controller = segue.destination as! AddExpenseViewController
+            controller.delegate = self
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                controller.itemToEdit = items[indexPath.row]
+            }
         }
     }
 

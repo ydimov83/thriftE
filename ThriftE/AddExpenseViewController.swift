@@ -15,6 +15,8 @@ protocol AddExpenseViewControllerDelegate: class {
 
 class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
     
+    var itemToEdit: ExpenseListItem?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         nameTextField.becomeFirstResponder()
@@ -24,8 +26,14 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        amountTextField.delegate = self
-        nameTextField.delegate = self
+        amountTextField.delegate = self // is this necessary?
+        nameTextField.delegate = self // is this necessary?
+        
+        if let itemToEdit = itemToEdit {
+            title = "Edit Expense" // Switch up the title for the ViewController when editing an expense item
+            amountTextField.text = itemToEdit.amount // set the name and amount to the item we're editing
+            nameTextField.text = itemToEdit.name
+        }
 
     }
     
@@ -67,7 +75,7 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
         doneBarButton.isEnabled = !newText.isEmpty
         
         if textField.tag == 1003 {
-            let invalidCharacters = CharacterSet(charactersIn: ".0123456789").inverted
+            let invalidCharacters = CharacterSet(charactersIn: ".0123456789").inverted // limit to numerical characters only with allowance for decimals
             return string.rangeOfCharacter(from: invalidCharacters) == nil
         }
         
