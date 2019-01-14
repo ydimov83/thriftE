@@ -11,6 +11,7 @@ import UIKit
 protocol AddExpenseViewControllerDelegate: class {
     func addExpenseViewControllerDidCancel(_ controller: AddExpenseViewController)
     func addExpenseViewController(_ controller: AddExpenseViewController, didFinishAdding item: ExpenseListItem)
+    func addExpenseViewController(_ controller: AddExpenseViewController, didFinishEditing item: ExpenseListItem)
 }
 
 class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
@@ -33,6 +34,7 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
             title = "Edit Expense" // Switch up the title for the ViewController when editing an expense item
             amountTextField.text = itemToEdit.amount // set the name and amount to the item we're editing
             nameTextField.text = itemToEdit.name
+            doneBarButton.isEnabled = true
         }
 
     }
@@ -57,12 +59,18 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done() {
-        let item = ExpenseListItem()
-        item.name = nameTextField.text!
-        item.amount = amountTextField.text!
-        print("i was this expensive: \(item.amount)")
         
-        delegate?.addExpenseViewController(self, didFinishAdding: item)
+        if let item = itemToEdit {
+            item.name = nameTextField.text!
+            item.amount = amountTextField.text!
+            delegate?.addExpenseViewController(self, didFinishEditing: item)
+            
+        } else {
+            let item = ExpenseListItem()
+            item.name = nameTextField.text!
+            item.amount = amountTextField.text!
+            delegate?.addExpenseViewController(self, didFinishAdding: item)
+        }
     }
     
     //MARK: - TextField delegates

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ExpenseListItem {
+class ExpenseListItem: NSObject {
     var name = ""
     var amount = ""
 }

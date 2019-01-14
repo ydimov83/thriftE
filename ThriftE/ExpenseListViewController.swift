@@ -10,7 +10,7 @@ import UIKit
 
 class ExpenseListViewController: UITableViewController, AddExpenseViewControllerDelegate {
     
-    //MARK: - Protocol delegate implementation
+    //MARK: - Protocol delegate implementation for AddExpenseViewController
     func addExpenseViewControllerDidCancel(_ controller: AddExpenseViewController) {
         navigationController?.popViewController(animated: true)
     }
@@ -26,6 +26,16 @@ class ExpenseListViewController: UITableViewController, AddExpenseViewController
         navigationController?.popViewController(animated: true)
     }
     
+    func addExpenseViewController(_ controller: AddExpenseViewController, didFinishEditing item: ExpenseListItem) {
+        
+        if let index = items.index(of: item) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell  = tableView.cellForRow(at: indexPath) {
+                configureText(for: cell, with: item)
+            }
+        }
+        navigationController?.popViewController(animated: true)
+    }
     
     var items = [ExpenseListItem]()
 
@@ -69,7 +79,11 @@ class ExpenseListViewController: UITableViewController, AddExpenseViewController
         let amountLabel = cell.viewWithTag(1001) as! UILabel
         
         nameLabel.text = item.name
-        amountLabel.text = item.amount
+        if item.amount.isEmpty {
+            amountLabel.text = item.amount
+        } else {
+            amountLabel.text = "$" + item.amount
+        }
     }
     
     //MARK: - Navigation
