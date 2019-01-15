@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ExpenseListItem: NSObject {
+class ExpenseListItem: NSObject, Codable {
     var name = ""
     var amount = ""
     var date: Date?
