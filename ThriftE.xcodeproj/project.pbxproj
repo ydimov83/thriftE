@@ -15,7 +15,7 @@
 		943170BD21E01A5D00109FC8 /* ThriftETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170BC21E01A5D00109FC8 /* ThriftETests.swift */; };
 		943170C821E01A5D00109FC8 /* ThriftEUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170C721E01A5D00109FC8 /* ThriftEUITests.swift */; };
 		9436AD2921E027F000A2A86A /* ExpenseListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9436AD2821E027F000A2A86A /* ExpenseListItem.swift */; };
-		949FD71821E1337D00B4212D /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949FD71721E1337D00B4212D /* AddExpenseViewController.swift */; };
+		949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		943170C721E01A5D00109FC8 /* ThriftEUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThriftEUITests.swift; sourceTree = "<group>"; };
 		943170C921E01A5D00109FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9436AD2821E027F000A2A86A /* ExpenseListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListItem.swift; sourceTree = "<group>"; };
-		949FD71721E1337D00B4212D /* AddExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
+		949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +108,7 @@
 				943170AE21E01A5D00109FC8 /* Assets.xcassets */,
 				943170B021E01A5D00109FC8 /* LaunchScreen.storyboard */,
 				943170B321E01A5D00109FC8 /* Info.plist */,
-				949FD71721E1337D00B4212D /* AddExpenseViewController.swift */,
+				949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */,
 			);
 			path = ThriftE;
 			sourceTree = "<group>";
@@ -263,7 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				943170AA21E01A5C00109FC8 /* ExpenseListViewController.swift in Sources */,
-				949FD71821E1337D00B4212D /* AddExpenseViewController.swift in Sources */,
+				949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */,
 				943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */,
 				9436AD2921E027F000A2A86A /* ExpenseListItem.swift in Sources */,
 			);

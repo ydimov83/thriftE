@@ -8,12 +8,15 @@
 
 import UIKit
 
-protocol AddExpenseViewControllerDelegate: class {
-    func addExpenseViewControllerDidCancel(_ controller: AddExpenseViewController)
-    func addExpenseViewController(_ controller: AddExpenseViewController, didFinishAdding item: ExpenseListItem)
+protocol ExpenseDetailViewControllerDelegate: class {
+    func expenseDetailViewControllerDidCancel(_ controller: ExpenseDetailViewController)
+    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishAdding item: ExpenseListItem)
+    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishEditing item: ExpenseListItem)
 }
 
-class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
+class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
+    
+    var itemToEdit: ExpenseListItem?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -24,8 +27,16 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        amountTextField.delegate = self
-        nameTextField.delegate = self
+        amountTextField.delegate = self // is this necessary?
+        nameTextField.delegate = self // is this necessary?
+        
+        if let itemToEdit = itemToEdit {
+            title = "Edit Expense" // Switch up the title for the ViewController when editing an expense item
+            amountTextField.text = itemToEdit.amount // set the name and amount to the item we're editing
+            nameTextField.text = itemToEdit.name
+            datePickerField.date = itemToEdit.date!
+            doneBarButton.isEnabled = true
+        }
 
     }
     
@@ -35,7 +46,10 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var amountTextField: UITextField!
     
-    weak var delegate: AddExpenseViewControllerDelegate?
+   
+    @IBOutlet weak var datePickerField: UIDatePicker!
+    
+    weak var delegate: ExpenseDetailViewControllerDelegate?
     
     //MARK: - Tableview delegates
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -45,16 +59,24 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK: - Actions
     @IBAction func cancel() {
-        delegate?.addExpenseViewControllerDidCancel(self)
+        delegate?.expenseDetailViewControllerDidCancel(self)
     }
     
     @IBAction func done() {
-        let item = ExpenseListItem()
-        item.name = nameTextField.text!
-        item.amount = amountTextField.text!
-        print("i was this expensive: \(item.amount)")
         
-        delegate?.addExpenseViewController(self, didFinishAdding: item)
+        if let item = itemToEdit {
+            item.name = nameTextField.text!
+            item.amount = amountTextField.text!
+            item.date = datePickerField.date
+            delegate?.expenseDetailViewController(self, didFinishEditing: item)
+            
+        } else {
+            let item = ExpenseListItem()
+            item.name = nameTextField.text!
+            item.amount = amountTextField.text!
+            item.date = datePickerField.date
+            delegate?.expenseDetailViewController(self, didFinishAdding: item)
+        }
     }
     
     //MARK: - TextField delegates
@@ -67,7 +89,7 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
         doneBarButton.isEnabled = !newText.isEmpty
         
         if textField.tag == 1003 {
-            let invalidCharacters = CharacterSet(charactersIn: ".0123456789").inverted
+            let invalidCharacters = CharacterSet(charactersIn: ".0123456789").inverted // limit to numerical characters only with allowance for decimals
             return string.rangeOfCharacter(from: invalidCharacters) == nil
         }
         
