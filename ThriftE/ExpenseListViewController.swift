@@ -8,14 +8,14 @@
 
 import UIKit
 
-class ExpenseListViewController: UITableViewController, AddExpenseViewControllerDelegate {
+class ExpenseListViewController: UITableViewController, ExpenseDetailViewControllerDelegate {
     
     //MARK: - Protocol delegate implementation for AddExpenseViewController
-    func addExpenseViewControllerDidCancel(_ controller: AddExpenseViewController) {
+    func expenseDetailViewControllerDidCancel(_ controller: ExpenseDetailViewController) {
         navigationController?.popViewController(animated: true)
     }
     
-    func addExpenseViewController(_ controller: AddExpenseViewController, didFinishAdding item: ExpenseListItem) {
+    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishAdding item: ExpenseListItem) {
         let newRowIndex = items.count
         
         items.append(item)
@@ -26,7 +26,7 @@ class ExpenseListViewController: UITableViewController, AddExpenseViewController
         navigationController?.popViewController(animated: true)
     }
     
-    func addExpenseViewController(_ controller: AddExpenseViewController, didFinishEditing item: ExpenseListItem) {
+    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishEditing item: ExpenseListItem) {
         
         if let index = items.index(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
@@ -89,10 +89,10 @@ class ExpenseListViewController: UITableViewController, AddExpenseViewController
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddExpenseItem" {
-            let controller = segue.destination as! AddExpenseViewController
+            let controller = segue.destination as! ExpenseDetailViewController
             controller.delegate = self
         } else if segue.identifier == "EditExpenseItem" {
-            let controller = segue.destination as! AddExpenseViewController
+            let controller = segue.destination as! ExpenseDetailViewController
             controller.delegate = self
             if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
                 controller.itemToEdit = items[indexPath.row]

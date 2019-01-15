@@ -11,4 +11,5 @@ import Foundation
 class ExpenseListItem: NSObject {
     var name = ""
     var amount = ""
+    var date: Date?
 }

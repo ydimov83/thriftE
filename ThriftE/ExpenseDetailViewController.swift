@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol AddExpenseViewControllerDelegate: class {
-    func addExpenseViewControllerDidCancel(_ controller: AddExpenseViewController)
-    func addExpenseViewController(_ controller: AddExpenseViewController, didFinishAdding item: ExpenseListItem)
-    func addExpenseViewController(_ controller: AddExpenseViewController, didFinishEditing item: ExpenseListItem)
+protocol ExpenseDetailViewControllerDelegate: class {
+    func expenseDetailViewControllerDidCancel(_ controller: ExpenseDetailViewController)
+    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishAdding item: ExpenseListItem)
+    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishEditing item: ExpenseListItem)
 }
 
-class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
+class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     
     var itemToEdit: ExpenseListItem?
     
@@ -34,6 +34,7 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
             title = "Edit Expense" // Switch up the title for the ViewController when editing an expense item
             amountTextField.text = itemToEdit.amount // set the name and amount to the item we're editing
             nameTextField.text = itemToEdit.name
+            datePickerField.date = itemToEdit.date!
             doneBarButton.isEnabled = true
         }
 
@@ -45,7 +46,10 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var amountTextField: UITextField!
     
-    weak var delegate: AddExpenseViewControllerDelegate?
+   
+    @IBOutlet weak var datePickerField: UIDatePicker!
+    
+    weak var delegate: ExpenseDetailViewControllerDelegate?
     
     //MARK: - Tableview delegates
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -55,7 +59,7 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK: - Actions
     @IBAction func cancel() {
-        delegate?.addExpenseViewControllerDidCancel(self)
+        delegate?.expenseDetailViewControllerDidCancel(self)
     }
     
     @IBAction func done() {
@@ -63,13 +67,15 @@ class AddExpenseViewController: UITableViewController, UITextFieldDelegate {
         if let item = itemToEdit {
             item.name = nameTextField.text!
             item.amount = amountTextField.text!
-            delegate?.addExpenseViewController(self, didFinishEditing: item)
+            item.date = datePickerField.date
+            delegate?.expenseDetailViewController(self, didFinishEditing: item)
             
         } else {
             let item = ExpenseListItem()
             item.name = nameTextField.text!
             item.amount = amountTextField.text!
-            delegate?.addExpenseViewController(self, didFinishAdding: item)
+            item.date = datePickerField.date
+            delegate?.expenseDetailViewController(self, didFinishAdding: item)
         }
     }
     
