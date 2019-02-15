@@ -30,6 +30,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
         let indexPath = IndexPath(row: newRowIndex, section: 0)
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic)
+        dataModel.updateTotal()
         navigationController?.popViewController(animated: true)
     }
     
@@ -41,6 +42,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
                 configureText(for: cell, with: item)
             }
         }
+        dataModel.updateTotal()
         navigationController?.popViewController(animated: true)
     }
     
@@ -74,6 +76,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic) //removes the current row from the view
+        dataModel.updateTotal()
     }
     
     func configureText(for cell: UITableViewCell, with item: ExpenseListItem) {
@@ -84,8 +87,8 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
         formatter.timeStyle = .none
         
         let dateLabel = formatter.string(from: item.date)
-        if !item.amount.isEmpty {
-            cell.detailTextLabel?.text = "$" + item.amount + " \(dateLabel)"
+        if item.amount > 0 {
+            cell.detailTextLabel?.text = "$ \(item.amount) \(dateLabel)"
         } else {
             cell.detailTextLabel?.text = dateLabel
         }

@@ -10,6 +10,6 @@ import Foundation
 
 class ExpenseListItem: NSObject, Codable {
     var name = ""
-    var amount = ""
+    var amount = 0.00
     var date = Date()
 }

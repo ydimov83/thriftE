@@ -12,6 +12,7 @@ import Foundation
 
 class DataModel {
     var items = [ExpenseListItem]()
+    var total = 0.00
     
     init () {
         loadChecklists()
@@ -55,5 +56,13 @@ class DataModel {
                 print("Encountered an error trying to decode data: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func updateTotal() {
+        total = 0
+        for item in items {
+             total = total + item.amount
+        }
+        print("total is: \(total)")
     }
 }

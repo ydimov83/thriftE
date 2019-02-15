@@ -18,18 +18,13 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     
     var itemToEdit: ExpenseListItem?
     var expenseDate = Date()
-    
-    
-    
+    weak var delegate: ExpenseDetailViewControllerDelegate?
     
     //MARK: - Outlets
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var datePickerField: UIDatePicker!
-    
-    
-    weak var delegate: ExpenseDetailViewControllerDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -45,7 +40,7 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         
         if let itemToEdit = itemToEdit {
             title = "Edit Expense" // Switch up the title for the ViewController when editing an expense item
-            amountTextField.text = itemToEdit.amount // set the name and amount to the item we're editing
+            amountTextField.text = String(itemToEdit.amount) // set the name and amount to the item we're editing
             nameTextField.text = itemToEdit.name
             datePickerField.date = itemToEdit.date
             doneBarButton.isEnabled = true
@@ -68,14 +63,18 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         
         if let item = itemToEdit {
             item.name = nameTextField.text!
-            item.amount = amountTextField.text!
+            item.amount = Double(amountTextField.text!)!
             item.date = datePickerField.date
             delegate?.expenseDetailViewController(self, didFinishEditing: item)
             
         } else {
             let item = ExpenseListItem()
             item.name = nameTextField.text!
-            item.amount = amountTextField.text!
+            if (amountTextField.text?.isEmpty)! {
+                item.amount = 0
+            } else {
+                item.amount = Double(amountTextField.text!)!
+            }
             item.date = datePickerField.date
             delegate?.expenseDetailViewController(self, didFinishAdding: item)
         }
