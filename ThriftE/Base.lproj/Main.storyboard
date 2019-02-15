@@ -18,35 +18,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ThriftEItem" id="tJs-YB-LUC">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ThriftEItem" textLabel="WgQ-9s-Qve" detailTextLabel="WwU-LB-ZfA" style="IBUITableViewCellStyleSubtitle" id="tJs-YB-LUC">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tJs-YB-LUC" id="CAX-1A-2Q8">
                                     <rect key="frame" x="0.0" y="0.0" width="307" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="expenseName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PX0-mY-xLp">
-                                            <rect key="frame" x="8" y="10" width="200" height="21"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WgQ-9s-Qve">
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="expenseAmount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ir0-ye-ds5">
-                                            <rect key="frame" x="247" y="6" width="60" height="21"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WwU-LB-ZfA">
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Ir0-ye-ds5" secondAttribute="bottom" constant="2" id="558-wM-r9H"/>
-                                        <constraint firstItem="Ir0-ye-ds5" firstAttribute="top" secondItem="CAX-1A-2Q8" secondAttribute="topMargin" constant="-1" id="AQZ-BP-fcR"/>
-                                        <constraint firstItem="Ir0-ye-ds5" firstAttribute="leading" secondItem="PX0-mY-xLp" secondAttribute="trailing" constant="5" id="Adt-0k-G3Q"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="PX0-mY-xLp" secondAttribute="bottom" constant="1" id="AyT-au-7BQ"/>
-                                        <constraint firstItem="PX0-mY-xLp" firstAttribute="top" secondItem="CAX-1A-2Q8" secondAttribute="topMargin" id="Tf3-vz-iUx"/>
-                                        <constraint firstItem="PX0-mY-xLp" firstAttribute="leading" secondItem="CAX-1A-2Q8" secondAttribute="leadingMargin" id="bxW-Dl-ZJw"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Ir0-ye-ds5" secondAttribute="trailing" constant="-1" id="eNz-C0-ATy"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration" identifier="ThriftEItem"/>
                                 <connections>
@@ -134,21 +127,30 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="TXU-5E-xVA">
+                                <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="aWW-s2-6n2">
-                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="159" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aWW-s2-6n2" id="Pur-CS-yfi">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="kZv-5B-pkU">
-                                                    <rect key="frame" x="0.0" y="-1" width="375" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="kZv-5B-pkU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="569206411.80574095">
                                                         <!--2019-01-15 00:53:31 +0000-->
                                                     </date>
                                                 </datePicker>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kZv-5B-pkU" firstAttribute="centerY" secondItem="Pur-CS-yfi" secondAttribute="centerY" id="bp0-6n-8v8"/>
+                                                <constraint firstItem="kZv-5B-pkU" firstAttribute="top" secondItem="Pur-CS-yfi" secondAttribute="top" id="brf-dI-PZX"/>
+                                                <constraint firstAttribute="trailing" secondItem="kZv-5B-pkU" secondAttribute="trailing" id="s72-Mj-kMK"/>
+                                                <constraint firstItem="kZv-5B-pkU" firstAttribute="leading" secondItem="Pur-CS-yfi" secondAttribute="leading" id="xfQ-T5-6VM"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
