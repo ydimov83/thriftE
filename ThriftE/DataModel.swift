@@ -27,7 +27,7 @@ class DataModel {
     }
     
     func dataFilePath() -> URL {
-        return documentsDirectory().appendingPathComponent("ShoppingList.plist")
+        return documentsDirectory().appendingPathComponent("ExpenseList.plist")
     }
     
     func saveChecklists() {

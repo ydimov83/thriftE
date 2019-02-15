@@ -17,6 +17,19 @@ protocol ExpenseDetailViewControllerDelegate: class {
 class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     
     var itemToEdit: ExpenseListItem?
+    var expenseDate = Date()
+    
+    
+    
+    
+    //MARK: - Outlets
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var datePickerField: UIDatePicker!
+    
+    
+    weak var delegate: ExpenseDetailViewControllerDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -24,7 +37,7 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         // set the text field to first responder, i.e. when user opens screen it will have focus on by default and auto pull up the keyboard so they save time
         amountTextField.keyboardType = .decimalPad
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         amountTextField.delegate = self // is this necessary?
@@ -34,22 +47,11 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
             title = "Edit Expense" // Switch up the title for the ViewController when editing an expense item
             amountTextField.text = itemToEdit.amount // set the name and amount to the item we're editing
             nameTextField.text = itemToEdit.name
-            datePickerField.date = itemToEdit.date!
+            datePickerField.date = itemToEdit.date
             doneBarButton.isEnabled = true
         }
-
+        
     }
-    
-    //MARK: - Outlets
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var doneBarButton: UIBarButtonItem!
-    
-    @IBOutlet weak var amountTextField: UITextField!
-    
-   
-    @IBOutlet weak var datePickerField: UIDatePicker!
-    
-    weak var delegate: ExpenseDetailViewControllerDelegate?
     
     //MARK: - Tableview delegates
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -79,6 +81,7 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    
     //MARK: - TextField delegates
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -101,5 +104,5 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         doneBarButton.isEnabled = false
         return true
     }
-
+    
 }

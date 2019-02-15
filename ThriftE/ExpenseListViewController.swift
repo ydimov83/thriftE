@@ -14,9 +14,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view, typically from a nib.
-        
     }
     
     //MARK: - Protocol delegate implementation for AddExpenseViewController
@@ -79,14 +77,17 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
     }
     
     func configureText(for cell: UITableViewCell, with item: ExpenseListItem) {
-        let nameLabel = cell.viewWithTag(1000) as! UILabel //this is the tag I gave to the label via storyboard
-        let amountLabel = cell.viewWithTag(1001) as! UILabel
+        cell.textLabel?.text = item.name
+        let formatter = DateFormatter()
         
-        nameLabel.text = item.name
-        if item.amount.isEmpty {
-            amountLabel.text = item.amount
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        
+        let dateLabel = formatter.string(from: item.date)
+        if !item.amount.isEmpty {
+            cell.detailTextLabel?.text = "$" + item.amount + " \(dateLabel)"
         } else {
-            amountLabel.text = "$" + item.amount
+            cell.detailTextLabel?.text = dateLabel
         }
     }
     
@@ -103,5 +104,5 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
             }
         }
     }
+ 
 }
-
