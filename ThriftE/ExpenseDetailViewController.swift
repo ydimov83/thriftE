@@ -69,7 +69,8 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done() {
-        
+        //TODO: - Add some checks here to make sure this cast doesn't crash app
+
         if let item = itemToEdit {
             item.name = nameTextField.text!
             item.amount = Double(amountTextField.text!)!
@@ -84,7 +85,6 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
                 item.amount = 0
             } else {
                 item.amount = Double(amountTextField.text!)!
-                //TODO: - Add some checks here to make sure this cast doesn't crash app
             }
             item.date = datePickerField.date
             item.category = categoryName
