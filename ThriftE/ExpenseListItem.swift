@@ -12,4 +12,5 @@ class ExpenseListItem: NSObject, Codable {
     var name = ""
     var amount = 0.00
     var date = Date()
+    var category = ""
 }

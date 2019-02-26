@@ -12,7 +12,6 @@ import Foundation
 
 class DataModel {
     var items = [ExpenseListItem]()
-    var total = 0.00
     
     init () {
         loadChecklists()
@@ -59,7 +58,7 @@ class DataModel {
     }
     
     func updateTotal() {
-        total = 0
+        total = 0.00
         for item in items {
              total = total + item.amount
         }

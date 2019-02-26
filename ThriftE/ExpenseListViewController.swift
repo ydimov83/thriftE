@@ -14,6 +14,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataModel.updateTotal()
         // Do any additional setup after loading the view, typically from a nib.
     }
     

@@ -19,12 +19,14 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     var itemToEdit: ExpenseListItem?
     var expenseDate = Date()
     weak var delegate: ExpenseDetailViewControllerDelegate?
+    var categoryName = "No Category"
     
     //MARK: - Outlets
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var datePickerField: UIDatePicker!
+    @IBOutlet weak var categoryLabel: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -37,12 +39,15 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         amountTextField.delegate = self // is this necessary?
         nameTextField.delegate = self // is this necessary?
+        categoryLabel.text = categoryName
         
         if let itemToEdit = itemToEdit {
             title = "Edit Expense" // Switch up the title for the ViewController when editing an expense item
             amountTextField.text = String(itemToEdit.amount) // set the name and amount to the item we're editing
             nameTextField.text = itemToEdit.name
             datePickerField.date = itemToEdit.date
+            categoryName = itemToEdit.category
+            categoryLabel.text = categoryName
             doneBarButton.isEnabled = true
         }
         
@@ -50,7 +55,11 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK: - Tableview delegates
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return nil //make sure we disable cell selection, only text field is selectable
+        if indexPath.row == 2 && indexPath.section == 0 {
+            return indexPath
+        } else {
+            return nil //make sure we disable cell selection if not the category cell
+        }
     }
     
     
@@ -65,6 +74,7 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
             item.name = nameTextField.text!
             item.amount = Double(amountTextField.text!)!
             item.date = datePickerField.date
+            item.category = categoryName
             delegate?.expenseDetailViewController(self, didFinishEditing: item)
             
         } else {
@@ -74,9 +84,25 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
                 item.amount = 0
             } else {
                 item.amount = Double(amountTextField.text!)!
+                //TODO: - Add some checks here to make sure this cast doesn't crash app
             }
             item.date = datePickerField.date
+            item.category = categoryName
             delegate?.expenseDetailViewController(self, didFinishAdding: item)
+        }
+    }
+    
+    @IBAction func expenseCategoryPickerDidSelectCategory(_ segue: UIStoryboardSegue) {
+        let controller = segue.source as! ExpenseCategoryPickerViewController
+        categoryName = controller.selectedCategoryName
+        categoryLabel.text = categoryName
+    }
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PickExpenseCategory" {
+            let controller = segue.destination as! ExpenseCategoryPickerViewController
+            controller.selectedCategoryName = categoryName
         }
     }
     
@@ -103,5 +129,7 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         doneBarButton.isEnabled = false
         return true
     }
+    
+    
     
 }
