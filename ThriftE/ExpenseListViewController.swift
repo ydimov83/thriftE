@@ -65,12 +65,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
     }
     
     //MARK: - Table view delegate
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        //will deselect the tapped on row and animate
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // Allows us to delete a row by swiping to delete
         dataModel.items.remove(at: indexPath.row) //removes the current row from data model
