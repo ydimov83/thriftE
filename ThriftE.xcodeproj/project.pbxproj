@@ -21,6 +21,7 @@
 		949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */; };
 		94AECF90222322D800730707 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF8F222322D800730707 /* Functions.swift */; };
 		94AECF92222323F100730707 /* AnalyzeExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */; };
+		94E72DE02226F22C0035F789 /* ExpenseCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E72DDF2226F22C0035F789 /* ExpenseCategories.swift */; };
 		9F2587DB7857FE323BCA0C2D /* Pods_ThriftEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347AAB6A167BC5DC35501366 /* Pods_ThriftEUITests.framework */; };
 		DA82EC893608F3E9E1DA40D7 /* Pods_ThriftE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1863AFACCA0D9281053236E1 /* Pods_ThriftE.framework */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,7 @@
 		949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
 		94AECF8F222322D800730707 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeExpensesViewController.swift; sourceTree = "<group>"; };
+		94E72DDF2226F22C0035F789 /* ExpenseCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategories.swift; sourceTree = "<group>"; };
 		DE06A9879FA70A67005F4DEB /* Pods-ThriftEUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftEUITests.debug.xcconfig"; path = "Target Support Files/Pods-ThriftEUITests/Pods-ThriftEUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 				943170A721E01A5C00109FC8 /* AppDelegate.swift */,
 				943170AE21E01A5D00109FC8 /* Assets.xcassets */,
 				943E68EF2202245D0035B85B /* DataModel.swift */,
+				94E72DDF2226F22C0035F789 /* ExpenseCategories.swift */,
 				9413D3832225B38E00040243 /* ExpenseCategoryPickerViewController.swift */,
 				949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */,
 				9436AD2821E027F000A2A86A /* ExpenseListItem.swift */,
@@ -180,7 +183,6 @@
 				DE06A9879FA70A67005F4DEB /* Pods-ThriftEUITests.debug.xcconfig */,
 				163D2B18505761D156C780F2 /* Pods-ThriftEUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -417,6 +419,7 @@
 				943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */,
 				9436AD2921E027F000A2A86A /* ExpenseListItem.swift in Sources */,
 				94AECF90222322D800730707 /* Functions.swift in Sources */,
+				94E72DE02226F22C0035F789 /* ExpenseCategories.swift in Sources */,
 				94AECF92222323F100730707 /* AnalyzeExpensesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
