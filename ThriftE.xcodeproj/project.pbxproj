@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E83C7ABE461D9F66B995CDE /* Pods_ThriftETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D402E3C5598C1037AE12D5 /* Pods_ThriftETests.framework */; };
 		9413D3842225B38E00040243 /* ExpenseCategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9413D3832225B38E00040243 /* ExpenseCategoryPickerViewController.swift */; };
 		943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A721E01A5C00109FC8 /* AppDelegate.swift */; };
 		943170AA21E01A5C00109FC8 /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */; };
@@ -20,6 +21,8 @@
 		949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */; };
 		94AECF90222322D800730707 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF8F222322D800730707 /* Functions.swift */; };
 		94AECF92222323F100730707 /* AnalyzeExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */; };
+		9F2587DB7857FE323BCA0C2D /* Pods_ThriftEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347AAB6A167BC5DC35501366 /* Pods_ThriftEUITests.framework */; };
+		DA82EC893608F3E9E1DA40D7 /* Pods_ThriftE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1863AFACCA0D9281053236E1 /* Pods_ThriftE.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		119F06C5BEE2AF1AA60FB29C /* Pods-ThriftETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftETests.debug.xcconfig"; path = "Target Support Files/Pods-ThriftETests/Pods-ThriftETests.debug.xcconfig"; sourceTree = "<group>"; };
+		163D2B18505761D156C780F2 /* Pods-ThriftEUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftEUITests.release.xcconfig"; path = "Target Support Files/Pods-ThriftEUITests/Pods-ThriftEUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1863AFACCA0D9281053236E1 /* Pods_ThriftE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThriftE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		308C6EA320FE5F4E4D96BB7E /* Pods-ThriftE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftE.release.xcconfig"; path = "Target Support Files/Pods-ThriftE/Pods-ThriftE.release.xcconfig"; sourceTree = "<group>"; };
+		347AAB6A167BC5DC35501366 /* Pods_ThriftEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThriftEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45CE47EDE14A1F3C1F6D1D2E /* Pods-ThriftETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftETests.release.xcconfig"; path = "Target Support Files/Pods-ThriftETests/Pods-ThriftETests.release.xcconfig"; sourceTree = "<group>"; };
+		5EC26B131540436EE376ADDF /* Pods-ThriftE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftE.debug.xcconfig"; path = "Target Support Files/Pods-ThriftE/Pods-ThriftE.debug.xcconfig"; sourceTree = "<group>"; };
+		72D402E3C5598C1037AE12D5 /* Pods_ThriftETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThriftETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9413D3832225B38E00040243 /* ExpenseCategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryPickerViewController.swift; sourceTree = "<group>"; };
 		943170A421E01A5C00109FC8 /* ThriftE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThriftE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		943170A721E01A5C00109FC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +70,7 @@
 		949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
 		94AECF8F222322D800730707 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeExpensesViewController.swift; sourceTree = "<group>"; };
+		DE06A9879FA70A67005F4DEB /* Pods-ThriftEUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftEUITests.debug.xcconfig"; path = "Target Support Files/Pods-ThriftEUITests/Pods-ThriftEUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA82EC893608F3E9E1DA40D7 /* Pods_ThriftE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E83C7ABE461D9F66B995CDE /* Pods_ThriftETests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,12 +94,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F2587DB7857FE323BCA0C2D /* Pods_ThriftEUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31496875CC42C5078DD12F7A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1863AFACCA0D9281053236E1 /* Pods_ThriftE.framework */,
+				72D402E3C5598C1037AE12D5 /* Pods_ThriftETests.framework */,
+				347AAB6A167BC5DC35501366 /* Pods_ThriftEUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9431709B21E01A5C00109FC8 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +118,8 @@
 				943170BB21E01A5D00109FC8 /* ThriftETests */,
 				943170C621E01A5D00109FC8 /* ThriftEUITests */,
 				943170A521E01A5C00109FC8 /* Products */,
+				F1A5D915A931A7FEFB759045 /* Pods */,
+				31496875CC42C5078DD12F7A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +170,20 @@
 			path = ThriftEUITests;
 			sourceTree = "<group>";
 		};
+		F1A5D915A931A7FEFB759045 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5EC26B131540436EE376ADDF /* Pods-ThriftE.debug.xcconfig */,
+				308C6EA320FE5F4E4D96BB7E /* Pods-ThriftE.release.xcconfig */,
+				119F06C5BEE2AF1AA60FB29C /* Pods-ThriftETests.debug.xcconfig */,
+				45CE47EDE14A1F3C1F6D1D2E /* Pods-ThriftETests.release.xcconfig */,
+				DE06A9879FA70A67005F4DEB /* Pods-ThriftEUITests.debug.xcconfig */,
+				163D2B18505761D156C780F2 /* Pods-ThriftEUITests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +191,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 943170CC21E01A5D00109FC8 /* Build configuration list for PBXNativeTarget "ThriftE" */;
 			buildPhases = (
+				D3CC1B404504ECC8A30E4925 /* [CP] Check Pods Manifest.lock */,
 				943170A021E01A5C00109FC8 /* Sources */,
 				943170A121E01A5C00109FC8 /* Frameworks */,
 				943170A221E01A5C00109FC8 /* Resources */,
+				E5DDD51B79C86949775D770D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -167,6 +210,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 943170CF21E01A5D00109FC8 /* Build configuration list for PBXNativeTarget "ThriftETests" */;
 			buildPhases = (
+				80F5680D75A69691B725BE2A /* [CP] Check Pods Manifest.lock */,
 				943170B421E01A5D00109FC8 /* Sources */,
 				943170B521E01A5D00109FC8 /* Frameworks */,
 				943170B621E01A5D00109FC8 /* Resources */,
@@ -185,6 +229,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 943170D221E01A5D00109FC8 /* Build configuration list for PBXNativeTarget "ThriftEUITests" */;
 			buildPhases = (
+				124D50DD74DDFC4DAB4ACA9A /* [CP] Check Pods Manifest.lock */,
 				943170BF21E01A5D00109FC8 /* Sources */,
 				943170C021E01A5D00109FC8 /* Frameworks */,
 				943170C121E01A5D00109FC8 /* Resources */,
@@ -268,6 +313,97 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		124D50DD74DDFC4DAB4ACA9A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ThriftEUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80F5680D75A69691B725BE2A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ThriftETests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3CC1B404504ECC8A30E4925 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ThriftE-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5DDD51B79C86949775D770D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ThriftE/Pods-ThriftE-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ThriftE/Pods-ThriftE-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		943170A021E01A5C00109FC8 /* Sources */ = {
@@ -454,6 +590,7 @@
 		};
 		943170CD21E01A5D00109FC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5EC26B131540436EE376ADDF /* Pods-ThriftE.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -472,6 +609,7 @@
 		};
 		943170CE21E01A5D00109FC8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 308C6EA320FE5F4E4D96BB7E /* Pods-ThriftE.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -490,6 +628,7 @@
 		};
 		943170D021E01A5D00109FC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 119F06C5BEE2AF1AA60FB29C /* Pods-ThriftETests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -511,6 +650,7 @@
 		};
 		943170D121E01A5D00109FC8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45CE47EDE14A1F3C1F6D1D2E /* Pods-ThriftETests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -532,6 +672,7 @@
 		};
 		943170D321E01A5D00109FC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE06A9879FA70A67005F4DEB /* Pods-ThriftEUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -552,6 +693,7 @@
 		};
 		943170D421E01A5D00109FC8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 163D2B18505761D156C780F2 /* Pods-ThriftEUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
