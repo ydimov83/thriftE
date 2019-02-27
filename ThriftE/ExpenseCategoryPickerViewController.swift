@@ -12,23 +12,14 @@ class ExpenseCategoryPickerViewController: UITableViewController {
     
     var selectedCategoryName = ""
     var selectedIndexPath = IndexPath()
-    var categories = [
-        "No Category",
-        "Groceries",
-        "Car",
-        "House",
-        "Relaxation",
-        "Restaurant",
-        "Services",
-        "Travel"
-    ]
+    var categories: ExpenseCategories!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for i in 0..<categories.count {
-            if categories[i] == selectedCategoryName {
-                selectedIndexPath = IndexPath(row: i, section: 0)
+        for category in ExpenseCategories.allCases {
+            if category.rawValue == selectedCategoryName {
+                selectedIndexPath = IndexPath(row: category.hashValue, section: 0)
                 break
             }
         }
@@ -39,13 +30,13 @@ class ExpenseCategoryPickerViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories.count
+        return ExpenseCategories.allCases.count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseCategoryCell", for: indexPath)
-        let categoryName = categories[indexPath.row]
+        let categoryName = getCategoryNameFromHashValue(hashValue: indexPath.row).rawValue
         
         cell.textLabel?.text = categoryName
         
@@ -78,9 +69,9 @@ class ExpenseCategoryPickerViewController: UITableViewController {
         if segue.identifier == "PickedExpenseCategory" {
             let cell = sender as! UITableViewCell
             if let indexPath = tableView.indexPath(for: cell) {
-                selectedCategoryName = categories[indexPath.row]
+                selectedCategoryName = getCategoryNameFromHashValue(hashValue: indexPath.row).rawValue
             }
         }
     }
-    
+
 }

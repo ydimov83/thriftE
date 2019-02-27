@@ -9,4 +9,4 @@
 import Foundation
 
 var total: Double = 0.00
-
+var categoryTotal: [Double] = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]

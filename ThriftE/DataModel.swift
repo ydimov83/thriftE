@@ -57,11 +57,25 @@ class DataModel {
         }
     }
     
-    func updateTotal() {
+    func updateTotals() {
+        //Zero out existing totals first to avoid miscalculation
         total = 0.00
+        categoryTotal =  [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+        var catIndex: Int?
+
         for item in items {
-             total = total + item.amount
+            total = total + item.amount
+            
+            //Map the category to an index
+            ExpenseCategories.allCases.forEach{
+                if item.category == $0.rawValue{
+                    catIndex = getHashValueFromCategoryName(category: $0)
+                }
+            }
+            categoryTotal[catIndex!] = categoryTotal[catIndex!] + item.amount
+            print("categoryTotal for \(item.category) is: \(categoryTotal[catIndex!])")
         }
-        print("total is: \(total)")
+        print("Grand total is: \(total)")
     }
+    
 }

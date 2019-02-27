@@ -14,7 +14,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataModel.updateTotal()
+        dataModel.updateTotals()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -31,7 +31,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
         let indexPath = IndexPath(row: newRowIndex, section: 0)
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic)
-        dataModel.updateTotal()
+        dataModel.updateTotals()
         navigationController?.popViewController(animated: true)
     }
     
@@ -43,7 +43,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
                 configureText(for: cell, with: item)
             }
         }
-        dataModel.updateTotal()
+        dataModel.updateTotals()
         navigationController?.popViewController(animated: true)
     }
     
@@ -72,7 +72,7 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic) //removes the current row from the view
-        dataModel.updateTotal()
+        dataModel.updateTotals()
     }
     
     func configureText(for cell: UITableViewCell, with item: ExpenseListItem) {
