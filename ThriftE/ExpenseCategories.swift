@@ -47,6 +47,7 @@ func getCategoryNameFromHashValue(hashValue: Int) -> ExpenseCategories {
 func getHashValueFromCategoryName(category: ExpenseCategories) -> Int {
     
     switch category {
+        
     case .noCategory :
         return 0
     case .car :

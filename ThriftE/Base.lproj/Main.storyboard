@@ -297,7 +297,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Total: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOc-n1-YX8">
-                                <rect key="frame" x="16" y="85" width="115.5" height="21"/>
+                                <rect key="frame" x="16" y="85" width="116" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -308,10 +308,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sik-UQ-VbW" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="114" width="343" height="487"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="hCS-Yo-U69" firstAttribute="bottom" secondItem="Sik-UQ-VbW" secondAttribute="bottom" constant="17" id="61g-6h-t8m"/>
+                            <constraint firstItem="Sik-UQ-VbW" firstAttribute="trailing" secondItem="8vi-Jc-dAo" secondAttribute="trailing" id="Ra0-aG-hHw"/>
+                            <constraint firstItem="Sik-UQ-VbW" firstAttribute="leading" secondItem="zOc-n1-YX8" secondAttribute="leading" id="ZwL-dK-VNG"/>
                             <constraint firstItem="8vi-Jc-dAo" firstAttribute="top" secondItem="hCS-Yo-U69" secondAttribute="top" constant="65" id="f2y-V7-Xd2"/>
+                            <constraint firstItem="Sik-UQ-VbW" firstAttribute="top" secondItem="zOc-n1-YX8" secondAttribute="bottom" constant="8" symbolic="YES" id="mBg-iK-j4A"/>
                             <constraint firstItem="zOc-n1-YX8" firstAttribute="top" secondItem="hCS-Yo-U69" secondAttribute="top" constant="65" id="nou-tH-EIp"/>
                             <constraint firstItem="hCS-Yo-U69" firstAttribute="trailing" secondItem="8vi-Jc-dAo" secondAttribute="trailing" constant="16" id="twO-Fu-39M"/>
                             <constraint firstItem="zOc-n1-YX8" firstAttribute="leading" secondItem="hCS-Yo-U69" secondAttribute="leading" constant="16" id="wqc-gL-ckZ"/>
@@ -320,6 +328,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Analyze" id="HAD-wc-wZA"/>
                     <connections>
+                        <outlet property="pieChartView" destination="Sik-UQ-VbW" id="EsC-U2-Jvg"/>
                         <outlet property="totalLabel" destination="8vi-Jc-dAo" id="w55-dt-yCM"/>
                     </connections>
                 </viewController>

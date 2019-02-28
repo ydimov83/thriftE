@@ -55,8 +55,18 @@ class DataModel {
                 print("Encountered an error trying to decode data: \(error.localizedDescription)")
             }
         }
+        
+        //TODO: - Remove from final version
+        //Load dummy data for testing if no saved data exists
+        if items.count == 0 {
+            items.append(ExpenseListItem(name: "car service", amount: 10.00, category: .car))
+             items.append(ExpenseListItem(name: "car wash", amount: 30.00, category: .car))
+             items.append(ExpenseListItem(name: "veggies", amount: 7.00, category: .groceries))
+             items.append(ExpenseListItem(name: "fruit", amount: 13.00, category: .groceries))
+        }
     }
     
+    //MARK: - Helper Methods
     func updateTotals() {
         //Zero out existing totals first to avoid miscalculation
         total = 0.00

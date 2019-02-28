@@ -14,4 +14,13 @@ class ExpenseListItem: NSObject, Codable {
     var date = Date()
     var category = ExpenseCategories.noCategory.rawValue
     
+    override init() {
+        super.init()
+    }
+    
+    init(name: String, amount: Double, category: ExpenseCategories) {
+        self.name = name
+        self.amount = amount
+        self.category = category.rawValue
+    }
 }
