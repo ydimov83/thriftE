@@ -10,7 +10,7 @@
 import Foundation
 
 
-class DataModel {
+class DataModelOld {
     var items = [ExpenseListItem]()
     
     init () {

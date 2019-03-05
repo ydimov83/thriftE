@@ -8,8 +8,11 @@
 
 import UIKit
 import Charts
+import CoreData
 
 class AnalyzeExpensesViewController: UIViewController {
+    
+    var managedObjectContext: NSManagedObjectContext!
     
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!

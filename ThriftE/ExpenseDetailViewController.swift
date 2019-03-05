@@ -7,19 +7,29 @@
 //
 
 import UIKit
+import CoreData
 
-protocol ExpenseDetailViewControllerDelegate: class {
-    func expenseDetailViewControllerDidCancel(_ controller: ExpenseDetailViewController)
-    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishAdding item: ExpenseListItem)
-    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishEditing item: ExpenseListItem)
-}
 
 class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     
-    var itemToEdit: ExpenseListItem?
     var expenseDate = Date()
-    weak var delegate: ExpenseDetailViewControllerDelegate?
-    var categoryName = "No Category"
+    var name = ""
+    var amount = 0.00
+    var date = Date()
+    var category = ExpenseCategories.noCategory.rawValue
+    var managedObjectContext: NSManagedObjectContext!
+    
+    var expenseToEdit: Expense? {
+        //When prepare(for:sender:) in ExpenseListViewController is called it is performed before viewDidLoad in this class thus putting the values in place before screen is shown
+        didSet {
+            if let expense = expenseToEdit {
+                name = expense.name
+                amount = expense.amount
+                date = expense.date
+                category = expense.category
+            }
+        }
+    }
     
     //MARK: - Outlets
     @IBOutlet weak var nameTextField: UITextField!
@@ -39,15 +49,15 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         amountTextField.delegate = self // is this necessary?
         nameTextField.delegate = self // is this necessary?
-        categoryLabel.text = categoryName
+        categoryLabel.text = category
         
-        if let itemToEdit = itemToEdit {
+        if let expenseToEdit = expenseToEdit {
             title = "Edit Expense" // Switch up the title for the ViewController when editing an expense item
-            amountTextField.text = String(itemToEdit.amount) // set the name and amount to the item we're editing
-            nameTextField.text = itemToEdit.name
-            datePickerField.date = itemToEdit.date
-            categoryName = itemToEdit.category
-            categoryLabel.text = categoryName
+            amountTextField.text = String(expenseToEdit.amount) // set the name and amount to the item we're editing
+            nameTextField.text = expenseToEdit.name
+            datePickerField.date = expenseToEdit.date
+            category = expenseToEdit.category
+            categoryLabel.text = category
             doneBarButton.isEnabled = true
         }
         
@@ -65,47 +75,52 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK: - Actions
     @IBAction func cancel() {
-        delegate?.expenseDetailViewControllerDidCancel(self)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func done() {
-        //TODO: - Add some checks here to make sure this cast doesn't crash app
+        //TODO: - Add some checks here to make sure the Double cast doesn't crash app, and better enforce data requirement for it
+        
+        let expense: Expense
 
-        if let item = itemToEdit {
-            item.name = nameTextField.text!
-            item.amount = Double(amountTextField.text!)!
-            item.date = datePickerField.date
-            item.category = categoryName
-            delegate?.expenseDetailViewController(self, didFinishEditing: item)
-            
+        if let temp = expenseToEdit {
+            expense = temp
         } else {
-            let item = ExpenseListItem()
-            item.name = nameTextField.text!
-            if (amountTextField.text?.isEmpty)! {
-                item.amount = 0
-            } else {
-                item.amount = Double(amountTextField.text!)!
-            }
-            item.date = datePickerField.date
-            item.category = categoryName
-            delegate?.expenseDetailViewController(self, didFinishAdding: item)
+            expense = Expense(context: managedObjectContext)
+           
         }
+        expense.name = nameTextField.text!
+        expense.date = datePickerField.date
+        expense.category = category
+        expense.date = datePickerField.date
+        
+        if (amountTextField.text?.isEmpty)! {
+            expense.amount = 0.00
+        } else {
+            expense.amount = Double(amountTextField.text!)!
+        }
+    
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalCoreDataError(error)
+        }
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func expenseCategoryPickerDidSelectCategory(_ segue: UIStoryboardSegue) {
         let controller = segue.source as! ExpenseCategoryPickerViewController
-        categoryName = controller.selectedCategoryName
-        categoryLabel.text = categoryName
+        category = controller.selectedCategoryName
+        categoryLabel.text = category
     }
     
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PickExpenseCategory" {
             let controller = segue.destination as! ExpenseCategoryPickerViewController
-            controller.selectedCategoryName = categoryName
+            controller.selectedCategoryName = category
         }
     }
-    
     
     //MARK: - TextField delegates
     
@@ -129,7 +144,5 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         doneBarButton.isEnabled = false
         return true
     }
-    
-    
     
 }

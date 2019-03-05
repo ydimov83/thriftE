@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7E83C7ABE461D9F66B995CDE /* Pods_ThriftETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D402E3C5598C1037AE12D5 /* Pods_ThriftETests.framework */; };
+		9403F944222DE8DE00E6159D /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9403F942222DE8DE00E6159D /* Expense+CoreDataClass.swift */; };
+		9403F945222DE8DE00E6159D /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9403F943222DE8DE00E6159D /* Expense+CoreDataProperties.swift */; };
 		9413D3842225B38E00040243 /* ExpenseCategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9413D3832225B38E00040243 /* ExpenseCategoryPickerViewController.swift */; };
 		943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A721E01A5C00109FC8 /* AppDelegate.swift */; };
 		943170AA21E01A5C00109FC8 /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */; };
@@ -17,11 +19,12 @@
 		943170BD21E01A5D00109FC8 /* ThriftETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170BC21E01A5D00109FC8 /* ThriftETests.swift */; };
 		943170C821E01A5D00109FC8 /* ThriftEUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170C721E01A5D00109FC8 /* ThriftEUITests.swift */; };
 		9436AD2921E027F000A2A86A /* ExpenseListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9436AD2821E027F000A2A86A /* ExpenseListItem.swift */; };
-		943E68F02202245D0035B85B /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943E68EF2202245D0035B85B /* DataModel.swift */; };
+		943E68F02202245D0035B85B /* DataModelOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943E68EF2202245D0035B85B /* DataModelOld.swift */; };
 		949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */; };
 		94AECF90222322D800730707 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF8F222322D800730707 /* Functions.swift */; };
 		94AECF92222323F100730707 /* AnalyzeExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */; };
 		94E72DE02226F22C0035F789 /* ExpenseCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E72DDF2226F22C0035F789 /* ExpenseCategories.swift */; };
+		94E72DE5222DCF7E0035F789 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94E72DE3222DCF7E0035F789 /* DataModel.xcdatamodeld */; };
 		9F2587DB7857FE323BCA0C2D /* Pods_ThriftEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347AAB6A167BC5DC35501366 /* Pods_ThriftEUITests.framework */; };
 		DA82EC893608F3E9E1DA40D7 /* Pods_ThriftE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1863AFACCA0D9281053236E1 /* Pods_ThriftE.framework */; };
 /* End PBXBuildFile section */
@@ -52,6 +55,8 @@
 		45CE47EDE14A1F3C1F6D1D2E /* Pods-ThriftETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftETests.release.xcconfig"; path = "Target Support Files/Pods-ThriftETests/Pods-ThriftETests.release.xcconfig"; sourceTree = "<group>"; };
 		5EC26B131540436EE376ADDF /* Pods-ThriftE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftE.debug.xcconfig"; path = "Target Support Files/Pods-ThriftE/Pods-ThriftE.debug.xcconfig"; sourceTree = "<group>"; };
 		72D402E3C5598C1037AE12D5 /* Pods_ThriftETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThriftETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9403F942222DE8DE00E6159D /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9403F943222DE8DE00E6159D /* Expense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9413D3832225B38E00040243 /* ExpenseCategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryPickerViewController.swift; sourceTree = "<group>"; };
 		943170A421E01A5C00109FC8 /* ThriftE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThriftE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		943170A721E01A5C00109FC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -67,11 +72,12 @@
 		943170C721E01A5D00109FC8 /* ThriftEUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThriftEUITests.swift; sourceTree = "<group>"; };
 		943170C921E01A5D00109FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9436AD2821E027F000A2A86A /* ExpenseListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListItem.swift; sourceTree = "<group>"; };
-		943E68EF2202245D0035B85B /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		943E68EF2202245D0035B85B /* DataModelOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelOld.swift; sourceTree = "<group>"; };
 		949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
 		94AECF8F222322D800730707 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeExpensesViewController.swift; sourceTree = "<group>"; };
 		94E72DDF2226F22C0035F789 /* ExpenseCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategories.swift; sourceTree = "<group>"; };
+		94E72DE4222DCF7E0035F789 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		DE06A9879FA70A67005F4DEB /* Pods-ThriftEUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftEUITests.debug.xcconfig"; path = "Target Support Files/Pods-ThriftEUITests/Pods-ThriftEUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +122,8 @@
 		9431709B21E01A5C00109FC8 = {
 			isa = PBXGroup;
 			children = (
+				9403F942222DE8DE00E6159D /* Expense+CoreDataClass.swift */,
+				9403F943222DE8DE00E6159D /* Expense+CoreDataProperties.swift */,
 				943170A621E01A5C00109FC8 /* ThriftE */,
 				943170BB21E01A5D00109FC8 /* ThriftETests */,
 				943170C621E01A5D00109FC8 /* ThriftEUITests */,
@@ -140,8 +148,9 @@
 			children = (
 				94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */,
 				943170A721E01A5C00109FC8 /* AppDelegate.swift */,
+				94E72DE3222DCF7E0035F789 /* DataModel.xcdatamodeld */,
 				943170AE21E01A5D00109FC8 /* Assets.xcassets */,
-				943E68EF2202245D0035B85B /* DataModel.swift */,
+				943E68EF2202245D0035B85B /* DataModelOld.swift */,
 				94E72DDF2226F22C0035F789 /* ExpenseCategories.swift */,
 				9413D3832225B38E00040243 /* ExpenseCategoryPickerViewController.swift */,
 				949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */,
@@ -412,12 +421,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				943E68F02202245D0035B85B /* DataModel.swift in Sources */,
+				943E68F02202245D0035B85B /* DataModelOld.swift in Sources */,
+				94E72DE5222DCF7E0035F789 /* DataModel.xcdatamodeld in Sources */,
+				9403F944222DE8DE00E6159D /* Expense+CoreDataClass.swift in Sources */,
 				943170AA21E01A5C00109FC8 /* ExpenseListViewController.swift in Sources */,
 				949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */,
 				9413D3842225B38E00040243 /* ExpenseCategoryPickerViewController.swift in Sources */,
 				943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */,
 				9436AD2921E027F000A2A86A /* ExpenseListItem.swift in Sources */,
+				9403F945222DE8DE00E6159D /* Expense+CoreDataProperties.swift in Sources */,
 				94AECF90222322D800730707 /* Functions.swift in Sources */,
 				94E72DE02226F22C0035F789 /* ExpenseCategories.swift in Sources */,
 				94AECF92222323F100730707 /* AnalyzeExpensesViewController.swift in Sources */,
@@ -755,6 +767,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		94E72DE3222DCF7E0035F789 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				94E72DE4222DCF7E0035F789 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 94E72DE4222DCF7E0035F789 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9431709C21E01A5C00109FC8 /* Project object */;
 }
