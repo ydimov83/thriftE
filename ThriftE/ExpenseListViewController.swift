@@ -7,86 +7,59 @@
 //
 
 import UIKit
+import CoreData
 
-class ExpenseListViewController: UITableViewController, ExpenseDetailViewControllerDelegate {
+class ExpenseListViewController: UITableViewController {
     
-    var dataModel: DataModel!
+    var managedObjectContext: NSManagedObjectContext!
+    lazy var fetchedResultsController: NSFetchedResultsController<Expense> = {
+        let fetchRequest = NSFetchRequest<Expense>()
+        
+        let entity = Expense.entity()
+        fetchRequest.entity = entity
+        
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchRequest.fetchBatchSize = 20
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Expenses")
+        
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataModel.updateTotals()
-        // Do any additional setup after loading the view, typically from a nib.
+        performFetch()
     }
-    
-    //MARK: - Protocol delegate implementation for AddExpenseViewController
-    func expenseDetailViewControllerDidCancel(_ controller: ExpenseDetailViewController) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishAdding item: ExpenseListItem) {
-        let newRowIndex = dataModel.items.count
-        
-        dataModel.items.append(item)
-        
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
-        dataModel.updateTotals()
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func expenseDetailViewController(_ controller: ExpenseDetailViewController, didFinishEditing item: ExpenseListItem) {
-        
-        if let index = dataModel.items.index(of: item) {
-            let indexPath = IndexPath(row: index, section: 0)
-            if let cell  = tableView.cellForRow(at: indexPath) {
-                configureText(for: cell, with: item)
-            }
-        }
-        dataModel.updateTotals()
-        navigationController?.popViewController(animated: true)
-    }
-    
-   
     
     // MARK: - Table View Data Source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //start with 1 cell
-        return dataModel.items.count
+        let sectionInfo = fetchedResultsController.sections![section]
+        return sectionInfo.numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ThriftEItem", for: indexPath) //identifier specified in storyboard for that table view
-        let item = dataModel.items[indexPath.row]
-        configureText(for: cell, with: item)
+        let expense = fetchedResultsController.object(at: indexPath)
+        configureText(for: cell, with: expense)
  
         return cell //returns the cell for the current row
     }
     
     //MARK: - Table view delegate
-
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // Allows us to delete a row by swiping to delete
-        dataModel.items.remove(at: indexPath.row) //removes the current row from data model
-        
-        let indexPaths = [indexPath]
-        tableView.deleteRows(at: indexPaths, with: .automatic) //removes the current row from the view
-        dataModel.updateTotals()
-    }
-    
-    func configureText(for cell: UITableViewCell, with item: ExpenseListItem) {
-        cell.textLabel?.text = item.name
-        let formatter = DateFormatter()
-        
-        formatter.dateStyle = .short
-        formatter.timeStyle = .none
-        
-        let dateLabel = formatter.string(from: item.date)
-        if item.amount > 0 {
-            cell.detailTextLabel?.text = "$ \(item.amount) \(dateLabel)"
-        } else {
-            cell.detailTextLabel?.text = dateLabel
+        if editingStyle == .delete {
+            let expense = fetchedResultsController.object(at: indexPath)
+            managedObjectContext.delete(expense)
+            do {
+                try managedObjectContext.save()
+            } catch {
+                fatalCoreDataError(error)
+            }
         }
     }
     
@@ -94,14 +67,100 @@ class ExpenseListViewController: UITableViewController, ExpenseDetailViewControl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddExpenseItem" {
             let controller = segue.destination as! ExpenseDetailViewController
-            controller.delegate = self
+//            controller.delegate = self
+            controller.managedObjectContext = managedObjectContext
         } else if segue.identifier == "EditExpenseItem" {
             let controller = segue.destination as! ExpenseDetailViewController
-            controller.delegate = self
+//            controller.delegate = self
+            controller.managedObjectContext = managedObjectContext
             if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-                controller.itemToEdit = dataModel.items[indexPath.row]
+                let expense = fetchedResultsController.object(at: indexPath)
+                controller.expenseToEdit = expense
             }
         }
     }
+    
+    //MARK: - Helper Methods
+    func configureText(for cell: UITableViewCell, with expense: Expense) {
+        cell.textLabel?.text = expense.name
+        let formatter = DateFormatter()
+        
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        
+        let dateLabel = formatter.string(from: expense.date)
+        if expense.amount > 0 {
+            cell.detailTextLabel?.text = "$ \(expense.amount) \(dateLabel)"
+        } else {
+            cell.detailTextLabel?.text = dateLabel
+        }
+    }
+    
+    func performFetch() {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalCoreDataError(error)
+        }
+    }
+    
+    deinit {
+        //Method invoked when view controller is destroyed, this way we ensure we stop getting any further notifications that may have been pending
+        fetchedResultsController.delegate = nil
+    }
  
+}
+
+extension ExpenseListViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("*** controllerWillChangeContent")
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any, at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            print("*** NSFetchResultsChangeInsert (object)")
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            print("*** NSFetchResultsChangeDelete (object)")
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        case .update:
+            print("*** NSFetchResultsChangeUpdate (object)")
+            if let cell = tableView.cellForRow(at: indexPath!) {
+                let expense = controller.object(at: indexPath!) as! Expense
+                configureText(for: cell, with: expense)
+            }
+        case .move:
+            print("*** NSFetchResultsChangeMove (object)")
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int,
+                    for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            print("*** NSFetchResultsChangeInsert (section)")
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            print("*** NSFetchResultsChangeDelete (section)")
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .update:
+            print("*** NSFetchResultsChangeUpdate (section)")
+        case .move:
+            print("*** NSFetchResultsChangeMove (section)")
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("*** controllerDidChangeContent")
+        tableView.endUpdates()
+    }
 }
