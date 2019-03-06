@@ -8,14 +8,6 @@
 
 import Foundation
 
-var total: Double = 0.00
-var categoryTotal: [Double] = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-
-let applicationDocumentsDirectory: URL = {
-    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    return paths[0]
-}()
-
 let CoreDataSaveFailedNotification =
     Notification.Name(rawValue: "CoreDataSaveFailedNotification")
 

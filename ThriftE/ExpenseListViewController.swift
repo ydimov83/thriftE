@@ -18,7 +18,7 @@ class ExpenseListViewController: UITableViewController {
         let entity = Expense.entity()
         fetchRequest.entity = entity
         
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         fetchRequest.fetchBatchSize = 20
@@ -42,11 +42,11 @@ class ExpenseListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ThriftEItem", for: indexPath) //identifier specified in storyboard for that table view
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ThriftEItem", for: indexPath)
         let expense = fetchedResultsController.object(at: indexPath)
         configureText(for: cell, with: expense)
  
-        return cell //returns the cell for the current row
+        return cell
     }
     
     //MARK: - Table view delegate
@@ -67,11 +67,9 @@ class ExpenseListViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddExpenseItem" {
             let controller = segue.destination as! ExpenseDetailViewController
-//            controller.delegate = self
             controller.managedObjectContext = managedObjectContext
         } else if segue.identifier == "EditExpenseItem" {
             let controller = segue.destination as! ExpenseDetailViewController
-//            controller.delegate = self
             controller.managedObjectContext = managedObjectContext
             if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
                 let expense = fetchedResultsController.object(at: indexPath)
@@ -111,6 +109,7 @@ class ExpenseListViewController: UITableViewController {
  
 }
 
+//MARK: - NSFetchedResultsControllerDelegate implementation
 extension ExpenseListViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
