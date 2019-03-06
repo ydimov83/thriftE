@@ -10,7 +10,7 @@ import UIKit
 import Charts
 import CoreData
 
-class AnalyzeExpensesViewController: UIViewController {
+class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
     
     var managedObjectContext: NSManagedObjectContext! {
         didSet {
@@ -21,7 +21,7 @@ class AnalyzeExpensesViewController: UIViewController {
                 queue: OperationQueue.main) { notification in
                     if self.isViewLoaded {
                         //We only want to update the chart once the Analyze view is already loaded
-                        self.setupChartData2()
+                        self.setupChartData()
                     }
             }
         }
@@ -35,7 +35,8 @@ class AnalyzeExpensesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupChartData2()
+        setupChartData()
+        pieChartView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +45,7 @@ class AnalyzeExpensesViewController: UIViewController {
     }
     
     //MARK: - Chart Setup
-    func setupChartData2() {
+    func setupChartData() {
         let entity = Expense.entity()
         let fetchRequest = NSFetchRequest<Expense>()
         fetchRequest.entity = entity
@@ -67,15 +68,14 @@ class AnalyzeExpensesViewController: UIViewController {
         }
         let data = PieChartData(dataSet: dataSet)
         
-        dataSet.colors = ChartColorTemplates.joyful()
+        dataSet.colors = ChartColorTemplates.pastel()
         dataSet.valueColors = [NSUIColor.black]
         pieChartView.data = data
         pieChartView.chartDescription?.text = "Totals by category"
+        pieChartView.chartDescription?.textAlign = .right
         
         //This must stay at end of function
         pieChartView.notifyDataSetChanged()
-        print("Data set count: \(dataSet.count)")
-        
     }
 
     //MARK: - Helper Methods
@@ -83,7 +83,7 @@ class AnalyzeExpensesViewController: UIViewController {
         //First zero out totals
         var catIndex: Int?
         total = 0.00
-        categoryTotal =  [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+        categoryTotal =  [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
         
         for expense in expenses {
             total += expense.amount
@@ -98,6 +98,12 @@ class AnalyzeExpensesViewController: UIViewController {
             print("categoryTotal for \(expense.category) is: \(categoryTotal[catIndex!])")
         }
         print("das total is: \(total)")
+    }
+    
+    //MARK: - ChartView Delegate implementation
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        let pieChartDataEntry = entry as! PieChartDataEntry
+        print(pieChartDataEntry.label)
     }
     
 }

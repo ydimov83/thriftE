@@ -12,6 +12,7 @@ enum ExpenseCategories: String, CaseIterable {
     case noCategory = "No Category"
     case car = "Car"
     case groceries = "Groceries"
+    case health = "Health"
     case house = "House"
     case relaxation = "Relaxation"
     case restaurant = "Restaurant"
@@ -30,14 +31,16 @@ func getCategoryNameFromHashValue(hashValue: Int) -> ExpenseCategories {
     case 2 :
         return .groceries
     case 3 :
-        return .house
+        return .health
     case 4 :
-        return .relaxation
+        return .house
     case 5 :
-        return .restaurant
+        return .relaxation
     case 6 :
+        return .restaurant
+    case 7 :
         return .services
-    case 7:
+    case 8:
         return .travel
     default :
         return .noCategory
@@ -54,16 +57,18 @@ func getHashValueFromCategoryName(category: ExpenseCategories) -> Int {
         return 1
     case .groceries :
         return 2
-    case .house :
+    case .health :
         return 3
-    case .relaxation :
+    case .house :
         return 4
-    case .restaurant :
+    case .relaxation :
         return 5
-    case .services :
+    case .restaurant :
         return 6
-    case .travel :
+    case .services :
         return 7
+    case .travel :
+        return 8
     }
 }
 
