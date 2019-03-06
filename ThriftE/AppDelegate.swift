@@ -13,7 +13,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var dataModel = DataModelOld()
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "DataModel")
@@ -40,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let controller2 = tabBarViewControllers[1] as! AnalyzeExpensesViewController
             controller2.managedObjectContext = managedObjectContext
         }
-        print(applicationDocumentsDirectory)
         listenForFatalCoreDataNotifications()
         return true
     }
@@ -53,7 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        saveData()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -66,14 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        saveData()
     }
     
     //MARK: - Helper methods
-    
-    func saveData() {
-        dataModel.saveChecklists()
-    }
 
     func listenForFatalCoreDataNotifications() {
         //First let NotificationCenter know that we want to be notified whenever a "CoreDataSaveFailedNotification" is encountered
@@ -100,7 +92,6 @@ Press OK to terminate the app.
                 tabController.present(alert, animated: true, completion: nil)
         })
     }
-
-
+    
 }
 
