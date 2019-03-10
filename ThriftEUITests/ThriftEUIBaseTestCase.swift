@@ -8,7 +8,9 @@
 
 import XCTest
 
-class ThriftEUITests: XCTestCase {
+class ThriftEUIBaseTestCase: XCTestCase {
+    
+    let app = XCUIApplication()
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -23,10 +25,26 @@ class ThriftEUITests: XCTestCase {
     }
 
     override func tearDown() {
+        app.terminate()
+        super.tearDown()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+}
 
-    func testExample() {
+extension XCUIElement {
+    func clearAndTypeText(text: String) {
+        if let charCount = (self.value as? String)?.count {
+            for i in 0..<charCount {
+                XCUIApplication().keys["delete"].tap()
+            }
+        }
     }
-
+    
+    func clearText() {
+        if let charCount = (self.value as? String)?.count {
+            for i in 0..<charCount {
+                XCUIApplication().keys["delete"].tap()
+            }
+        }
+    }
 }
