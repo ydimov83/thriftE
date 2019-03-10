@@ -16,6 +16,7 @@ target 'ThriftE' do
 
   target 'ThriftEUITests' do
     inherit! :search_paths
+    pod 'Charts'
     # Pods for testing
   end
 

@@ -11,6 +11,7 @@ import CoreData
 
 class ExpenseListViewController: UITableViewController {
     
+    var filteredExpenses = [Expense]()
     var managedObjectContext: NSManagedObjectContext!
     lazy var fetchedResultsController: NSFetchedResultsController<Expense> = {
         let fetchRequest = NSFetchRequest<Expense>()
@@ -18,13 +19,13 @@ class ExpenseListViewController: UITableViewController {
         let entity = Expense.entity()
         fetchRequest.entity = entity
         
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        let sortCategory = NSSortDescriptor(key: "category", ascending: true)
+        let sortDate = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [sortCategory, sortDate]
         
         fetchRequest.fetchBatchSize = 20
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Expenses")
-        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "category", cacheName: "Expenses")
         fetchedResultsController.delegate = self
         return fetchedResultsController
     }()
@@ -35,6 +36,15 @@ class ExpenseListViewController: UITableViewController {
     }
     
     // MARK: - Table View Data Source
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections!.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionInfo = fetchedResultsController.sections![section]
+        return sectionInfo.name
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
@@ -106,6 +116,22 @@ class ExpenseListViewController: UITableViewController {
         //Method invoked when view controller is destroyed, this way we ensure we stop getting any further notifications that may have been pending
         fetchedResultsController.delegate = nil
     }
+    
+//    func filterExperiment(filter: String) {
+//        let indexPath = IndexPath(
+//        fetchedResultsController.indexPath(forObject: <#T##Expense#>)
+//        tableView.reloadSections(<#T##sections: IndexSet##IndexSet#>, with: <#T##UITableView.RowAnimation#>)
+//        fetchedResultsController.object(at: <#T##IndexPath#>)
+
+//        for section in fetchedResultsController.sections! {
+//            print(section.name)
+//
+//        }
+//        let indexSet = IndexSet(integer: 1)
+//        tableView.deleteSections(indexSet, with: .fade)
+//        tableView.reloadData()
+//
+//    }
  
 }
 
