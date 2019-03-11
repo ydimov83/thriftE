@@ -25,7 +25,7 @@ class ThriftEUIBaseTestCase: XCTestCase {
     }
 
     override func tearDown() {
-        app.terminate()
+        Springboard.deleteMyApp()
         super.tearDown()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }

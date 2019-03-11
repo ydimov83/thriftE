@@ -16,6 +16,7 @@
 		94309B3122358F3300B70232 /* ExpenseListPageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B3022358F3300B70232 /* ExpenseListPageTests.swift */; };
 		94309B342235953500B70232 /* ExpenseDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B332235953500B70232 /* ExpenseDetailPage.swift */; };
 		94309B38223597D800B70232 /* ExpenseDetailPageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B37223597D800B70232 /* ExpenseDetailPageTests.swift */; };
+		94309B3C2236994200B70232 /* Springboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B3B2236994200B70232 /* Springboard.swift */; };
 		943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A721E01A5C00109FC8 /* AppDelegate.swift */; };
 		943170AA21E01A5C00109FC8 /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */; };
 		943170AD21E01A5C00109FC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 943170AB21E01A5C00109FC8 /* Main.storyboard */; };
@@ -65,6 +66,7 @@
 		94309B3022358F3300B70232 /* ExpenseListPageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListPageTests.swift; sourceTree = "<group>"; };
 		94309B332235953500B70232 /* ExpenseDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailPage.swift; sourceTree = "<group>"; };
 		94309B37223597D800B70232 /* ExpenseDetailPageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailPageTests.swift; sourceTree = "<group>"; };
+		94309B3B2236994200B70232 /* Springboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Springboard.swift; sourceTree = "<group>"; };
 		943170A421E01A5C00109FC8 /* ThriftE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThriftE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		943170A721E01A5C00109FC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +140,24 @@
 			path = "Page Objects";
 			sourceTree = "<group>";
 		};
+		94309B39223698D600B70232 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				943170C721E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift */,
+				94309B3022358F3300B70232 /* ExpenseListPageTests.swift */,
+				94309B37223597D800B70232 /* ExpenseDetailPageTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		94309B3A223698EE00B70232 /* Test Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				94309B3B2236994200B70232 /* Springboard.swift */,
+			);
+			path = "Test Helpers";
+			sourceTree = "<group>";
+		};
 		9431709B21E01A5C00109FC8 = {
 			isa = PBXGroup;
 			children = (
@@ -194,11 +214,10 @@
 		943170C621E01A5D00109FC8 /* ThriftEUITests */ = {
 			isa = PBXGroup;
 			children = (
-				94309B3222358F5A00B70232 /* Page Objects */,
-				943170C721E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift */,
 				943170C921E01A5D00109FC8 /* Info.plist */,
-				94309B3022358F3300B70232 /* ExpenseListPageTests.swift */,
-				94309B37223597D800B70232 /* ExpenseDetailPageTests.swift */,
+				94309B3222358F5A00B70232 /* Page Objects */,
+				94309B3A223698EE00B70232 /* Test Helpers */,
+				94309B39223698D600B70232 /* Tests */,
 			);
 			path = ThriftEUITests;
 			sourceTree = "<group>";
@@ -496,6 +515,7 @@
 				94309B342235953500B70232 /* ExpenseDetailPage.swift in Sources */,
 				94309B3122358F3300B70232 /* ExpenseListPageTests.swift in Sources */,
 				94309B38223597D800B70232 /* ExpenseDetailPageTests.swift in Sources */,
+				94309B3C2236994200B70232 /* Springboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +612,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -646,6 +667,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
