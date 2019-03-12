@@ -146,3 +146,18 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
 }
+
+extension ExpenseDetailViewController: UIPickerViewAccessibilityDelegate {
+    func pickerView(_ pickerView: UIPickerView, accessibilityHintForComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            return "Month"
+        case 1:
+            return "Day"
+        case 2:
+            return "Year"
+        default:
+            return nil
+        }
+    }
+}
