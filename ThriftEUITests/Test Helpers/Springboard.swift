@@ -4,7 +4,7 @@
 //
 //  Created by Yavor Dimov on 3/11/19.
 //  Copyright © 2019 Yavor Dimov. All rights reserved.
-//
+// Taken from https://stackoverflow.com/questions/33107731/is-there-a-way-to-reset-the-app-between-tests-in-swift-xctest-ui
 
 import XCTest
 
@@ -27,7 +27,8 @@ class Springboard {
             
             // Tap the little "X" button at approximately where it is. The X is not exposed directly
             springboard.coordinate(withNormalizedOffset: CGVector(dx: (iconFrame.minX + 3) / springboardFrame.maxX, dy: (iconFrame.minY + 3) / springboardFrame.maxY)).tap()
-            springboard.alerts.buttons["Delete"].waitForExistence(timeout: 1.0) //Must wait otherwise tap on Delete appears to fail consistently
+            //Must wait otherwise tap on Delete appears to fail consistently
+            springboard.alerts.buttons["Delete"].waitForExistence(timeout: 1.0)
             springboard.alerts.buttons["Delete"].tap()
         }
     }
