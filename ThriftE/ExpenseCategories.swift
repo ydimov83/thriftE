@@ -22,53 +22,20 @@ enum ExpenseCategories: String, CaseIterable {
 
 func getCategoryNameFromHashValue(hashValue: Int) -> ExpenseCategories {
     
-    switch hashValue {
-        
-    case 0 :
-        return .noCategory
-    case 1 :
-        return .car
-    case 2 :
-        return .groceries
-    case 3 :
-        return .health
-    case 4 :
-        return .house
-    case 5 :
-        return .relaxation
-    case 6 :
-        return .restaurant
-    case 7 :
-        return .services
-    case 8:
-        return .travel
-    default :
-        return .noCategory
-    }
+    let category = ExpenseCategories.allCases[hashValue]
+    return category
 }
 
 func getHashValueFromCategoryName(category: ExpenseCategories) -> Int {
     
-    switch category {
-        
-    case .noCategory :
-        return 0
-    case .car :
-        return 1
-    case .groceries :
-        return 2
-    case .health :
-        return 3
-    case .house :
-        return 4
-    case .relaxation :
-        return 5
-    case .restaurant :
-        return 6
-    case .services :
-        return 7
-    case .travel :
-        return 8
+    var hashValue = 0
+    for aCategory in ExpenseCategories.allCases {
+        if aCategory == category {
+            break //we've found the matching category quit loop
+        } else {
+            hashValue += 1
+        }
     }
+        return hashValue
 }
 
