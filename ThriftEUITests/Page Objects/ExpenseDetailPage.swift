@@ -29,4 +29,12 @@ enum ExpenseDetailPage: String {
             return XCUIApplication().staticTexts[self.rawValue]
         }
     }
+    
+}
+
+func fillExpenseDetailTestDataAndTapDone() {
+    ExpenseDetailPage.nameTextField.element.typeText("pizza")
+    ExpenseDetailPage.amountTextField.element.tap()
+    ExpenseDetailPage.amountTextField.element.typeText("10.00")
+    ExpenseDetailPage.doneButton.element.tap()
 }

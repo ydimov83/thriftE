@@ -98,7 +98,7 @@ class ExpenseListViewController: UITableViewController {
         
         let dateLabel = formatter.string(from: expense.date)
         if expense.amount > 0 {
-            cell.detailTextLabel?.text = "$ \(expense.amount) \(dateLabel)"
+            cell.detailTextLabel?.text = "$\(expense.amount) \(dateLabel)"
         } else {
             cell.detailTextLabel?.text = dateLabel
         }
