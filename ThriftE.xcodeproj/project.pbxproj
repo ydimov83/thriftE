@@ -17,6 +17,9 @@
 		94309B342235953500B70232 /* ExpenseDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B332235953500B70232 /* ExpenseDetailPage.swift */; };
 		94309B38223597D800B70232 /* ExpenseDetailPageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B37223597D800B70232 /* ExpenseDetailPageTests.swift */; };
 		94309B4122369E6900B70232 /* Springboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B4022369E6900B70232 /* Springboard.swift */; };
+		94309B452237F6B200B70232 /* DateFormattingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B442237F6B200B70232 /* DateFormattingFunctions.swift */; };
+		94309B4722380DDE00B70232 /* ExpenseCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B4622380DDE00B70232 /* ExpenseCategoryPage.swift */; };
+		94309B4922381B3300B70232 /* ExpenseCategoryPageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94309B4822381B3300B70232 /* ExpenseCategoryPageTests.swift */; };
 		943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A721E01A5C00109FC8 /* AppDelegate.swift */; };
 		943170AA21E01A5C00109FC8 /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */; };
 		943170AD21E01A5C00109FC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 943170AB21E01A5C00109FC8 /* Main.storyboard */; };
@@ -67,6 +70,9 @@
 		94309B332235953500B70232 /* ExpenseDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailPage.swift; sourceTree = "<group>"; };
 		94309B37223597D800B70232 /* ExpenseDetailPageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailPageTests.swift; sourceTree = "<group>"; };
 		94309B4022369E6900B70232 /* Springboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Springboard.swift; sourceTree = "<group>"; };
+		94309B442237F6B200B70232 /* DateFormattingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormattingFunctions.swift; sourceTree = "<group>"; };
+		94309B4622380DDE00B70232 /* ExpenseCategoryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryPage.swift; sourceTree = "<group>"; };
+		94309B4822381B3300B70232 /* ExpenseCategoryPageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryPageTests.swift; sourceTree = "<group>"; };
 		943170A421E01A5C00109FC8 /* ThriftE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThriftE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		943170A721E01A5C00109FC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +142,7 @@
 			children = (
 				94309B2E22358B3E00B70232 /* ExpenseListPage.swift */,
 				94309B332235953500B70232 /* ExpenseDetailPage.swift */,
+				94309B4622380DDE00B70232 /* ExpenseCategoryPage.swift */,
 			);
 			path = "Page Objects";
 			sourceTree = "<group>";
@@ -145,6 +152,7 @@
 			children = (
 				943170C721E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift */,
 				94309B3022358F3300B70232 /* ExpenseListPageTests.swift */,
+				94309B4822381B3300B70232 /* ExpenseCategoryPageTests.swift */,
 				94309B37223597D800B70232 /* ExpenseDetailPageTests.swift */,
 			);
 			path = Tests;
@@ -154,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				94309B4022369E6900B70232 /* Springboard.swift */,
+				94309B442237F6B200B70232 /* DateFormattingFunctions.swift */,
 			);
 			path = "Test Helpers";
 			sourceTree = "<group>";
@@ -511,11 +520,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				94309B2F22358B3E00B70232 /* ExpenseListPage.swift in Sources */,
+				94309B4922381B3300B70232 /* ExpenseCategoryPageTests.swift in Sources */,
 				943170C821E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift in Sources */,
 				94309B342235953500B70232 /* ExpenseDetailPage.swift in Sources */,
 				94309B3122358F3300B70232 /* ExpenseListPageTests.swift in Sources */,
 				94309B38223597D800B70232 /* ExpenseDetailPageTests.swift in Sources */,
+				94309B452237F6B200B70232 /* DateFormattingFunctions.swift in Sources */,
 				94309B4122369E6900B70232 /* Springboard.swift in Sources */,
+				94309B4722380DDE00B70232 /* ExpenseCategoryPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

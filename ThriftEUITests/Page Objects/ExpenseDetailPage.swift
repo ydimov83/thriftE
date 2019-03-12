@@ -17,6 +17,10 @@ enum ExpenseDetailPage: String {
     case amountTextField = "amountTextField"
     case categoryLabel = "categoryLabel"
     case categoryValueLabel = "categoryValueLabel"
+    case monthPickerWheel = "m"
+    case dayPickerWheel = "d"
+    case yearPickerWheel = "y"
+    
     var element: XCUIElement {
         switch self {
         case .navBarTitleAddMode, .navBarTitleEditMode :
@@ -27,14 +31,35 @@ enum ExpenseDetailPage: String {
             return XCUIApplication().textFields[self.rawValue]
         case .categoryLabel, .categoryValueLabel :
             return XCUIApplication().staticTexts[self.rawValue]
+        case .monthPickerWheel :
+            return XCUIApplication().pickerWheels[getCurrentMonth()]
+        case .dayPickerWheel :
+            return XCUIApplication().pickerWheels[getCurrentDayOfMonth()]
+        case .yearPickerWheel :
+            return XCUIApplication().pickerWheels[getCurrentYear()]
         }
     }
     
 }
 
-func fillExpenseDetailTestDataAndTapDone() {
-    ExpenseDetailPage.nameTextField.element.typeText("pizza")
+/**
+ Test helper to populate expense detail page, taps the page's 'Done' button when finished.
+ - Parameter name: Enter the expense name
+ - Parameter amount: Enter the expense amount
+*/
+func fillExpenseDetailTestDataAndTapDone(name: String, amount: String, month: String, day: String, year: String, category: XCUIElement) {
+    //Set name
+    ExpenseDetailPage.nameTextField.element.typeText(name)
+    //Set amount
     ExpenseDetailPage.amountTextField.element.tap()
-    ExpenseDetailPage.amountTextField.element.typeText("10.00")
+    ExpenseDetailPage.amountTextField.element.typeText(amount)
+    //Set date
+    ExpenseDetailPage.monthPickerWheel.element.adjust(toPickerWheelValue: month)
+    ExpenseDetailPage.dayPickerWheel.element.adjust(toPickerWheelValue: day)
+    ExpenseDetailPage.yearPickerWheel.element.adjust(toPickerWheelValue: year)
+    //Pick category
+    ExpenseDetailPage.categoryValueLabel.element.tap()
+    category.tap()
+    //All done
     ExpenseDetailPage.doneButton.element.tap()
 }
