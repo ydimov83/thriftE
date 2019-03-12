@@ -47,13 +47,19 @@ enum ExpenseDetailPage: String {
  - Parameter name: Enter the expense name
  - Parameter amount: Enter the expense amount
 */
-func fillExpenseDetailTestDataAndTapDone(name: String, amount: String, month: String, day: String, year: String) {
+func fillExpenseDetailTestDataAndTapDone(name: String, amount: String, month: String, day: String, year: String, category: XCUIElement) {
+    //Set name
     ExpenseDetailPage.nameTextField.element.typeText(name)
+    //Set amount
     ExpenseDetailPage.amountTextField.element.tap()
     ExpenseDetailPage.amountTextField.element.typeText(amount)
-    
+    //Set date
     ExpenseDetailPage.monthPickerWheel.element.adjust(toPickerWheelValue: month)
     ExpenseDetailPage.dayPickerWheel.element.adjust(toPickerWheelValue: day)
     ExpenseDetailPage.yearPickerWheel.element.adjust(toPickerWheelValue: year)
+    //Pick category
+    ExpenseDetailPage.categoryValueLabel.element.tap()
+    category.tap()
+    //All done
     ExpenseDetailPage.doneButton.element.tap()
 }
