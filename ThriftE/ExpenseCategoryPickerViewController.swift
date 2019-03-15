@@ -41,6 +41,8 @@ class ExpenseCategoryPickerViewController: UITableViewController {
         cell.textLabel?.text = categoryName
         cell.textLabel?.textColor = UIColor.white
         cell.accessibilityIdentifier = categoryName
+        cell.imageView?.image = UIImage(named: categoryName)
+        cell.imageView?.backgroundColor = UIColor.black
         
         let selection = UIView(frame: CGRect.zero)
         selection.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
