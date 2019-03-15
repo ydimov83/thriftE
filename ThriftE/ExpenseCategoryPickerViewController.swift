@@ -39,7 +39,12 @@ class ExpenseCategoryPickerViewController: UITableViewController {
         let categoryName = getCategoryNameFromHashValue(hashValue: indexPath.row).rawValue
         
         cell.textLabel?.text = categoryName
+        cell.textLabel?.textColor = UIColor.white
         cell.accessibilityIdentifier = categoryName
+        
+        let selection = UIView(frame: CGRect.zero)
+        selection.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+        cell.selectedBackgroundView = selection
         
         if categoryName == selectedCategoryName {
             cell.accessoryType = .checkmark

@@ -72,6 +72,12 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let selection = UIView(frame: CGRect.zero)
+        selection.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+        cell.selectedBackgroundView = selection
+    }
+    
     
     //MARK: - Actions
     @IBAction func cancel() {

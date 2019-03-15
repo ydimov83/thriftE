@@ -66,13 +66,17 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
             }
             i += 1
         }
-        let data = PieChartData(dataSet: dataSet)
-        
         dataSet.colors = ChartColorTemplates.pastel()
-        dataSet.valueColors = [NSUIColor.black]
+        dataSet.valueColors = [NSUIColor.white]
+        
+        let data = PieChartData(dataSet: dataSet)
         pieChartView.data = data
+        
+        pieChartView.holeColor = UIColor.black
         pieChartView.chartDescription?.text = "Totals by category"
         pieChartView.chartDescription?.textAlign = .right
+        pieChartView.chartDescription?.textColor = UIColor.white
+        pieChartView.legend.textColor = UIColor.white
         
         //This must stay at end of function
         pieChartView.notifyDataSetChanged()
@@ -100,7 +104,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         print("das total is: \(total)")
     }
     
-    //MARK: - ChartView Delegate implementation
+    //MARK: - ChartView Delegate Implementation
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let pieChartDataEntry = entry as! PieChartDataEntry
         print(pieChartDataEntry.label)
