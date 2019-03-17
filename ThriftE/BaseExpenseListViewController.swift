@@ -96,21 +96,6 @@ class BaseExpenseListViewController: UITableViewController {
         return view
     }
     
-    //MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "AddExpenseItem" {
-            let controller = segue.destination as! ExpenseDetailViewController
-            controller.managedObjectContext = managedObjectContext
-        } else if segue.identifier == "EditExpenseItem" {
-            let controller = segue.destination as! ExpenseDetailViewController
-            controller.managedObjectContext = managedObjectContext
-            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-                let expense = fetchedResultsController.object(at: indexPath)
-                controller.expenseToEdit = expense
-            }
-        }
-    }
-    
     //MARK: - Helper Methods
     func configureText(for cell: UITableViewCell, with expense: Expense) {
         cell.textLabel?.text = expense.name

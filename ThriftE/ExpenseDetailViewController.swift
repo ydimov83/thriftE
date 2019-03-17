@@ -18,6 +18,7 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     var date = Date()
     var category = ExpenseCategories.noCategory.rawValue
     var managedObjectContext: NSManagedObjectContext!
+    var calendar = Calendar.current
     
     var expenseToEdit: Expense? {
         //When prepare(for:sender:) in ExpenseListViewController is called it is performed before viewDidLoad in this class thus putting the values in place before screen is shown
@@ -47,6 +48,7 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        calendar.timeZone = NSTimeZone.local
         amountTextField.delegate = self // is this necessary?
         nameTextField.delegate = self // is this necessary?
         categoryLabel.text = category
@@ -98,7 +100,9 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         expense.name = nameTextField.text!
         expense.date = datePickerField.date
         expense.category = category
-        expense.date = datePickerField.date
+        //Since I just care about the date and not time, need to store the actual date value as the start of the day for the local time zone. This should avoid issues with filtering on dates by taking the time of day out of the equation
+        let tempDate = calendar.startOfDay(for: datePickerField.date)
+        expense.date = tempDate
         
         if (amountTextField.text?.isEmpty)! {
             expense.amount = 0.00
@@ -153,6 +157,7 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     
 }
 
+//MARK: - UIPickerViewAccessibility Delegate
 extension ExpenseDetailViewController: UIPickerViewAccessibilityDelegate {
     func pickerView(_ pickerView: UIPickerView, accessibilityHintForComponent component: Int) -> String? {
         switch component {

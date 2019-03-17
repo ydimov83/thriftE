@@ -47,11 +47,6 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         pieChartView.highlightValue(nil)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        
-    }
-    
     //MARK: - Chart Setup
     func setupChartData() {
         let entity = Expense.entity()
@@ -99,6 +94,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         
         for expense in expenses {
             total += expense.amount
+            print(expense.date.debugDescription)
             
             //Map the category to an index
             ExpenseCategories.allCases.forEach{
