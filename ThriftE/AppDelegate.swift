@@ -33,12 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabBarController = window?.rootViewController as! UITabBarController
         if let tabBarViewControllers = tabBarController.viewControllers {
-            let navigationController = tabBarViewControllers[0] as! UINavigationController
+            let navigationController1 = tabBarViewControllers[0] as! UINavigationController
             //First tab
-            let controller1 = navigationController.viewControllers[0] as! ExpenseListViewController
+            let controller1 = navigationController1.viewControllers[0] as! ExpenseListViewController
             controller1.managedObjectContext = managedObjectContext
             //Second tab
-            let controller2 = tabBarViewControllers[1] as! AnalyzeExpensesViewController
+            let navigationController2 = tabBarViewControllers[1] as! UINavigationController
+            let controller2 = navigationController2.viewControllers[0] as! AnalyzeExpensesViewController
             controller2.managedObjectContext = managedObjectContext
         }
         listenForFatalCoreDataNotifications()

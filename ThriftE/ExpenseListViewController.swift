@@ -9,207 +9,26 @@
 import UIKit
 import CoreData
 
-class ExpenseListViewController: UITableViewController {
-    
-    var filteredExpenses = [Expense]()
-    var managedObjectContext: NSManagedObjectContext!
-    lazy var fetchedResultsController: NSFetchedResultsController<Expense> = {
-        let fetchRequest = NSFetchRequest<Expense>()
-        
-        let entity = Expense.entity()
-        fetchRequest.entity = entity
-        
-        let sortCategory = NSSortDescriptor(key: "category", ascending: true)
-        let sortDate = NSSortDescriptor(key: "date", ascending: true)
-        fetchRequest.sortDescriptors = [sortCategory, sortDate]
-        
-        fetchRequest.fetchBatchSize = 20
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "category", cacheName: "Expenses")
-        fetchedResultsController.delegate = self
-        return fetchedResultsController
-    }()
-    
+class ExpenseListViewController: BaseExpenseListViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        cellIdentifier = "ThriftEItem"
+        fetchedResultsController = {
+            let fetchRequest = NSFetchRequest<Expense>()
+            
+            let entity = Expense.entity()
+            fetchRequest.entity = entity
+            
+            let sortDate = NSSortDescriptor(key: "date", ascending: false)
+            fetchRequest.sortDescriptors = [sortDate]
+            
+            fetchRequest.fetchBatchSize = 20
+            
+            let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Expenses")
+            fetchedResultsController.delegate = self
+            return fetchedResultsController
+        }()
         performFetch()
-    }
-    
-    // MARK: - Table View Data Source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections!.count
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionInfo = fetchedResultsController.sections![section]
-        return sectionInfo.name.uppercased()    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = fetchedResultsController.sections![section]
-        return sectionInfo.numberOfObjects
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ThriftEItem", for: indexPath)
-        let expense = fetchedResultsController.object(at: indexPath)
-        configureText(for: cell, with: expense)
-        
-        let selection = UIView(frame: CGRect.zero)
-        selection.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
-        cell.selectedBackgroundView = selection
- 
-        return cell
-    }
-    
-    //MARK: - Table view delegate
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // Allows us to delete a row by swiping to delete
-        if editingStyle == .delete {
-            let expense = fetchedResultsController.object(at: indexPath)
-            managedObjectContext.delete(expense)
-            do {
-                try managedObjectContext.save()
-            } catch {
-                fatalCoreDataError(error)
-            }
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let labelRect = CGRect(x: 15, y: tableView.sectionHeaderHeight - 14, width: 300, height: 14)
-        let label = UILabel(frame: labelRect)
-        label.font = UIFont.boldSystemFont(ofSize: 12)
-        label.text = tableView.dataSource!.tableView!(tableView, titleForHeaderInSection: section)
-        label.textColor = UIColor(white: 1.0, alpha: 0.65)
-        label.backgroundColor = UIColor.clear
-        
-        let separatorRect = CGRect(x: 15, y: tableView.sectionHeaderHeight - 0.5 , width: tableView.bounds.size.width - 15 , height: 0.5)
-        let separator = UIView(frame: separatorRect)
-        separator.backgroundColor = tableView.separatorColor
-        
-        let viewRect = CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.sectionHeaderHeight)
-        let view = UIView(frame: viewRect)
-        view.backgroundColor = UIColor(white: 0, alpha: 0.85)
-        view.addSubview(label)
-        view.addSubview(separator)
-        
-        return view
-    }
-    
-    //MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "AddExpenseItem" {
-            let controller = segue.destination as! ExpenseDetailViewController
-            controller.managedObjectContext = managedObjectContext
-        } else if segue.identifier == "EditExpenseItem" {
-            let controller = segue.destination as! ExpenseDetailViewController
-            controller.managedObjectContext = managedObjectContext
-            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-                let expense = fetchedResultsController.object(at: indexPath)
-                controller.expenseToEdit = expense
-            }
-        }
-    }
-    
-    //MARK: - Helper Methods
-    func configureText(for cell: UITableViewCell, with expense: Expense) {
-        cell.textLabel?.text = expense.name
-        let formatter = DateFormatter()
-        
-        formatter.dateStyle = .short
-        formatter.timeStyle = .none
-        
-        let dateLabel = formatter.string(from: expense.date)
-        if expense.amount > 0 {
-            cell.detailTextLabel?.text = "$\(expense.amount) \(dateLabel)"
-        } else {
-            cell.detailTextLabel?.text = dateLabel
-        }
-    }
-    
-    func performFetch() {
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            fatalCoreDataError(error)
-        }
-    }
-    
-    deinit {
-        //Method invoked when view controller is destroyed, this way we ensure we stop getting any further notifications that may have been pending
-        fetchedResultsController.delegate = nil
-    }
-    
-//    func filterExperiment(filter: String) {
-//        let indexPath = IndexPath(
-//        fetchedResultsController.indexPath(forObject: <#T##Expense#>)
-//        tableView.reloadSections(<#T##sections: IndexSet##IndexSet#>, with: <#T##UITableView.RowAnimation#>)
-//        fetchedResultsController.object(at: <#T##IndexPath#>)
-
-//        for section in fetchedResultsController.sections! {
-//            print(section.name)
-//
-//        }
-//        let indexSet = IndexSet(integer: 1)
-//        tableView.deleteSections(indexSet, with: .fade)
-//        tableView.reloadData()
-//
-//    }
- 
-}
-
-//MARK: - NSFetchedResultsControllerDelegate implementation
-extension ExpenseListViewController: NSFetchedResultsControllerDelegate {
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("*** controllerWillChangeContent")
-        tableView.beginUpdates()
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-                    didChange anObject: Any, at indexPath: IndexPath?,
-                    for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        switch type {
-        case .insert:
-            print("*** NSFetchResultsChangeInsert (object)")
-            tableView.insertRows(at: [newIndexPath!], with: .fade)
-        case .delete:
-            print("*** NSFetchResultsChangeDelete (object)")
-            tableView.deleteRows(at: [indexPath!], with: .fade)
-        case .update:
-            print("*** NSFetchResultsChangeUpdate (object)")
-            if let cell = tableView.cellForRow(at: indexPath!) {
-                let expense = controller.object(at: indexPath!) as! Expense
-                configureText(for: cell, with: expense)
-            }
-        case .move:
-            print("*** NSFetchResultsChangeMove (object)")
-            tableView.deleteRows(at: [indexPath!], with: .fade)
-            tableView.insertRows(at: [newIndexPath!], with: .fade)
-        }
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-                    didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int,
-                    for type: NSFetchedResultsChangeType) {
-        switch type {
-        case .insert:
-            print("*** NSFetchResultsChangeInsert (section)")
-            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
-        case .delete:
-            print("*** NSFetchResultsChangeDelete (section)")
-            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
-        case .update:
-            print("*** NSFetchResultsChangeUpdate (section)")
-        case .move:
-            print("*** NSFetchResultsChangeMove (section)")
-        }
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("*** controllerDidChangeContent")
-        tableView.endUpdates()
     }
 }

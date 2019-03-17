@@ -306,14 +306,14 @@
                     </tabBar>
                     <connections>
                         <segue destination="NKb-4P-x4N" kind="relationship" relationship="viewControllers" id="ce3-y3-Rfl"/>
-                        <segue destination="v3n-qS-wSp" kind="relationship" relationship="viewControllers" id="bfw-WS-ej2"/>
+                        <segue destination="lLF-Rg-73z" kind="relationship" relationship="viewControllers" id="bfw-WS-ej2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhC-3b-mGq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="151.19999999999999" y="89.505247376311857"/>
         </scene>
-        <!--Analyze-->
+        <!--Analyze Expenses View Controller-->
         <scene sceneID="QwV-6i-Ppb">
             <objects>
                 <viewController id="v3n-qS-wSp" customClass="AnalyzeExpensesViewController" customModule="ThriftE" customModuleProvider="target" sceneMemberID="viewController">
@@ -322,19 +322,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Total: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOc-n1-YX8">
-                                <rect key="frame" x="16" y="40" width="116" height="21"/>
+                                <rect key="frame" x="16" y="84" width="116" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vi-Jc-dAo">
-                                <rect key="frame" x="317" y="40" width="42" height="21"/>
+                                <rect key="frame" x="317" y="84" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sik-UQ-VbW" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="69" width="343" height="532"/>
+                                <rect key="frame" x="16" y="113" width="343" height="488"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -351,15 +351,85 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hCS-Yo-U69"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Analyze" image="Analyze" id="HAD-wc-wZA"/>
+                    <navigationItem key="navigationItem" id="36J-Y4-TmE"/>
                     <connections>
                         <outlet property="pieChartView" destination="Sik-UQ-VbW" id="EsC-U2-Jvg"/>
                         <outlet property="totalLabel" destination="8vi-Jc-dAo" id="w55-dt-yCM"/>
+                        <segue destination="rQh-XF-GUC" kind="show" identifier="FilteredExpenseList" id="sOK-Xn-hez"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hvs-5A-n1s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="149.59999999999999" y="805.54722638680664"/>
+            <point key="canvasLocation" x="2029.5999999999999" y="805.54722638680664"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="sfd-OE-oJX">
+            <objects>
+                <tableViewController id="rQh-XF-GUC" customClass="FilteredExpenseListViewController" customModule="ThriftE" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Yka-be-ztb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" white="1" alpha="0.19957636443661972" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilteredExpenseListItem" textLabel="Wm2-hx-5SB" detailTextLabel="Dth-yH-vYh" style="IBUITableViewCellStyleSubtitle" id="w2y-4y-Zyy">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w2y-4y-Zyy" id="XVq-Rx-zeF">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wm2-hx-5SB">
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dth-yH-vYh">
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="vGT-Gc-zra" kind="show" identifier="EditExpenseItem" id="9Ub-Rd-wra"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="rQh-XF-GUC" id="nBX-bA-PhW"/>
+                            <outlet property="delegate" destination="rQh-XF-GUC" id="ITh-Ze-9rg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="dJr-Xp-iJf"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MuZ-3Z-F5U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2764" y="806"/>
+        </scene>
+        <!--Analyze-->
+        <scene sceneID="1Ep-XE-6FV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lLF-Rg-73z" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Analyze" image="Analyze" id="HAD-wc-wZA"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ReT-B9-anQ">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="v3n-qS-wSp" kind="relationship" relationship="rootViewController" id="89z-7F-MWu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hAU-S8-1Ej" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1090" y="806"/>
         </scene>
     </scenes>
     <resources>
@@ -367,7 +437,7 @@
         <image name="positive" width="45" height="45"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nf2-4C-6Gz"/>
+        <segue reference="9Ub-Rd-wra"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.93333333333333335" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
 </document>
