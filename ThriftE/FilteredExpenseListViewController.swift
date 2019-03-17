@@ -40,6 +40,8 @@ class FilteredExpenseListViewController: BaseExpenseListViewController {
         performFetch()
     }
     
+    //MARK: - TableView data
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
@@ -53,6 +55,18 @@ class FilteredExpenseListViewController: BaseExpenseListViewController {
         cell.detailTextLabel?.textColor = UIColor.lightGray
         
         return cell
+    }
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditExpenseItem" {
+            let controller = segue.destination as! ExpenseDetailViewController
+            controller.managedObjectContext = managedObjectContext
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                let expense = fetchedResultsController.object(at: indexPath)
+                controller.expenseToEdit = expense
+            }
+        }
     }
     
 }

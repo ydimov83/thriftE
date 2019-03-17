@@ -43,6 +43,8 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         totalLabel.text = "\(total)"
+        //Deselect the previously selected pie chart slice when coming back to the screen
+        pieChartView.highlightValue(nil)
     }
     
     //MARK: - Chart Setup
@@ -92,6 +94,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         
         for expense in expenses {
             total += expense.amount
+            print(expense.date.debugDescription)
             
             //Map the category to an index
             ExpenseCategories.allCases.forEach{
