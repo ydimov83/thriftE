@@ -29,6 +29,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
     var expenses = [Expense]()
     var total = 0.00
     var categoryTotal = [Double]()
+    var selectedPieChartCategory = ""
     
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
@@ -104,10 +105,21 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         print("das total is: \(total)")
     }
     
+    //MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "FilteredExpenseList" {
+            let controller = segue.destination as! FilteredExpenseListViewController
+            controller.categoryFilter = selectedPieChartCategory
+            controller.managedObjectContext = managedObjectContext
+        }
+    }
     //MARK: - ChartView Delegate Implementation
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let pieChartDataEntry = entry as! PieChartDataEntry
+        selectedPieChartCategory = pieChartDataEntry.label!
         print(pieChartDataEntry.label)
+        performSegue(withIdentifier: "FilteredExpenseList", sender: self)
     }
     
 }
