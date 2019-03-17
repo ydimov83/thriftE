@@ -43,6 +43,13 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         totalLabel.text = "\(total)"
+        //Deselect the previously selected pie chart slice when coming back to the screen
+        pieChartView.highlightValue(nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        
     }
     
     //MARK: - Chart Setup
