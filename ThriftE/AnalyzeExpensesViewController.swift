@@ -30,7 +30,10 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
     var total = 0.00
     var categoryTotal = [Double]()
     var selectedPieChartCategory = ""
-    var selectedFilter = "Today"
+    var selectedDateSegment = ""
+    var fromDate = Date()
+    var toDate = Date()
+    var fetchRequestPredicate = NSPredicate(format: "date <= %@", Date() as CVarArg)
     
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
@@ -38,6 +41,13 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if selectedDateSegment == "" {
+            //If selectedDateSegment has no value then it means it's the first time user sees Analyze screen so segmentedControlIndexChanged() has not run yet, set category to Today and predicate accordingly
+            selectedDateSegment = "Today"
+            fromDate = Calendar.current.startOfDay(for: Date())
+            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
+            fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
+        }
         setupChartData()
         pieChartView.delegate = self
     }
@@ -50,19 +60,46 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
     
     //MARK: - Actions
     @IBAction func segmentedControlIndexChanged(_ sender: Any) {
+        //TODO: - The from/toDate params should just be passed into this method for easier readability? That also might help with unit testing?
+        let today = Date()
+        let calendar = Calendar.current
+        let currentYear = calendar.component(.year, from: today)
+        let currentMonth = calendar.component(.month, from: today)
+        var dateComponents = DateComponents()
+        dateComponents.calendar = calendar
+        dateComponents.timeZone = TimeZone.current
+        
         switch  segmentedControl.selectedSegmentIndex {
         case 0:
-            selectedFilter = "Today"
+            selectedDateSegment = "Today"
+            fromDate = calendar.startOfDay(for: today)
+            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
         case 1:
-            selectedFilter = "Week"
+            selectedDateSegment = "Week"
+            //I'm using Monday as the start of the week and Sunday as the end of the week
+            fromDate = calendar.startOfDay(for: Date.today().previous(.monday, considerToday: true))
+            toDate = Date.today().next(.monday)
         case 2:
-            selectedFilter = "Month"
+            selectedDateSegment = "Month"
+            dateComponents.year = currentYear
+            dateComponents.month = currentMonth
+            fromDate = calendar.date(from: dateComponents)!
+            dateComponents.month = dateComponents.month! + 1
+            toDate = calendar.date(from: dateComponents)!
         case 3:
-            selectedFilter = "Year"
+            selectedDateSegment = "Year"
+            dateComponents.year = currentYear
+            fromDate = calendar.date(from: dateComponents)!
+            dateComponents.year = dateComponents.year! + 1
+            toDate = calendar.date(from: dateComponents)!
         default:
-            selectedFilter = "Today"
+            selectedDateSegment = "Today"
+            fromDate = calendar.startOfDay(for: today)
+            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
         }
+        print("from: \(fromDate) to: \(toDate)")
         //Predicate used in fetchRequest will change based on selected segment so we need to setup chart data again
+        fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
         setupChartData()
     }
     
@@ -71,7 +108,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         let entity = Expense.entity()
         let fetchRequest = NSFetchRequest<Expense>()
         fetchRequest.entity = entity
-        fetchRequest.predicate = setFetchRequestPredicate()
+        fetchRequest.predicate = fetchRequestPredicate
         
         expenses = try! managedObjectContext.fetch(fetchRequest)
         
@@ -84,7 +121,9 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         ExpenseCategories.allCases.forEach {_ in
             if categoryTotal[i] > 0.00 {
                 let label = getCategoryNameFromHashValue(hashValue: i).rawValue
-                let pieChartDataEntry = PieChartDataEntry(value: categoryTotal[i], label: label)
+                print("Category total is: \(categoryTotal[i])")
+                let value = (categoryTotal[i])
+                let pieChartDataEntry = PieChartDataEntry(value: value, label: label)
                 dataSet.append(pieChartDataEntry)
             }
             i += 1
@@ -116,7 +155,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
             total += expense.amount
             print(expense.date.debugDescription)
             
-            //Map the category to an index
+            //Map the category to an index, this way we can update the category specific totals
             ExpenseCategories.allCases.forEach{
                 if expense.category == $0.rawValue{
                     catIndex = getHashValueFromCategoryName(category: $0)
@@ -128,63 +167,21 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         totalLabel.text = "\(total)"
         print("das total is: \(total)")
     }
-    
-    func setFetchRequestPredicate() -> NSPredicate {
-        //TODO: - The from/toDate params should just be passed into this method for easier readability? That also might help with unit testing?
-        var predicate: NSPredicate
-        let today = Date()
-        let calendar = Calendar.current
-        let currentYear = calendar.component(.year, from: today)
-        let currentMonth = calendar.component(.month, from: today)
-        var fromDate = Date()
-        var toDate = Date()
-        var dateComponents = DateComponents()
-        dateComponents.calendar = calendar
-        dateComponents.timeZone = TimeZone.current
-        
-        switch selectedFilter {
-        case "Today":
-            fromDate = calendar.startOfDay(for: today)
-            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
-            predicate =  NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
-        case "Week":
-            fromDate = calendar.startOfDay(for: Date.today().previous(.monday, considerToday: true))
-            toDate = Date.today().next(.monday)
-            predicate =  NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
-        case "Month":
-            dateComponents.year = currentYear
-            dateComponents.month = currentMonth
-            fromDate = calendar.date(from: dateComponents)!
-            dateComponents.month = dateComponents.month! + 1
-            toDate = calendar.date(from: dateComponents)!
-            predicate =  NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
-        case "Year":
-            dateComponents.year = currentYear
-            fromDate = calendar.date(from: dateComponents)!
-            dateComponents.year = dateComponents.year! + 1
-            toDate = calendar.date(from: dateComponents)!
-            predicate =  NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
-        default:
-            predicate =  NSPredicate(format: "date <= %@", Date() as CVarArg)
-        }
-        
-        print("from: \(fromDate) to: \(toDate)")
-        return predicate
-    }
-    
+ 
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FilteredExpenseList" {
             let controller = segue.destination as! FilteredExpenseListViewController
             controller.categoryFilter = selectedPieChartCategory
             controller.managedObjectContext = managedObjectContext
+            controller.fromDate = fromDate
+            controller.toDate = toDate
         }
     }
     //MARK: - ChartView Delegate Implementation
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let pieChartDataEntry = entry as! PieChartDataEntry
         selectedPieChartCategory = pieChartDataEntry.label!
-        print(pieChartDataEntry.label)
         performSegue(withIdentifier: "FilteredExpenseList", sender: self)
     }
     
