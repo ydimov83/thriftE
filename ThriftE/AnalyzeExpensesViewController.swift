@@ -30,9 +30,11 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
     var total = 0.00
     var categoryTotal = [Double]()
     var selectedPieChartCategory = ""
+    var selectedFilter = "Today"
     
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +44,26 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        totalLabel.text = "\(total)"
         //Deselect the previously selected pie chart slice when coming back to the screen
         pieChartView.highlightValue(nil)
+    }
+    
+    //MARK: - Actions
+    @IBAction func segmentedControlIndexChanged(_ sender: Any) {
+        switch  segmentedControl.selectedSegmentIndex {
+        case 0:
+            selectedFilter = "Today"
+        case 1:
+            selectedFilter = "Week"
+        case 2:
+            selectedFilter = "Month"
+        case 3:
+            selectedFilter = "Year"
+        default:
+            selectedFilter = "Today"
+        }
+        //Predicate used in fetchRequest will change based on selected segment so we need to setup chart data again
+        setupChartData()
     }
     
     //MARK: - Chart Setup
@@ -52,6 +71,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         let entity = Expense.entity()
         let fetchRequest = NSFetchRequest<Expense>()
         fetchRequest.entity = entity
+        fetchRequest.predicate = setFetchRequestPredicate()
         
         expenses = try! managedObjectContext.fetch(fetchRequest)
         
@@ -84,7 +104,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
         //This must stay at end of function
         pieChartView.notifyDataSetChanged()
     }
-
+    
     //MARK: - Helper Methods
     func calculateTotals() {
         //First zero out totals
@@ -105,11 +125,54 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate {
             categoryTotal[catIndex!] += expense.amount
             print("categoryTotal for \(expense.category) is: \(categoryTotal[catIndex!])")
         }
+        totalLabel.text = "\(total)"
         print("das total is: \(total)")
     }
     
-    //MARK: - Navigation
+    func setFetchRequestPredicate() -> NSPredicate {
+        //TODO: - The from/toDate params should just be passed into this method for easier readability? That also might help with unit testing?
+        var predicate: NSPredicate
+        let today = Date()
+        let calendar = Calendar.current
+        let currentYear = calendar.component(.year, from: today)
+        let currentMonth = calendar.component(.month, from: today)
+        var fromDate = Date()
+        var toDate = Date()
+        var dateComponents = DateComponents()
+        dateComponents.calendar = calendar
+        dateComponents.timeZone = TimeZone.current
+        
+        switch selectedFilter {
+        case "Today":
+            fromDate = calendar.startOfDay(for: today)
+            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
+            predicate =  NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
+        case "Week":
+            fromDate = calendar.startOfDay(for: Date.today().previous(.monday, considerToday: true))
+            toDate = Date.today().next(.monday)
+            predicate =  NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
+        case "Month":
+            dateComponents.year = currentYear
+            dateComponents.month = currentMonth
+            fromDate = calendar.date(from: dateComponents)!
+            dateComponents.month = dateComponents.month! + 1
+            toDate = calendar.date(from: dateComponents)!
+            predicate =  NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
+        case "Year":
+            dateComponents.year = currentYear
+            fromDate = calendar.date(from: dateComponents)!
+            dateComponents.year = dateComponents.year! + 1
+            toDate = calendar.date(from: dateComponents)!
+            predicate =  NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
+        default:
+            predicate =  NSPredicate(format: "date <= %@", Date() as CVarArg)
+        }
+        
+        print("from: \(fromDate) to: \(toDate)")
+        return predicate
+    }
     
+    //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FilteredExpenseList" {
             let controller = segue.destination as! FilteredExpenseListViewController
