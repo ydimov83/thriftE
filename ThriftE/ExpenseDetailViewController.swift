@@ -98,12 +98,11 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
            
         }
         expense.name = nameTextField.text!
-        expense.date = datePickerField.date
+        //Since the hour and minute are not important and to avoid issues with time of day, here I'm setting the time piece to noon, otherwise filter logic for Analyze tab could fail
+        expense.date = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: datePickerField.date)!
         expense.category = category
-        //Since I just care about the date and not time, need to store the actual date value as the start of the day for the local time zone. This should avoid issues with filtering on dates by taking the time of day out of the equation
-        let tempDate = calendar.startOfDay(for: datePickerField.date)
-        expense.date = tempDate
-        
+        print("Expense date is: \(expense.date)")
+ 
         if (amountTextField.text?.isEmpty)! {
             expense.amount = 0.00
         } else {

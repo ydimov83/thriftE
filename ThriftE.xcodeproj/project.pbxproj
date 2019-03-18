@@ -35,6 +35,7 @@
 		949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */; };
 		94AECF90222322D800730707 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF8F222322D800730707 /* Functions.swift */; };
 		94AECF92222323F100730707 /* AnalyzeExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */; };
+		94BE65ED223FF206004841B5 /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BE65EC223FF206004841B5 /* Date+Helpers.swift */; };
 		94E72DE02226F22C0035F789 /* ExpenseCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E72DDF2226F22C0035F789 /* ExpenseCategories.swift */; };
 		94E72DE5222DCF7E0035F789 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94E72DE3222DCF7E0035F789 /* DataModel.xcdatamodeld */; };
 		F1AAEA934E3F84EF4DF64F41 /* Pods_ThriftETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3D1F209905534417E465D0 /* Pods_ThriftETests.framework */; };
@@ -99,6 +100,7 @@
 		949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
 		94AECF8F222322D800730707 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeExpensesViewController.swift; sourceTree = "<group>"; };
+		94BE65EC223FF206004841B5 /* Date+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helpers.swift"; sourceTree = "<group>"; };
 		94E72DDF2226F22C0035F789 /* ExpenseCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategories.swift; sourceTree = "<group>"; };
 		94E72DE4222DCF7E0035F789 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		B15D44B28F315796C27538CF /* Pods-ThriftEUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriftEUITests.release.xcconfig"; path = "Target Support Files/Pods-ThriftEUITests/Pods-ThriftEUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -204,21 +206,22 @@
 			children = (
 				94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */,
 				943170A721E01A5C00109FC8 /* AppDelegate.swift */,
-				94E72DE3222DCF7E0035F789 /* DataModel.xcdatamodeld */,
 				943170AE21E01A5D00109FC8 /* Assets.xcassets */,
+				9425855B223EB1C80054863F /* BaseExpenseListViewController.swift */,
+				94E72DE3222DCF7E0035F789 /* DataModel.xcdatamodeld */,
+				94BE65EC223FF206004841B5 /* Date+Helpers.swift */,
 				94E72DDF2226F22C0035F789 /* ExpenseCategories.swift */,
 				9413D3832225B38E00040243 /* ExpenseCategoryPickerViewController.swift */,
 				949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */,
+				94309B52223B015100B70232 /* ExpenseListCell.swift */,
 				9436AD2821E027F000A2A86A /* ExpenseListItem.swift */,
 				943170A921E01A5C00109FC8 /* ExpenseListViewController.swift */,
-				94309B52223B015100B70232 /* ExpenseListCell.swift */,
+				94258559223E9F490054863F /* FilteredExpenseListViewController.swift */,
 				94AECF8F222322D800730707 /* Functions.swift */,
 				943170B321E01A5D00109FC8 /* Info.plist */,
 				943170B021E01A5D00109FC8 /* LaunchScreen.storyboard */,
 				943170AB21E01A5C00109FC8 /* Main.storyboard */,
 				94309B50223AC48D00B70232 /* MyTabBarController.swift */,
-				94258559223E9F490054863F /* FilteredExpenseListViewController.swift */,
-				9425855B223EB1C80054863F /* BaseExpenseListViewController.swift */,
 			);
 			path = ThriftE;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				9413D3842225B38E00040243 /* ExpenseCategoryPickerViewController.swift in Sources */,
 				94309B51223AC48D00B70232 /* MyTabBarController.swift in Sources */,
 				943170A821E01A5C00109FC8 /* AppDelegate.swift in Sources */,
+				94BE65ED223FF206004841B5 /* Date+Helpers.swift in Sources */,
 				9436AD2921E027F000A2A86A /* ExpenseListItem.swift in Sources */,
 				9403F945222DE8DE00E6159D /* Expense+CoreDataProperties.swift in Sources */,
 				94AECF90222322D800730707 /* Functions.swift in Sources */,
