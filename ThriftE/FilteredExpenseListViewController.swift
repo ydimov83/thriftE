@@ -11,7 +11,10 @@ import CoreData
 
 class FilteredExpenseListViewController: BaseExpenseListViewController {
     
+    //Actual values will be set via the segue from AnalyzeExpensesViewController
     var categoryFilter = ""
+    var fromDate =  Date()
+    var toDate = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +26,13 @@ class FilteredExpenseListViewController: BaseExpenseListViewController {
             let entity = Expense.entity()
             fetchRequest.entity = entity
             
-            if categoryFilter != "" {
-                fetchRequest.predicate = NSPredicate(format: "category == %@", categoryFilter)
+            if categoryFilter != "" { //If category is not set then forego predicate to avoid possible crash
+                let predicate =  NSPredicate(format: "date >= %@ && date < %@ && category == %@", fromDate as CVarArg, toDate as CVarArg, categoryFilter)
+                fetchRequest.predicate = predicate
             }
             
             let sortDate = NSSortDescriptor(key: "date", ascending: false)
             fetchRequest.sortDescriptors = [sortDate]
-            
-            
             fetchRequest.fetchBatchSize = 20
             
             let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Expenses")
@@ -41,7 +43,6 @@ class FilteredExpenseListViewController: BaseExpenseListViewController {
     }
     
     //MARK: - TableView data
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
