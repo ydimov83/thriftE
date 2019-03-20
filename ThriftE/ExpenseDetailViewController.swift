@@ -80,7 +80,6 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         cell.selectedBackgroundView = selection
     }
     
-    
     //MARK: - Actions
     @IBAction func cancel() {
         navigationController?.popViewController(animated: true)

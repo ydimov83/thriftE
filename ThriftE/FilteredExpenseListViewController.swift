@@ -12,50 +12,17 @@ import CoreData
 class FilteredExpenseListViewController: BaseExpenseListViewController {
     
     //Actual values will be set via the segue from AnalyzeExpensesViewController
+    
     var categoryFilter = ""
     var fromDate =  Date()
     var toDate = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        cellIdentifier =  "FilteredExpenseListItem"
         self.title = categoryFilter
-        cellIdentifier = "FilteredExpenseListItem"
-        fetchedResultsController = {
-            let fetchRequest = NSFetchRequest<Expense>()
-            
-            let entity = Expense.entity()
-            fetchRequest.entity = entity
-            
-            if categoryFilter != "" { //If category is not set then forego predicate to avoid possible crash
-                let predicate =  NSPredicate(format: "date >= %@ && date < %@ && category == %@", fromDate as CVarArg, toDate as CVarArg, categoryFilter)
-                fetchRequest.predicate = predicate
-            }
-            
-            let sortDate = NSSortDescriptor(key: "date", ascending: false)
-            fetchRequest.sortDescriptors = [sortDate]
-            fetchRequest.fetchBatchSize = 20
-            
-            let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Expenses")
-            fetchedResultsController.delegate = self
-            return fetchedResultsController
-        }()
+        fetchedResultsController = setFetchedResultsController(fromDate: fromDate, toDate: toDate, categoryFilter: categoryFilter)
         performFetch()
-    }
-    
-    //MARK: - TableView data
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        let expense = fetchedResultsController.object(at: indexPath)
-        configureText(for: cell, with: expense)
-        
-        let selection = UIView(frame: CGRect.zero)
-        selection.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
-        cell.selectedBackgroundView = selection
-        cell.textLabel?.textColor = UIColor.white
-        cell.detailTextLabel?.textColor = UIColor.lightGray
-        
-        return cell
     }
     
     //MARK: - Navigation
@@ -68,6 +35,26 @@ class FilteredExpenseListViewController: BaseExpenseListViewController {
                 controller.expenseToEdit = expense
             }
         }
+    }
+    
+    //MARK: - Helpers
+    func setFetchedResultsController(fromDate: Date, toDate: Date, categoryFilter: String) -> NSFetchedResultsController<Expense> {
+        
+        let fetchRequest = NSFetchRequest<Expense>()
+        
+        let entity = Expense.entity()
+        fetchRequest.entity = entity
+        
+        let predicate =  NSPredicate(format: "date >= %@ && date < %@ && category == %@", fromDate as CVarArg, toDate as CVarArg, categoryFilter)
+        fetchRequest.predicate = predicate
+        
+        let sortDate = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sortDate]
+        fetchRequest.fetchBatchSize = 20
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Expenses")
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
     }
     
 }

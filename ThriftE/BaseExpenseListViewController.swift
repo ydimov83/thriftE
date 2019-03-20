@@ -58,6 +58,9 @@ class BaseExpenseListViewController: UITableViewController {
         selection.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
         cell.selectedBackgroundView = selection
         
+        cell.textLabel?.textColor = UIColor.white
+        cell.detailTextLabel?.textColor = UIColor.lightGray
+        
         return cell
     }
     
@@ -97,7 +100,7 @@ class BaseExpenseListViewController: UITableViewController {
     }
     
     //MARK: - Helper Methods
-    func configureText(for cell: UITableViewCell, with expense: Expense) {
+    func configureText(for cell: UITableViewCell, with expense: Expense) -> UITableViewCell {
         cell.textLabel?.text = expense.name
         let formatter = DateFormatter()
         
@@ -110,6 +113,7 @@ class BaseExpenseListViewController: UITableViewController {
         } else {
             cell.detailTextLabel?.text = dateLabel
         }
+        return cell
     }
     
     func performFetch() {
