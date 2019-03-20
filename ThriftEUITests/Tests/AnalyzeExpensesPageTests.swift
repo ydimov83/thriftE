@@ -9,9 +9,9 @@
 import XCTest
 
 class AnalyzeExpensesPageTests: ThriftEUIBaseTestCase {
-    let month = getCurrentMonth()
+    let month = getCurrentMonth(dateFormat: "LLLL")
     let day = getCurrentDayOfMonth()
-    let year = getCurrentYear()
+    let year = getCurrentYear(dateFormat: "y")
 
     func testUIWhenUserHasNoExpenseData() {
         TabBarPageObject.analyze.element.tap()
@@ -37,6 +37,34 @@ class AnalyzeExpensesPageTests: ThriftEUIBaseTestCase {
         assertsUserHasData(expenseTotal: expenseTotal)
         AnalyzeExpensesPage.year.element.tap()
         assertsUserHasData(expenseTotal: expenseTotal)
+    }
+    
+    func testTapPieChartSegmentAndNavigateToFilteredExpense() {
+        //Setup
+        let dateString = DateFormatter.localizedString(from: Date(),
+                                                       dateStyle: DateFormatter.Style.short,
+                                                       timeStyle: DateFormatter.Style.none)
+        var cellSubTitleLabel = "$35.0 \(dateString)"
+        ExpenseListPage.addExpenseButton.element.tap()
+        fillExpenseDetailTestDataAndTapDone(name: "pizza", amount: "10.00", month: month, day: day, year: year, category: ExpenseCategoryPage.restaurant.element)
+        
+        ExpenseListPage.addExpenseButton.element.tap()
+        fillExpenseDetailTestDataAndTapDone(name: "steak and wine", amount: "35.00", month: month, day: day, year: year, category: ExpenseCategoryPage.groceries.element)
+        //Test 'Groceries' segment
+        TabBarPageObject.analyze.element.tap()
+        AnalyzeExpensesPage.groceries.element.tap()
+        
+        XCTAssert(FilteredExpenseListPage.navBarTitle.element.label == AnalyzeExpensesPage.groceries.rawValue, "User should be on the Filtered Expenses page for 'Groceries' category")
+        XCTAssert(ExpenseListPage.cellTitle.element.label == "steak and wine", "Expense name should be 'steak and wine'")
+        XCTAssert(ExpenseListPage.cellSubTitle.element.label == cellSubTitleLabel, "Expense cell subTitle should reflect test data amount and date")
+        
+        //Test 'Restaurant' segment
+        FilteredExpenseListPage.backButton.element.tap()
+        AnalyzeExpensesPage.restaurant.element.tap()
+        cellSubTitleLabel = "$10.0 \(dateString)"
+        XCTAssert(FilteredExpenseListPage.navBarTitle.element.label == AnalyzeExpensesPage.restaurant.rawValue, "User should be on the Filtered Expenses page for 'Groceries' category")
+        XCTAssert(ExpenseListPage.cellTitle.element.label == "pizza", "Expense name should be 'steak and wine'")
+        XCTAssert(ExpenseListPage.cellSubTitle.element.label == cellSubTitleLabel, "Expense cell subTitle should reflect test data amount and date")
     }
     
     //MARK: - Helper functions

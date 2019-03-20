@@ -436,7 +436,9 @@
                             <outlet property="delegate" destination="rQh-XF-GUC" id="ITh-Ze-9rg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="dJr-Xp-iJf"/>
+                    <navigationItem key="navigationItem" title="Title" id="dJr-Xp-iJf">
+                        <barButtonItem key="backBarButtonItem" title="Analyze Expenses" id="uSe-9q-XlS"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MuZ-3Z-F5U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

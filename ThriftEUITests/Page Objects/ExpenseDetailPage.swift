@@ -32,11 +32,11 @@ enum ExpenseDetailPage: String {
         case .categoryLabel, .categoryValueLabel :
             return XCUIApplication().staticTexts[self.rawValue]
         case .monthPickerWheel :
-            return XCUIApplication().pickerWheels[getCurrentMonth()]
+            return XCUIApplication().pickerWheels[getCurrentMonth(dateFormat: "LLLL")]
         case .dayPickerWheel :
             return XCUIApplication().pickerWheels[getCurrentDayOfMonth()]
         case .yearPickerWheel :
-            return XCUIApplication().pickerWheels[getCurrentYear()]
+            return XCUIApplication().pickerWheels[getCurrentYear(dateFormat: "y")]
         }
     }
     
