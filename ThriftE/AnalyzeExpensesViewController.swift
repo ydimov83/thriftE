@@ -22,13 +22,13 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
                 queue: OperationQueue.main) { notification in
                     if self.isViewLoaded {
                         //We only want to update the chart once the Analyze view is already loaded
-                        self.setupChartData()
+                        self.setupPieChartView()
                     }
             }
         }
     }
     var expenses = [Expense]()
-    var categoryTotal = [Double]()
+    var categoryTotals = [Double]()
     var selectedPieChartCategory = ""
     var selectedDateSegment = ""
     var fromDate = Date()
@@ -36,9 +36,12 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     var fetchRequestPredicate = NSPredicate(format: "date <= %@", Date() as CVarArg)
     
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalValueLabel: UILabel!
+    @IBOutlet weak var noExpenseLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-   
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,8 +52,11 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
             fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
         }
-        setupChartData()
+        setupPieChartView()
         pieChartView.delegate = self
+        pieChartView.accessibilityIdentifier = "pieChartView"
+        totalValueLabel.accessibilityIdentifier = "expenseTotalValueLabel"
+        totalLabel.accessibilityIdentifier = "expenseTotalLabel"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +64,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         //Deselect the previously selected pie chart slice when coming back to the screen
         pieChartView.highlightValue(nil)
     }
- 
+    
     //MARK: - Actions
     @IBAction func segmentedControlIndexChanged(_ sender: Any) {
         //TODO: - The from/toDate params should just be passed into this method for easier readability? That also might help with unit testing?
@@ -101,11 +107,11 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         print("from: \(fromDate) to: \(toDate)")
         //Predicate used in fetchRequest will change based on selected segment so we need to setup chart data again
         fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
-        setupChartData()
+        setupPieChartView()
     }
     
     //MARK: - Chart Setup
-    func setupChartData() {
+    func setupPieChartView() {
         let entity = Expense.entity()
         let fetchRequest = NSFetchRequest<Expense>()
         fetchRequest.entity = entity
@@ -115,34 +121,43 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         
         calculateTotals()
         
-        let dataSet =  PieChartDataSet(values: [], label: "")
-        
-        var i = 0
-        //Need to enumerate through all category totals and only get ones that have values
-        ExpenseCategories.allCases.forEach {_ in
-            if categoryTotal[i] > 0.00 {
-                let label = getCategoryNameFromHashValue(hashValue: i).rawValue
-                print("Category total is: \(categoryTotal[i])")
-                let value = (categoryTotal[i])
-                let pieChartDataEntry = PieChartDataEntry(value: value, label: label)
-                dataSet.append(pieChartDataEntry)
+        if !totalValueLabel.isHidden {
+            //If total value is hidden it means we have no data to show, hide the pie view
+            pieChartView.isHidden = false
+            noExpenseLabel.isHidden = true
+            
+            let dataSet =  PieChartDataSet(values: [], label: "")
+            
+            var i = 0
+            //Need to enumerate through all category totals and only get ones that have values
+            ExpenseCategories.allCases.forEach {_ in
+                if categoryTotals[i] > 0.00 {
+                    let label = getCategoryNameFromHashValue(hashValue: i).rawValue
+                    print("Category total is: \(categoryTotals[i])")
+                    let value = (categoryTotals[i])
+                    let pieChartDataEntry = PieChartDataEntry(value: value, label: label)
+                    dataSet.append(pieChartDataEntry)
+                }
+                i += 1
             }
-            i += 1
+            dataSet.colors = ChartColorTemplates.pastel()
+            dataSet.valueColors = [NSUIColor.white]
+            
+            let data = PieChartData(dataSet: dataSet)
+            pieChartView.data = data
+            
+            pieChartView.holeColor = UIColor.black
+            pieChartView.chartDescription?.text = "Totals by category"
+            pieChartView.chartDescription?.textAlign = .right
+            pieChartView.chartDescription?.textColor = UIColor.white
+            pieChartView.legend.textColor = UIColor.white
+            
+            //This must stay at end of function
+            pieChartView.notifyDataSetChanged()
+        } else {
+            pieChartView.isHidden = true
+            noExpenseLabel.isHidden = false
         }
-        dataSet.colors = ChartColorTemplates.pastel()
-        dataSet.valueColors = [NSUIColor.white]
-        
-        let data = PieChartData(dataSet: dataSet)
-        pieChartView.data = data
-        
-        pieChartView.holeColor = UIColor.black
-        pieChartView.chartDescription?.text = "Totals by category"
-        pieChartView.chartDescription?.textAlign = .right
-        pieChartView.chartDescription?.textColor = UIColor.white
-        pieChartView.legend.textColor = UIColor.white
-        
-        //This must stay at end of function
-        pieChartView.notifyDataSetChanged()
     }
     
     //MARK: - Helper Methods
@@ -150,7 +165,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         //First zero out totals
         var catIndex: Int?
         var total: Double = 0.00
-        categoryTotal =  [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+        categoryTotals =  [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
         
         for expense in expenses {
             total += expense.amount
@@ -162,13 +177,21 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
                     catIndex = getHashValueFromCategoryName(category: $0)
                 }
             }
-            categoryTotal[catIndex!] += expense.amount
-            print("categoryTotal for \(expense.category) is: \(categoryTotal[catIndex!])")
+            categoryTotals[catIndex!] += expense.amount
+            print("categoryTotal for \(expense.category) is: \(categoryTotals[catIndex!])")
         }
-        totalLabel.text = "\(total)"
-        print("das total is: \(total)")
+        if total > 0 {
+            totalLabel.isHidden = false
+            totalValueLabel.isHidden = false
+            totalValueLabel.text = "\(total)"
+            print("das total is: \(total)")
+        } else {
+            totalLabel.isHidden = true
+            totalValueLabel.isHidden = true
+        }
+        
     }
- 
+    
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FilteredExpenseList" {

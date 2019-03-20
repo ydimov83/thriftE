@@ -46,6 +46,10 @@ enum ExpenseDetailPage: String {
  Test helper to populate expense detail page, taps the page's 'Done' button when finished.
  - Parameter name: Enter the expense name
  - Parameter amount: Enter the expense amount
+ - Parameter month: Enter the month value for this expense
+ - Parameter day: Enter the day value for this expense
+ - Parameter year: Enter the year value for this expense
+ - Parameter category: Enter the category value for this expense
 */
 func fillExpenseDetailTestDataAndTapDone(name: String, amount: String, month: String, day: String, year: String, category: XCUIElement) {
     //Set name
