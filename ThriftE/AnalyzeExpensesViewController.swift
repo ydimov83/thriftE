@@ -37,7 +37,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var totalValueLabel: UILabel!
-    @IBOutlet weak var noExpenseLabel: UILabel!
+    @IBOutlet weak var noExpensesLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
@@ -57,6 +57,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         pieChartView.accessibilityIdentifier = "pieChartView"
         totalValueLabel.accessibilityIdentifier = "expenseTotalValueLabel"
         totalLabel.accessibilityIdentifier = "expenseTotalLabel"
+        noExpensesLabel.accessibilityIdentifier = "noExpensesLabel"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -124,7 +125,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         if !totalValueLabel.isHidden {
             //If total value is hidden it means we have no data to show, hide the pie view
             pieChartView.isHidden = false
-            noExpenseLabel.isHidden = true
+            noExpensesLabel.isHidden = true
             
             let dataSet =  PieChartDataSet(values: [], label: "")
             
@@ -156,7 +157,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             pieChartView.notifyDataSetChanged()
         } else {
             pieChartView.isHidden = true
-            noExpenseLabel.isHidden = false
+            noExpensesLabel.isHidden = false
         }
     }
     

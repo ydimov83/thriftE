@@ -380,7 +380,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Analyze Expenses" id="36J-Y4-TmE"/>
                     <connections>
-                        <outlet property="noExpenseLabel" destination="Lk7-mc-GyZ" id="exl-RP-Vbq"/>
+                        <outlet property="noExpensesLabel" destination="Lk7-mc-GyZ" id="exl-RP-Vbq"/>
                         <outlet property="pieChartView" destination="Sik-UQ-VbW" id="EsC-U2-Jvg"/>
                         <outlet property="segmentedControl" destination="qrG-sK-75K" id="cQ4-xG-S4A"/>
                         <outlet property="totalLabel" destination="zOc-n1-YX8" id="TLj-z1-TkD"/>
