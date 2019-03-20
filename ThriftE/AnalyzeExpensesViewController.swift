@@ -28,7 +28,6 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         }
     }
     var expenses = [Expense]()
-    var total = 0.00
     var categoryTotal = [Double]()
     var selectedPieChartCategory = ""
     var selectedDateSegment = ""
@@ -39,12 +38,9 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-//    @IBOutlet weak var collectionView: UICollectionView!
    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        collectionView.dataSource = self  uncomment when implementing colleciton view
-//        collectionView.delegate = self uncomment when implementing collection view
         
         if selectedDateSegment == "" {
             //If selectedDateSegment has no value then it means it's the first time user sees Analyze screen so segmentedControlIndexChanged() has not run yet, set category to Today and predicate accordingly
@@ -62,24 +58,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         //Deselect the previously selected pie chart slice when coming back to the screen
         pieChartView.highlightValue(nil)
     }
-    
-    
-   
-        //TODO: Implement collectionView delegate methods, add , UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  to class declaration. Also unhide collectionview from storyboard
-//    //MARK: - Collection View
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 3
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCollectionViewCell", for: indexPath) as! DateCollectionViewCell
-//        cell.dateLabelText = dateStrings[indexPath.row]
-//        cell.dateLabel.textColor = UIColor.black
-//
-//        return cell
-//    }
-    
-    
+ 
     //MARK: - Actions
     @IBAction func segmentedControlIndexChanged(_ sender: Any) {
         //TODO: - The from/toDate params should just be passed into this method for easier readability? That also might help with unit testing?
@@ -124,16 +103,6 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
         setupChartData()
     }
-    
-    //TODO: Implement collectionView buttons, also unhide them from storyboard
-//    @IBAction func leftButton(_ sender: UIButton) {
-//        //        collectionView.beginInteractiveMovementForItem(at: <#T##IndexPath#>)
-//    }
-//
-//    @IBAction func rightButton(_ sender: UIButton) {
-//
-//    }
-
     
     //MARK: - Chart Setup
     func setupChartData() {
@@ -180,7 +149,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     func calculateTotals() {
         //First zero out totals
         var catIndex: Int?
-        total = 0.00
+        var total: Double = 0.00
         categoryTotal =  [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
         
         for expense in expenses {

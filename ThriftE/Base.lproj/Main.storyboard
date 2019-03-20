@@ -349,91 +349,26 @@
                                     <action selector="segmentedControlIndexChanged:" destination="v3n-qS-wSp" eventType="valueChanged" id="0He-22-xAt"/>
                                 </connections>
                             </segmentedControl>
-                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BKi-4V-sXG">
-                                <rect key="frame" x="49" y="108" width="295" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="M48-JT-0Ks">
-                                    <size key="itemSize" width="377" height="40"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DateCollectionViewCell" id="kTs-wH-uhJ" customClass="DateCollectionViewCell" customModule="ThriftE" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="377" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="377" height="40"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VU2-fY-olZ">
-                                                    <rect key="frame" x="76" y="12" width="100" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="b8K-4C-1Qj"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="VU2-fY-olZ" firstAttribute="centerY" secondItem="kTs-wH-uhJ" secondAttribute="centerY" id="4zZ-U4-mtR"/>
-                                            <constraint firstItem="VU2-fY-olZ" firstAttribute="leading" secondItem="kTs-wH-uhJ" secondAttribute="leadingMargin" constant="68" id="BlD-Ag-M9W"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="dateLabel" destination="VU2-fY-olZ" id="zQa-dd-khY"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTk-8Q-2wy">
-                                <rect key="frame" x="9" y="108" width="30" height="34"/>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
-                                <state key="normal" title="&lt;">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="leftButton:" destination="v3n-qS-wSp" eventType="touchUpInside" id="zj5-y6-63a"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQm-UT-HP7">
-                                <rect key="frame" x="354" y="108" width="30" height="34"/>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
-                                <state key="normal" title="&gt;"/>
-                                <connections>
-                                    <action selector="rightButton:" destination="v3n-qS-wSp" eventType="touchUpInside" id="hv7-xe-GGJ"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Sik-UQ-VbW" firstAttribute="leading" secondItem="zOc-n1-YX8" secondAttribute="leading" id="0dP-tm-Smh"/>
-                            <constraint firstItem="FTk-8Q-2wy" firstAttribute="top" secondItem="hCS-Yo-U69" secondAttribute="top" constant="44" id="1Sx-yz-xOn"/>
                             <constraint firstItem="zOc-n1-YX8" firstAttribute="top" secondItem="qrG-sK-75K" secondAttribute="bottom" constant="56" id="2xV-U9-TkO"/>
                             <constraint firstItem="hCS-Yo-U69" firstAttribute="bottom" secondItem="Sik-UQ-VbW" secondAttribute="bottom" constant="17" id="61g-6h-t8m"/>
                             <constraint firstItem="zOc-n1-YX8" firstAttribute="leading" secondItem="hCS-Yo-U69" secondAttribute="leading" constant="16" id="C6i-Yh-rSn"/>
-                            <constraint firstItem="PQm-UT-HP7" firstAttribute="leading" secondItem="BKi-4V-sXG" secondAttribute="trailing" constant="10" id="Crj-LS-QJ3"/>
-                            <constraint firstItem="FTk-8Q-2wy" firstAttribute="leading" secondItem="hCS-Yo-U69" secondAttribute="leading" constant="9" id="Csr-1f-H15"/>
                             <constraint firstItem="Sik-UQ-VbW" firstAttribute="centerX" secondItem="qrG-sK-75K" secondAttribute="centerX" id="HmG-Wj-cm8"/>
                             <constraint firstItem="8vi-Jc-dAo" firstAttribute="top" secondItem="qrG-sK-75K" secondAttribute="bottom" constant="56" id="KcD-fU-ZY8"/>
-                            <constraint firstItem="PQm-UT-HP7" firstAttribute="top" secondItem="hCS-Yo-U69" secondAttribute="top" constant="44" id="M9M-RQ-Gnd"/>
                             <constraint firstItem="qrG-sK-75K" firstAttribute="top" secondItem="hCS-Yo-U69" secondAttribute="top" constant="8" id="RrC-Vi-M3T"/>
-                            <constraint firstItem="PQm-UT-HP7" firstAttribute="trailing" secondItem="hCS-Yo-U69" secondAttribute="trailing" constant="9" id="Ru5-FS-SH0"/>
                             <constraint firstItem="8vi-Jc-dAo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zOc-n1-YX8" secondAttribute="trailing" constant="100" id="S7R-4W-wov"/>
                             <constraint firstItem="Sik-UQ-VbW" firstAttribute="top" secondItem="8vi-Jc-dAo" secondAttribute="bottom" constant="29" id="cmE-S9-sZv"/>
-                            <constraint firstItem="8vi-Jc-dAo" firstAttribute="top" secondItem="BKi-4V-sXG" secondAttribute="bottom" constant="8" id="dMx-iG-Scj"/>
                             <constraint firstItem="Sik-UQ-VbW" firstAttribute="top" secondItem="zOc-n1-YX8" secondAttribute="bottom" constant="29" id="iw2-0U-yg8"/>
                             <constraint firstItem="hCS-Yo-U69" firstAttribute="trailing" secondItem="8vi-Jc-dAo" secondAttribute="trailing" constant="38" id="lC2-en-vkO"/>
-                            <constraint firstItem="BKi-4V-sXG" firstAttribute="top" secondItem="qrG-sK-75K" secondAttribute="bottom" constant="8" id="mhe-Fv-eFd"/>
-                            <constraint firstItem="BKi-4V-sXG" firstAttribute="leading" secondItem="FTk-8Q-2wy" secondAttribute="trailing" constant="10" id="tPW-az-Vjp"/>
                             <constraint firstItem="qrG-sK-75K" firstAttribute="centerX" secondItem="aMJ-Vs-fyL" secondAttribute="centerX" id="zUz-Ow-reL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hCS-Yo-U69"/>
                     </view>
                     <navigationItem key="navigationItem" title="Analyze Expenses" id="36J-Y4-TmE"/>
                     <connections>
-                        <outlet property="collectionView" destination="BKi-4V-sXG" id="bRm-5k-V9M"/>
                         <outlet property="pieChartView" destination="Sik-UQ-VbW" id="EsC-U2-Jvg"/>
                         <outlet property="segmentedControl" destination="qrG-sK-75K" id="cQ4-xG-S4A"/>
                         <outlet property="totalLabel" destination="8vi-Jc-dAo" id="w55-dt-yCM"/>
