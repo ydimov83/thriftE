@@ -19,6 +19,15 @@ enum AnalyzeExpensesPage: String {
     case week = "Week"
     case month = "Month"
     case year = "Year"
+    case noCategory = "No Category"
+    case car = "Car"
+    case groceries = "Groceries"
+    case health = "Health"
+    case house = "House"
+    case relaxation = "Relaxation"
+    case restaurant = "Restaurant"
+    case services = "Services"
+    case travel = "Travel"
     
     var element: XCUIElement {
         switch self {
@@ -30,6 +39,10 @@ enum AnalyzeExpensesPage: String {
             return XCUIApplication().navigationBars.firstMatch.otherElements.firstMatch
         case .pieChartView :
             return XCUIApplication().otherElements[self.rawValue]
+        case .noCategory, .car, .groceries, .health, .house, .relaxation,
+             .restaurant, .services, .travel :
+            //The pie chart labels are a grouped as an "other" element under the piechart element, so query below looks a bit messy but it does only search labels in the piechart which is the desired result
+            return XCUIApplication().otherElements["pieChartView"].otherElements.containing(NSPredicate(format: "label BEGINSWITH %@", self.rawValue as CVarArg)).element
         }
     }
 }

@@ -8,18 +8,20 @@
 
 import XCTest
 
-func getCurrentMonth() -> String {
+// Use "LLLL" for full month name i.e. "January"
+func getCurrentMonth(dateFormat: String) -> String {
     let now = Date()
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "LLLL"
+    dateFormatter.dateFormat = dateFormat
     let nameOfMonth = dateFormatter.string(from: now)
     return nameOfMonth
 }
 
-func getCurrentYear() -> String {
+//Use "y" to get 4 digit year
+func getCurrentYear(dateFormat: String) -> String {
     let now = Date()
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "y"
+    dateFormatter.dateFormat = dateFormat
     let currentYear = dateFormatter.string(from: now)
     return currentYear
 }

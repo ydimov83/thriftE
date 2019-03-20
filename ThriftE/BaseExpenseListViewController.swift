@@ -60,6 +60,8 @@ class BaseExpenseListViewController: UITableViewController {
         
         cell.textLabel?.textColor = UIColor.white
         cell.detailTextLabel?.textColor = UIColor.lightGray
+        cell.textLabel?.accessibilityIdentifier = "expenseCellTitle"
+        cell.detailTextLabel?.accessibilityIdentifier = "expenseCellSubtitle"
         
         return cell
     }

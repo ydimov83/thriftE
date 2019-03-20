@@ -13,12 +13,15 @@ enum FilteredExpenseListPage: String {
     case cellTitle = "expenseCellTitle"
     case cellSubTitle = "expenseCellSubtitle"
     case navBarTitle = "categoryValue"
+    case backButton = "Analyze Expenses"
     var element: XCUIElement {
         switch self {
         case .cellTitle, .cellSubTitle :
             return XCUIApplication().staticTexts[self.rawValue]
         case .navBarTitle :
             return XCUIApplication().navigationBars.firstMatch.otherElements.firstMatch
+        case .backButton :
+            return XCUIApplication().navigationBars.firstMatch.buttons[self.rawValue]
         }
     }
 }
