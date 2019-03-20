@@ -11,6 +11,10 @@
 		9403F944222DE8DE00E6159D /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9403F942222DE8DE00E6159D /* Expense+CoreDataClass.swift */; };
 		9403F945222DE8DE00E6159D /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9403F943222DE8DE00E6159D /* Expense+CoreDataProperties.swift */; };
 		9413D3842225B38E00040243 /* ExpenseCategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9413D3832225B38E00040243 /* ExpenseCategoryPickerViewController.swift */; };
+		942355F922428D7200AC1036 /* FilteredExpenseListPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942355F822428D7200AC1036 /* FilteredExpenseListPage.swift */; };
+		942355FB22428E1600AC1036 /* AnalyzeExpensesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942355FA22428E1600AC1036 /* AnalyzeExpensesPage.swift */; };
+		942355FD22428EE400AC1036 /* AnalyzeExpensesPageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942355FC22428EE400AC1036 /* AnalyzeExpensesPageTests.swift */; };
+		942355FF2242940E00AC1036 /* TabBarPageObect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942355FE2242940E00AC1036 /* TabBarPageObect.swift */; };
 		9425855A223E9F490054863F /* FilteredExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94258559223E9F490054863F /* FilteredExpenseListViewController.swift */; };
 		9425855C223EB1C80054863F /* BaseExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425855B223EB1C80054863F /* BaseExpenseListViewController.swift */; };
 		94309B2D2234842100B70232 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949434CB2234834100B834DE /* Foundation.framework */; };
@@ -69,6 +73,10 @@
 		9403F942222DE8DE00E6159D /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9403F943222DE8DE00E6159D /* Expense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9413D3832225B38E00040243 /* ExpenseCategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryPickerViewController.swift; sourceTree = "<group>"; };
+		942355F822428D7200AC1036 /* FilteredExpenseListPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredExpenseListPage.swift; sourceTree = "<group>"; };
+		942355FA22428E1600AC1036 /* AnalyzeExpensesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeExpensesPage.swift; sourceTree = "<group>"; };
+		942355FC22428EE400AC1036 /* AnalyzeExpensesPageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeExpensesPageTests.swift; sourceTree = "<group>"; };
+		942355FE2242940E00AC1036 /* TabBarPageObect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPageObect.swift; sourceTree = "<group>"; };
 		94258559223E9F490054863F /* FilteredExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredExpenseListViewController.swift; sourceTree = "<group>"; };
 		9425855B223EB1C80054863F /* BaseExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseExpenseListViewController.swift; sourceTree = "<group>"; };
 		94309B2E22358B3E00B70232 /* ExpenseListPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListPage.swift; sourceTree = "<group>"; };
@@ -148,9 +156,12 @@
 		94309B3222358F5A00B70232 /* Page Objects */ = {
 			isa = PBXGroup;
 			children = (
-				94309B2E22358B3E00B70232 /* ExpenseListPage.swift */,
-				94309B332235953500B70232 /* ExpenseDetailPage.swift */,
+				942355FA22428E1600AC1036 /* AnalyzeExpensesPage.swift */,
 				94309B4622380DDE00B70232 /* ExpenseCategoryPage.swift */,
+				94309B332235953500B70232 /* ExpenseDetailPage.swift */,
+				94309B2E22358B3E00B70232 /* ExpenseListPage.swift */,
+				942355F822428D7200AC1036 /* FilteredExpenseListPage.swift */,
+				942355FE2242940E00AC1036 /* TabBarPageObect.swift */,
 			);
 			path = "Page Objects";
 			sourceTree = "<group>";
@@ -158,10 +169,11 @@
 		94309B3D22369E4000B70232 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				943170C721E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift */,
-				94309B3022358F3300B70232 /* ExpenseListPageTests.swift */,
+				942355FC22428EE400AC1036 /* AnalyzeExpensesPageTests.swift */,
 				94309B4822381B3300B70232 /* ExpenseCategoryPageTests.swift */,
 				94309B37223597D800B70232 /* ExpenseDetailPageTests.swift */,
+				94309B3022358F3300B70232 /* ExpenseListPageTests.swift */,
+				943170C721E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -540,7 +552,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				94309B2F22358B3E00B70232 /* ExpenseListPage.swift in Sources */,
+				942355FF2242940E00AC1036 /* TabBarPageObect.swift in Sources */,
+				942355FD22428EE400AC1036 /* AnalyzeExpensesPageTests.swift in Sources */,
 				94309B4922381B3300B70232 /* ExpenseCategoryPageTests.swift in Sources */,
+				942355FB22428E1600AC1036 /* AnalyzeExpensesPage.swift in Sources */,
+				942355F922428D7200AC1036 /* FilteredExpenseListPage.swift in Sources */,
 				943170C821E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift in Sources */,
 				94309B342235953500B70232 /* ExpenseDetailPage.swift in Sources */,
 				94309B3122358F3300B70232 /* ExpenseListPageTests.swift in Sources */,

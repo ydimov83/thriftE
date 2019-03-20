@@ -321,18 +321,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vi-Jc-dAo">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No expenses for the selected date range" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lk7-mc-GyZ">
+                                <rect key="frame" x="10" y="324.5" width="355" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vi-Jc-dAo">
                                 <rect key="frame" x="295" y="156" width="42" height="20"/>
+                                <accessibility key="accessibilityConfiguration" identifier="expenseTotalValueLabel"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sik-UQ-VbW" customClass="PieChartView" customModule="Charts">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sik-UQ-VbW" customClass="PieChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="205" width="343" height="396"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="pieChartView"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Expense Total: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOc-n1-YX8">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Expense Total: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOc-n1-YX8">
                                 <rect key="frame" x="16" y="156" width="116" height="20"/>
+                                <accessibility key="accessibilityConfiguration" identifier="expenseTotalLabel"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -353,25 +362,29 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Sik-UQ-VbW" firstAttribute="leading" secondItem="zOc-n1-YX8" secondAttribute="leading" id="0dP-tm-Smh"/>
+                            <constraint firstItem="Lk7-mc-GyZ" firstAttribute="centerY" secondItem="aMJ-Vs-fyL" secondAttribute="centerY" id="2qA-lk-pzV"/>
                             <constraint firstItem="zOc-n1-YX8" firstAttribute="top" secondItem="qrG-sK-75K" secondAttribute="bottom" constant="56" id="2xV-U9-TkO"/>
-                            <constraint firstItem="hCS-Yo-U69" firstAttribute="bottom" secondItem="Sik-UQ-VbW" secondAttribute="bottom" constant="17" id="61g-6h-t8m"/>
                             <constraint firstItem="zOc-n1-YX8" firstAttribute="leading" secondItem="hCS-Yo-U69" secondAttribute="leading" constant="16" id="C6i-Yh-rSn"/>
                             <constraint firstItem="Sik-UQ-VbW" firstAttribute="centerX" secondItem="qrG-sK-75K" secondAttribute="centerX" id="HmG-Wj-cm8"/>
                             <constraint firstItem="8vi-Jc-dAo" firstAttribute="top" secondItem="qrG-sK-75K" secondAttribute="bottom" constant="56" id="KcD-fU-ZY8"/>
+                            <constraint firstItem="hCS-Yo-U69" firstAttribute="bottom" secondItem="Sik-UQ-VbW" secondAttribute="bottom" constant="17" id="LH6-mt-AXS"/>
                             <constraint firstItem="qrG-sK-75K" firstAttribute="top" secondItem="hCS-Yo-U69" secondAttribute="top" constant="8" id="RrC-Vi-M3T"/>
                             <constraint firstItem="8vi-Jc-dAo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zOc-n1-YX8" secondAttribute="trailing" constant="100" id="S7R-4W-wov"/>
-                            <constraint firstItem="Sik-UQ-VbW" firstAttribute="top" secondItem="8vi-Jc-dAo" secondAttribute="bottom" constant="29" id="cmE-S9-sZv"/>
-                            <constraint firstItem="Sik-UQ-VbW" firstAttribute="top" secondItem="zOc-n1-YX8" secondAttribute="bottom" constant="29" id="iw2-0U-yg8"/>
+                            <constraint firstItem="Sik-UQ-VbW" firstAttribute="top" secondItem="8vi-Jc-dAo" secondAttribute="bottom" constant="29" id="XJT-5r-FYU"/>
                             <constraint firstItem="hCS-Yo-U69" firstAttribute="trailing" secondItem="8vi-Jc-dAo" secondAttribute="trailing" constant="38" id="lC2-en-vkO"/>
+                            <constraint firstItem="hCS-Yo-U69" firstAttribute="trailing" secondItem="Lk7-mc-GyZ" secondAttribute="trailing" constant="10" id="rZe-BZ-tqE"/>
+                            <constraint firstItem="Lk7-mc-GyZ" firstAttribute="leading" secondItem="hCS-Yo-U69" secondAttribute="leading" constant="10" id="xdF-qE-rnA"/>
                             <constraint firstItem="qrG-sK-75K" firstAttribute="centerX" secondItem="aMJ-Vs-fyL" secondAttribute="centerX" id="zUz-Ow-reL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hCS-Yo-U69"/>
                     </view>
                     <navigationItem key="navigationItem" title="Analyze Expenses" id="36J-Y4-TmE"/>
                     <connections>
+                        <outlet property="noExpensesLabel" destination="Lk7-mc-GyZ" id="exl-RP-Vbq"/>
                         <outlet property="pieChartView" destination="Sik-UQ-VbW" id="EsC-U2-Jvg"/>
                         <outlet property="segmentedControl" destination="qrG-sK-75K" id="cQ4-xG-S4A"/>
-                        <outlet property="totalLabel" destination="8vi-Jc-dAo" id="w55-dt-yCM"/>
+                        <outlet property="totalLabel" destination="zOc-n1-YX8" id="TLj-z1-TkD"/>
+                        <outlet property="totalValueLabel" destination="8vi-Jc-dAo" id="w55-dt-yCM"/>
                         <segue destination="rQh-XF-GUC" kind="show" identifier="FilteredExpenseList" id="sOK-Xn-hez"/>
                     </connections>
                 </viewController>
