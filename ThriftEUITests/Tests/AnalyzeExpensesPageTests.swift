@@ -13,12 +13,6 @@ class AnalyzeExpensesPageTests: ThriftEUIBaseTestCase {
     let day = getCurrentDayOfMonth()
     let year = getCurrentYear(dateFormat: "y")
     
-    override func setUp() {
-         super.setUp()
-        let app = XCUIApplication()
-        app.launchArguments.append("--uitesting")
-    }
-
     func testUIWhenUserHasNoExpenseData() {
         TabBarPageObject.analyze.element.tap()
         XCTAssert(AnalyzeExpensesPage.today.element.isSelected, "User should be on the 'Today' segment")

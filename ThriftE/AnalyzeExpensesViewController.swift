@@ -40,6 +40,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     @IBOutlet weak var noExpensesLabel: UILabel!
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var calendarButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -47,10 +48,12 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         
         if selectedDateSegment == "" {
             //If selectedDateSegment has no value then it means it's the first time user sees Analyze screen so segmentedControlIndexChanged() has not run yet, set category to Today and predicate accordingly
-            selectedDateSegment = "Today"
+            selectedDateSegment = "Day"
             fromDate = Calendar.current.startOfDay(for: Date())
             toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
             fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
+            calendarButton.isHidden = false
+            calendarButton.setTitle("Today", for: .normal)
         }
         setupPieChartView()
         pieChartView.delegate = self
@@ -79,14 +82,16 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         
         switch  segmentedControl.selectedSegmentIndex {
         case 0:
-            selectedDateSegment = "Today"
+            selectedDateSegment = "Day"
             fromDate = calendar.startOfDay(for: today)
             toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
+            calendarButton.isHidden = false
         case 1:
             selectedDateSegment = "Week"
             //I'm using Monday as the start of the week and Sunday as the end of the week
             fromDate = calendar.startOfDay(for: Date.today().previous(.monday, considerToday: true))
             toDate = Date.today().next(.monday)
+            calendarButton.isHidden = true
         case 2:
             selectedDateSegment = "Month"
             dateComponents.year = currentYear
@@ -94,21 +99,27 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             fromDate = calendar.date(from: dateComponents)!
             dateComponents.month = dateComponents.month! + 1
             toDate = calendar.date(from: dateComponents)!
+            calendarButton.isHidden = true
         case 3:
             selectedDateSegment = "Year"
             dateComponents.year = currentYear
             fromDate = calendar.date(from: dateComponents)!
             dateComponents.year = dateComponents.year! + 1
             toDate = calendar.date(from: dateComponents)!
+            calendarButton.isHidden = true
         default:
-            selectedDateSegment = "Today"
+            selectedDateSegment = "Day"
             fromDate = calendar.startOfDay(for: today)
             toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
+            calendarButton.isHidden = true
         }
         print("from: \(fromDate) to: \(toDate)")
         //Predicate used in fetchRequest will change based on selected segment so we need to setup chart data again
         fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
         setupPieChartView()
+    }
+    
+    @IBAction func calendarButtonActioned(_ sender: UIButton) {
     }
     
     //MARK: - Chart Setup
@@ -202,6 +213,10 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             controller.fromDate = fromDate
             controller.toDate = toDate
         }
+        if segue.identifier == "ShowCalendar" {
+            let controller = segue.destination as! CalendarViewController
+            controller.delegate = self
+        }
     }
     //MARK: - ChartView Delegate Implementation
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
@@ -210,4 +225,17 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         performSegue(withIdentifier: "FilteredExpenseList", sender: self)
     }
     
+}
+
+//MARK:
+extension AnalyzeExpensesViewController: CalendarViewControllerDelegate {
+    func calendarViewController(_ controller: CalendarViewController, didPickDate date: Date) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = DateFormatter.Style.short
+        fromDate = date
+        toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
+        calendarButton.setTitle(formatter.string(from: fromDate), for: .normal)
+        fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
+        setupPieChartView()
+    }
 }
