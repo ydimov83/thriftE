@@ -12,6 +12,12 @@ class AnalyzeExpensesPageTests: ThriftEUIBaseTestCase {
     let month = getCurrentMonth(dateFormat: "LLLL")
     let day = getCurrentDayOfMonth()
     let year = getCurrentYear(dateFormat: "y")
+    
+    override func setUp() {
+         super.setUp()
+        let app = XCUIApplication()
+        app.launchArguments.append("--uitesting")
+    }
 
     func testUIWhenUserHasNoExpenseData() {
         TabBarPageObject.analyze.element.tap()

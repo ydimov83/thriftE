@@ -15,6 +15,7 @@
 		942355FB22428E1600AC1036 /* AnalyzeExpensesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942355FA22428E1600AC1036 /* AnalyzeExpensesPage.swift */; };
 		942355FD22428EE400AC1036 /* AnalyzeExpensesPageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942355FC22428EE400AC1036 /* AnalyzeExpensesPageTests.swift */; };
 		942355FF2242940E00AC1036 /* TabBarPageObect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942355FE2242940E00AC1036 /* TabBarPageObect.swift */; };
+		942356012245356300AC1036 /* XCUIElement+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942356002245356200AC1036 /* XCUIElement+Helpers.swift */; };
 		9425855A223E9F490054863F /* FilteredExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94258559223E9F490054863F /* FilteredExpenseListViewController.swift */; };
 		9425855C223EB1C80054863F /* BaseExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425855B223EB1C80054863F /* BaseExpenseListViewController.swift */; };
 		94309B2D2234842100B70232 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949434CB2234834100B834DE /* Foundation.framework */; };
@@ -77,6 +78,7 @@
 		942355FA22428E1600AC1036 /* AnalyzeExpensesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeExpensesPage.swift; sourceTree = "<group>"; };
 		942355FC22428EE400AC1036 /* AnalyzeExpensesPageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeExpensesPageTests.swift; sourceTree = "<group>"; };
 		942355FE2242940E00AC1036 /* TabBarPageObect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPageObect.swift; sourceTree = "<group>"; };
+		942356002245356200AC1036 /* XCUIElement+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Helpers.swift"; sourceTree = "<group>"; };
 		94258559223E9F490054863F /* FilteredExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredExpenseListViewController.swift; sourceTree = "<group>"; };
 		9425855B223EB1C80054863F /* BaseExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseExpenseListViewController.swift; sourceTree = "<group>"; };
 		94309B2E22358B3E00B70232 /* ExpenseListPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListPage.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			children = (
 				94309B4022369E6900B70232 /* Springboard.swift */,
 				94309B442237F6B200B70232 /* DateFormattingFunctions.swift */,
+				942356002245356200AC1036 /* XCUIElement+Helpers.swift */,
 			);
 			path = "Test Helpers";
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				943170C821E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift in Sources */,
 				94309B342235953500B70232 /* ExpenseDetailPage.swift in Sources */,
 				94309B3122358F3300B70232 /* ExpenseListPageTests.swift in Sources */,
+				942356012245356300AC1036 /* XCUIElement+Helpers.swift in Sources */,
 				94309B38223597D800B70232 /* ExpenseDetailPageTests.swift in Sources */,
 				94309B452237F6B200B70232 /* DateFormattingFunctions.swift in Sources */,
 				94309B4122369E6900B70232 /* Springboard.swift in Sources */,
