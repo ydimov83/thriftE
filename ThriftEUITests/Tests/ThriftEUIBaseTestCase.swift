@@ -14,6 +14,7 @@ class ThriftEUIBaseTestCase: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        app.launchArguments.append("IS_RUNNING_UITEST")
 
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
@@ -28,23 +29,5 @@ class ThriftEUIBaseTestCase: XCTestCase {
         Springboard.deleteMyApp()
         super.tearDown()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-}
-
-extension XCUIElement {
-    func clearAndTypeText(text: String) {
-        if let charCount = (self.value as? String)?.count {
-            for i in 0..<charCount {
-                XCUIApplication().keys["delete"].tap()
-            }
-        }
-    }
-    
-    func clearText() {
-        if let charCount = (self.value as? String)?.count {
-            for i in 0..<charCount {
-                XCUIApplication().keys["delete"].tap()
-            }
-        }
     }
 }
