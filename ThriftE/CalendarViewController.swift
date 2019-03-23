@@ -21,8 +21,14 @@ class CalendarViewController: UIViewController {
     @IBOutlet weak var month: UILabel!
     
     let formatter = DateFormatter()
-    var selectedDate = Date()
+    let outsideMonthColor = UIColor.lightText
+    let monthColor = UIColor.black
+    let selectedMonthColor = UIColor.red
+    let currentDateSelectedViewColor = UIColor.orange
+    
+    var selectedDate: Date?
     weak var delegate: CalendarViewControllerDelegate?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +62,25 @@ class CalendarViewController: UIViewController {
         } else {
             validCell.selectedView.isHidden = true
         }
+        if cellState.date == selectedDate {
+            validCell.selectedView.isHidden = false
+        }
+    }
+    
+    func setCellTextColor(view: JTAppleCell?, cellState: CellState) {
+        guard let validCell = view as? CustomCalendarCell else { return }
+        if cellState.isSelected {
+            validCell.dateLabel.textColor = selectedMonthColor
+        } else {
+            if cellState.dateBelongsTo == .thisMonth {
+                validCell.dateLabel.textColor = monthColor
+            } else {
+                validCell.dateLabel.textColor = outsideMonthColor
+            }
+        }
+        if cellState.date == selectedDate {
+            validCell.dateLabel.textColor = UIColor.orange
+        }
     }
 }
 
@@ -66,9 +91,16 @@ extension CalendarViewController: JTAppleCalendarViewDataSource {
         formatter.timeZone = Calendar.current.timeZone
         formatter.locale = Calendar.current.locale
         
-        let startDate = formatter.date(from: "2019 01 01")!
+        let startDate: Date
+        //If we get a date passed by Analyze controller we should use that to correctly focus the calendar on that month, it should mean user was already switching dates and returning to the calendar
+        if selectedDate != nil {
+            startDate = selectedDate!
+        } else {
+            startDate = Date()
+        }
+        
         let endDate = formatter.date(from: "2025 12 31")!
-        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
+        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 6, calendar: Calendar.current, generateInDates: InDateCellGeneration.forAllMonths, generateOutDates: OutDateCellGeneration.tillEndOfGrid, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: false)
         return parameters
     }
 }
@@ -84,26 +116,25 @@ extension CalendarViewController: JTAppleCalendarViewDelegate {
         
         cell.dateLabel.text = cellState.text
         toggleCellSelected(view: cell, cellState: cellState)
+        setCellTextColor(view: cell, cellState: cellState)
         
         return cell
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         toggleCellSelected(view: cell, cellState: cellState)
+        setCellTextColor(view: cell, cellState: cellState)
         selectedDate = date
-        delegate?.calendarViewController(self, didPickDate: selectedDate)
+        delegate?.calendarViewController(self, didPickDate: selectedDate!)
         navigationController?.popViewController(animated: true)
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         toggleCellSelected(view: cell, cellState: cellState)
-        
+        setCellTextColor(view: cell, cellState: cellState)
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         setupViewsOfCalendar(from: visibleDates)
     }
 }
-
-
-
