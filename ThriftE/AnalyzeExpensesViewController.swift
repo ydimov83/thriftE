@@ -215,6 +215,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         }
         if segue.identifier == "ShowCalendar" {
             let controller = segue.destination as! CalendarViewController
+            controller.selectedDate = fromDate
             controller.delegate = self
         }
     }
