@@ -22,7 +22,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
                 queue: OperationQueue.main) { notification in
                     if self.isViewLoaded {
                         //We only want to update the chart once the Analyze view is already loaded
-                        self.setupPieChartView()
+                        self.updateData()
                     }
             }
         }
@@ -33,6 +33,9 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     var selectedDateSegment = ""
     var fromDate = Date()
     var toDate = Date()
+    let today = Date()
+    var userSelectedDate: Date?
+    let formatter = DateFormatter()
     var fetchRequestPredicate = NSPredicate(format: "date <= %@", Date() as CVarArg)
     
     @IBOutlet weak var totalLabel: UILabel!
@@ -45,17 +48,12 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        formatter.dateStyle = DateFormatter.Style.short
         if selectedDateSegment == "" {
             //If selectedDateSegment has no value then it means it's the first time user sees Analyze screen so segmentedControlIndexChanged() has not run yet, set category to Today and predicate accordingly
             selectedDateSegment = "Day"
-            fromDate = Calendar.current.startOfDay(for: Date())
-            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
-            fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
-            calendarButton.isHidden = false
-            calendarButton.setTitle("Today", for: .normal)
         }
-        setupPieChartView()
+        updateData()
         pieChartView.delegate = self
         pieChartView.accessibilityIdentifier = "pieChartView"
         totalValueLabel.accessibilityIdentifier = "expenseTotalValueLabel"
@@ -71,64 +69,43 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     
     //MARK: - Actions
     @IBAction func segmentedControlIndexChanged(_ sender: Any) {
-        //TODO: - The from/toDate params should just be passed into this method for easier readability? That also might help with unit testing?
-        let today = Date()
-        let calendar = Calendar.current
-        let currentYear = calendar.component(.year, from: today)
-        let currentMonth = calendar.component(.month, from: today)
-        var dateComponents = DateComponents()
-        dateComponents.calendar = calendar
-        dateComponents.timeZone = TimeZone.current
-        
         switch  segmentedControl.selectedSegmentIndex {
         case 0:
             selectedDateSegment = "Day"
-            fromDate = calendar.startOfDay(for: today)
-            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
-            calendarButton.isHidden = false
         case 1:
             selectedDateSegment = "Week"
-            //I'm using Monday as the start of the week and Sunday as the end of the week
-            fromDate = calendar.startOfDay(for: Date.today().previous(.monday, considerToday: true))
-            toDate = Date.today().next(.monday)
-            calendarButton.isHidden = true
         case 2:
             selectedDateSegment = "Month"
-            dateComponents.year = currentYear
-            dateComponents.month = currentMonth
-            fromDate = calendar.date(from: dateComponents)!
-            dateComponents.month = dateComponents.month! + 1
-            toDate = calendar.date(from: dateComponents)!
-            calendarButton.isHidden = true
         case 3:
             selectedDateSegment = "Year"
-            dateComponents.year = currentYear
-            fromDate = calendar.date(from: dateComponents)!
-            dateComponents.year = dateComponents.year! + 1
-            toDate = calendar.date(from: dateComponents)!
-            calendarButton.isHidden = true
         default:
             selectedDateSegment = "Day"
-            fromDate = calendar.startOfDay(for: today)
-            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
-            calendarButton.isHidden = true
         }
-        print("from: \(fromDate) to: \(toDate)")
-        //Predicate used in fetchRequest will change based on selected segment so we need to setup chart data again
-        fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
-        setupPieChartView()
+        updateCalendarButtonState()
+        //Reset from/toDate
+        fromDate = today
+        toDate = today
+        userSelectedDate = nil
+        updateData()
     }
     
     @IBAction func calendarButtonActioned(_ sender: UIButton) {
     }
     
+    @IBAction func leftButtonActioned(_ sender: Any) {
+        userSelectedDate = nil
+        updateData(scrollDirection: "earlier")
+    }
+    @IBAction func rightButtonActioned(_ sender: Any) {
+        userSelectedDate = nil
+        updateData(scrollDirection: "later")
+    }
     //MARK: - Chart Setup
     func setupPieChartView() {
         let entity = Expense.entity()
         let fetchRequest = NSFetchRequest<Expense>()
         fetchRequest.entity = entity
         fetchRequest.predicate = fetchRequestPredicate
-        
         expenses = try! managedObjectContext.fetch(fetchRequest)
         
         calculateTotals()
@@ -163,7 +140,6 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             pieChartView.chartDescription?.textAlign = .right
             pieChartView.chartDescription?.textColor = UIColor.white
             pieChartView.legend.textColor = UIColor.white
-            
             //This must stay at end of function
             pieChartView.notifyDataSetChanged()
         } else {
@@ -204,6 +180,128 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         
     }
     
+    func updateData(scrollDirection: String? = nil) {
+        let calendar = Calendar.current
+        var currentYear = calendar.component(.year, from: today)
+        var currentMonth = calendar.component(.month, from: today)
+        var dateComponents = DateComponents()
+        dateComponents.calendar = calendar
+        dateComponents.timeZone = TimeZone.current
+        
+        switch  selectedDateSegment {
+        case "Day":
+            if userSelectedDate != nil {
+                fromDate = calendar.startOfDay(for: userSelectedDate!)
+                calendarButton.setTitle(formatter.string(from: fromDate), for: .normal)
+            } else {
+                if scrollDirection == "earlier" {
+                    //Means user never launched calendar, will set userSelectedDate now
+                    fromDate = Calendar.current.date(byAdding: .day, value: -1, to: fromDate)!
+                    fromDate = calendar.startOfDay(for: fromDate)
+                    calendarButton.setTitle(formatter.string(from: fromDate), for: .normal)
+                } else if scrollDirection == "later" {
+                    //Means user never launched calendar, will set userSelectedDate now
+                    fromDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
+                    fromDate = calendar.startOfDay(for: fromDate)
+                    calendarButton.setTitle(formatter.string(from: fromDate), for: .normal)
+                } else {
+                    //Default state when first launching screen or Day segment is reselected
+                    fromDate = calendar.startOfDay(for: today)
+                    calendarButton.setTitle("Today", for: .normal)
+                }
+            }
+            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
+            
+        case "Week" :
+            //I'm using Monday as the start of the week and Sunday as the end of the week
+            if userSelectedDate != nil {
+                //Case when user has come back from calendar picker but hasn't used <, > buttons
+                fromDate = calendar.startOfDay(for: userSelectedDate!.previous(.monday, considerToday: true))
+            } else {
+                if scrollDirection == nil {
+                    //Case when user first selects the 'Week' segment
+                    fromDate = calendar.startOfDay(for: today.previous(.monday, considerToday: true))
+                } else if scrollDirection == "earlier" {
+                    //User has used the '<' button
+                    fromDate = calendar.startOfDay(for: fromDate.previous(.monday, considerToday: false))
+                } else if scrollDirection == "later" {
+                    //User has used the '>' button
+                    fromDate = calendar.startOfDay(for: fromDate.next(.monday, considerToday: false))
+                }
+            }
+            toDate = fromDate.next(.monday)
+            let fromString = formatter.string(from: fromDate)
+            //Need to subtract one day from end date to get the proper end date string, otherwise it will include the next Monday
+            let toString = formatter.string(from: calendar.date(byAdding: .day, value: -1, to: toDate)!)
+            calendarButton.setTitle("\(fromString) - \(toString)", for: .normal)
+        case "Month":
+            if userSelectedDate != nil {
+                //Case when user has come back from calendar picker but hasn't used <, > buttons
+                currentYear = calendar.component(.year, from: userSelectedDate!)
+                currentMonth = calendar.component(.month, from: userSelectedDate!)
+                dateComponents.year = currentYear
+                dateComponents.month = currentMonth
+                fromDate = calendar.date(from: dateComponents)!
+                toDate = calendar.date(byAdding: .month, value: 1, to: fromDate)!
+                //Need a temp date in order to avoid mislabeling
+                let buttonDate = calendar.date(bySetting: .day, value: 1, of: fromDate)!
+                calendarButton.setTitle(Date.getMonthNameFromDate(date: buttonDate), for: .normal)
+            } else {
+                if scrollDirection == nil {
+                    //Case when user first selects the 'Week' segment
+                    dateComponents.year = currentYear
+                    dateComponents.month = currentMonth
+                    fromDate = calendar.date(from: dateComponents)!
+                    dateComponents.month = dateComponents.month! + 1
+                    toDate = calendar.date(from: dateComponents)!
+                } else if scrollDirection == "earlier" {
+                    //User has used the '<' button
+                    fromDate = calendar.date(byAdding: .month, value: -1, to: fromDate)!
+                    fromDate = calendar.date(bySetting: .day, value: 1, of: fromDate)!
+                } else if scrollDirection == "later" {
+                    //User has used the '>' button
+                    fromDate = calendar.date(byAdding: .month, value: 1, to: fromDate)!
+                    fromDate = calendar.date(bySetting: .day, value: 1, of: fromDate)!
+                }
+                toDate = calendar.date(byAdding: .month, value: 1, to: fromDate)!
+                calendarButton.setTitle(Date.getMonthNameFromDate(date: fromDate), for: .normal)
+            }
+        case "Year": //Year
+            if scrollDirection != nil {
+                if scrollDirection == "earlier" {
+                    currentYear = calendar.component(.year, from: fromDate) - 1
+                } else if scrollDirection == "later" {
+                    currentYear = calendar.component(.year, from: fromDate) + 1
+                }
+            } else {
+                currentYear = calendar.component(.year, from: today)
+            }
+            dateComponents.year = currentYear
+            fromDate = calendar.date(from: dateComponents)!
+            dateComponents.year = dateComponents.year! + 1
+            toDate = calendar.date(from: dateComponents)!
+            calendarButton.setTitle("\(currentYear)", for: .normal)
+        default: //Day
+            fromDate = calendar.startOfDay(for: today)
+            calendarButton.setTitle("Today", for: .normal)
+            toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
+        }
+        print("from: \(fromDate) to: \(toDate)")
+        //Predicate used in fetchRequest will change based on selected segment so we need to setup chart data again
+        fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
+        setupPieChartView()
+    }
+    
+    func updateCalendarButtonState() {
+        if selectedDateSegment == "Year" {
+            calendarButton.isEnabled = false
+            calendarButton.tintColor = UIColor.lightText
+        } else {
+            calendarButton.isEnabled = true
+            calendarButton.tintColor = tabBarController?.tabBar.tintColor
+        }
+    }
+    
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FilteredExpenseList" {
@@ -215,7 +313,11 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         }
         if segue.identifier == "ShowCalendar" {
             let controller = segue.destination as! CalendarViewController
-            controller.selectedDate = fromDate
+            if userSelectedDate != nil {
+                controller.selectedDate = userSelectedDate
+            } else {
+                controller.selectedDate = fromDate
+            }
             controller.delegate = self
         }
     }
@@ -228,15 +330,10 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     
 }
 
-//MARK:
+//MARK:- CalendarViewController Delegate
 extension AnalyzeExpensesViewController: CalendarViewControllerDelegate {
     func calendarViewController(_ controller: CalendarViewController, didPickDate date: Date) {
-        let formatter = DateFormatter()
-        formatter.dateStyle = DateFormatter.Style.short
-        fromDate = date
-        toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
-        calendarButton.setTitle(formatter.string(from: fromDate), for: .normal)
-        fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
-        setupPieChartView()
+        userSelectedDate = date
+        updateData()
     }
 }
