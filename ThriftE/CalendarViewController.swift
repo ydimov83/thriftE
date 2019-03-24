@@ -44,6 +44,7 @@ class CalendarViewController: UIViewController {
         calendarView.visibleDates { visibleDates in
             self.setupViewsOfCalendar(from: visibleDates)
         }
+        calendarView.scrollToDate(selectedDate!, animateScroll: false)
     }
     
     func setupViewsOfCalendar(from visibleDates: DateSegmentInfo) {
@@ -94,7 +95,8 @@ extension CalendarViewController: JTAppleCalendarViewDataSource {
         let startDate: Date
         //If we get a date passed by Analyze controller we should use that to correctly focus the calendar on that month, it should mean user was already switching dates and returning to the calendar
         if selectedDate != nil {
-            startDate = selectedDate!
+//            startDate = selectedDate!
+            startDate = formatter.date(from: "2017 01 01")!
         } else {
             startDate = Date()
         }
@@ -103,6 +105,7 @@ extension CalendarViewController: JTAppleCalendarViewDataSource {
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 6, calendar: Calendar.current, generateInDates: InDateCellGeneration.forAllMonths, generateOutDates: OutDateCellGeneration.tillEndOfGrid, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: false)
         return parameters
     }
+    
 }
 
 extension CalendarViewController: JTAppleCalendarViewDelegate {

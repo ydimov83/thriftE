@@ -58,6 +58,12 @@ extension Date {
         return date!
     }
     
+    static func getMonthNameFromDate(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "LLLL"
+        return formatter.string(from: date)
+    }
+    
 }
 
 // MARK: Helper methods
