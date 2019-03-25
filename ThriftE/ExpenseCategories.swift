@@ -9,7 +9,7 @@
 import Foundation
 
 enum ExpenseCategories: String, CaseIterable {
-    case noCategory = "No Category"
+    case miscellaneous = "Misc"
     case car = "Car"
     case groceries = "Groceries"
     case health = "Health"
@@ -26,16 +26,16 @@ func getCategoryNameFromHashValue(hashValue: Int) -> ExpenseCategories {
     return category
 }
 
-func getHashValueFromCategoryName(category: ExpenseCategories) -> Int {
+func getIndexValueFromCategoryName(category: ExpenseCategories) -> Int {
     
-    var hashValue = 0
+    var indexValue = 0
     for aCategory in ExpenseCategories.allCases {
         if aCategory == category {
             break //we've found the matching category quit loop
         } else {
-            hashValue += 1
+            indexValue += 1
         }
     }
-        return hashValue
+        return indexValue
 }
 

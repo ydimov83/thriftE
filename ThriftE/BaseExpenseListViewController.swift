@@ -50,19 +50,19 @@ class BaseExpenseListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ExpenseListCell
         let expense = fetchedResultsController.object(at: indexPath)
-        configureText(for: cell, with: expense)
+        cell.configureCell(with: expense)
         
         let selection = UIView(frame: CGRect.zero)
         selection.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
         cell.selectedBackgroundView = selection
-        
-        cell.textLabel?.textColor = UIColor.white
-        cell.detailTextLabel?.textColor = UIColor.lightGray
-        cell.textLabel?.accessibilityIdentifier = "expenseCellTitle"
-        cell.detailTextLabel?.accessibilityIdentifier = "expenseCellSubtitle"
-        
+  
+        cell.nameLabel?.textColor = UIColor.white
+        cell.detailLabel?.textColor = UIColor.lightGray
+        cell.nameLabel?.accessibilityIdentifier = "expenseCellTitle"
+        cell.detailLabel?.accessibilityIdentifier = "expenseCellSubtitle"
+
         return cell
     }
     
@@ -154,9 +154,10 @@ extension BaseExpenseListViewController: NSFetchedResultsControllerDelegate {
             tableView.deleteRows(at: [indexPath!], with: .fade)
         case .update:
             print("*** NSFetchResultsChangeUpdate (object)")
-            if let cell = tableView.cellForRow(at: indexPath!) {
+            if let cell = tableView.cellForRow(at: indexPath!) as? ExpenseListCell {
                 let expense = controller.object(at: indexPath!) as! Expense
-                configureText(for: cell, with: expense)
+//                configureText(for: cell, with: expense)
+                cell.configureCell(with: expense)
             }
         case .move:
             print("*** NSFetchResultsChangeMove (object)")
