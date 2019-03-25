@@ -10,8 +10,7 @@ import UIKit
 import Charts
 import CoreData
 
-class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
-    
+class AnalyzeExpensesViewController: UIViewController{
     
     var managedObjectContext: NSManagedObjectContext! {
         didSet {
@@ -36,7 +35,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     let today = Date()
     var userSelectedDate: Date?
     let formatter = DateFormatter()
-    var fetchRequestPredicate = NSPredicate(format: "date <= %@", Date() as CVarArg)
+    var fetchRequestPredicate: NSPredicate?
     
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var totalValueLabel: UILabel!
@@ -44,7 +43,6 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var calendarButton: UIButton!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,18 +53,14 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         }
         updateData()
         pieChartView.delegate = self
-        pieChartView.accessibilityIdentifier = "pieChartView"
-        totalValueLabel.accessibilityIdentifier = "expenseTotalValueLabel"
-        totalLabel.accessibilityIdentifier = "expenseTotalLabel"
-        noExpensesLabel.accessibilityIdentifier = "noExpensesLabel"
+        setAccessibilityIdentifiers()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         //Deselect the previously selected pie chart slice when coming back to the screen
         pieChartView.highlightValue(nil)
+        setupPieChartView()
     }
-    
     //MARK: - Actions
     @IBAction func segmentedControlIndexChanged(_ sender: Any) {
         switch  segmentedControl.selectedSegmentIndex {
@@ -102,16 +96,11 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
     }
     //MARK: - Chart Setup
     func setupPieChartView() {
-        let entity = Expense.entity()
-        let fetchRequest = NSFetchRequest<Expense>()
-        fetchRequest.entity = entity
-        fetchRequest.predicate = fetchRequestPredicate
-        expenses = try! managedObjectContext.fetch(fetchRequest)
-        
-        calculateTotals()
-        
-        if !totalValueLabel.isHidden {
+        if totalValueLabel.isHidden {
             //If total value is hidden it means we have no data to show, hide the pie view
+            pieChartView.isHidden = true
+            noExpensesLabel.isHidden = false
+        } else {
             pieChartView.isHidden = false
             noExpensesLabel.isHidden = true
             
@@ -130,7 +119,8 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
                 i += 1
             }
             dataSet.colors = ChartColorTemplates.pastel()
-            dataSet.valueColors = [NSUIColor.white]
+            dataSet.valueColors = [NSUIColor.black]
+            dataSet.entryLabelFont = UIFont(name: "Helvetica Neue", size: 11)
             
             let data = PieChartData(dataSet: dataSet)
             pieChartView.data = data
@@ -142,12 +132,9 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             pieChartView.legend.textColor = UIColor.white
             //This must stay at end of function
             pieChartView.notifyDataSetChanged()
-        } else {
-            pieChartView.isHidden = true
-            noExpensesLabel.isHidden = false
+            pieChartView.animate(xAxisDuration: 0.5)
         }
     }
-    
     //MARK: - Helper Methods
     func calculateTotals() {
         //First zero out totals
@@ -157,12 +144,11 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         
         for expense in expenses {
             total += expense.amount
-            print(expense.date.debugDescription)
             
             //Map the category to an index, this way we can update the category specific totals
             ExpenseCategories.allCases.forEach{
                 if expense.category == $0.rawValue{
-                    catIndex = getHashValueFromCategoryName(category: $0)
+                    catIndex = getIndexValueFromCategoryName(category: $0)
                 }
             }
             categoryTotals[catIndex!] += expense.amount
@@ -177,9 +163,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             totalLabel.isHidden = true
             totalValueLabel.isHidden = true
         }
-        
     }
-    
     func updateData(scrollDirection: String? = nil) {
         let calendar = Calendar.current
         var currentYear = calendar.component(.year, from: today)
@@ -187,7 +171,7 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
         var dateComponents = DateComponents()
         dateComponents.calendar = calendar
         dateComponents.timeZone = TimeZone.current
-        
+        //Switch here used to set fromDate, toDate and the calendarButton title
         switch  selectedDateSegment {
         case "Day":
             if userSelectedDate != nil {
@@ -211,7 +195,6 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
                 }
             }
             toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
-            
         case "Week" :
             //I'm using Monday as the start of the week and Sunday as the end of the week
             if userSelectedDate != nil {
@@ -267,14 +250,12 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
                 calendarButton.setTitle(Date.getMonthNameFromDate(date: fromDate), for: .normal)
             }
         case "Year": //Year
-            if scrollDirection != nil {
-                if scrollDirection == "earlier" {
-                    currentYear = calendar.component(.year, from: fromDate) - 1
-                } else if scrollDirection == "later" {
-                    currentYear = calendar.component(.year, from: fromDate) + 1
-                }
-            } else {
+            if scrollDirection == nil { //Default case when user first selects Year segment
                 currentYear = calendar.component(.year, from: today)
+            } else if scrollDirection == "earlier" {
+                currentYear = calendar.component(.year, from: fromDate) - 1
+            } else if scrollDirection == "later" {
+                currentYear = calendar.component(.year, from: fromDate) + 1
             }
             dateComponents.year = currentYear
             fromDate = calendar.date(from: dateComponents)!
@@ -286,12 +267,20 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             calendarButton.setTitle("Today", for: .normal)
             toDate = Calendar.current.date(byAdding: .day, value: 1, to: fromDate)!
         }
+        
         print("from: \(fromDate) to: \(toDate)")
         //Predicate used in fetchRequest will change based on selected segment so we need to setup chart data again
         fetchRequestPredicate = NSPredicate(format: "date >= %@ && date < %@", fromDate as CVarArg, toDate as CVarArg)
+        
+        let entity = Expense.entity()
+        let fetchRequest = NSFetchRequest<Expense>()
+        //Fetch data and setup pie chart view
+        fetchRequest.entity = entity
+        fetchRequest.predicate = fetchRequestPredicate
+        expenses = try! managedObjectContext.fetch(fetchRequest)
+        calculateTotals()
         setupPieChartView()
     }
-    
     func updateCalendarButtonState() {
         if selectedDateSegment == "Year" {
             calendarButton.isEnabled = false
@@ -301,7 +290,12 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             calendarButton.tintColor = tabBarController?.tabBar.tintColor
         }
     }
-    
+    func setAccessibilityIdentifiers() {
+        pieChartView.accessibilityIdentifier = "pieChartView"
+        totalValueLabel.accessibilityIdentifier = "expenseTotalValueLabel"
+        totalLabel.accessibilityIdentifier = "expenseTotalLabel"
+        noExpensesLabel.accessibilityIdentifier = "noExpensesLabel"
+    }
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FilteredExpenseList" {
@@ -321,15 +315,15 @@ class AnalyzeExpensesViewController: UIViewController, ChartViewDelegate{
             controller.delegate = self
         }
     }
-    //MARK: - ChartView Delegate Implementation
+}
+//MARK: - ChartView Delegate Implementation
+extension AnalyzeExpensesViewController: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         let pieChartDataEntry = entry as! PieChartDataEntry
         selectedPieChartCategory = pieChartDataEntry.label!
         performSegue(withIdentifier: "FilteredExpenseList", sender: self)
     }
-    
 }
-
 //MARK:- CalendarViewController Delegate
 extension AnalyzeExpensesViewController: CalendarViewControllerDelegate {
     func calendarViewController(_ controller: CalendarViewController, didPickDate date: Date) {

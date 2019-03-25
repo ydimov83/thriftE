@@ -56,5 +56,4 @@ class FilteredExpenseListViewController: BaseExpenseListViewController {
         fetchedResultsController.delegate = self
         return fetchedResultsController
     }
-    
 }

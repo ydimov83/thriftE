@@ -10,13 +10,13 @@ import UIKit
 import CoreData
 
 
-class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
+class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate, UITextViewDelegate {
     
     var expenseDate = Date()
     var name = ""
     var amount = 0.00
     var date = Date()
-    var category = ExpenseCategories.noCategory.rawValue
+    var category = ExpenseCategories.miscellaneous.rawValue
     var managedObjectContext: NSManagedObjectContext!
     var calendar = Calendar.current
     
@@ -33,7 +33,8 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     //MARK: - Outlets
-    @IBOutlet weak var nameTextField: UITextField!
+//    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextView!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var datePickerField: UIDatePicker!
@@ -49,8 +50,8 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         calendar.timeZone = NSTimeZone.local
-        amountTextField.delegate = self // is this necessary?
-        nameTextField.delegate = self // is this necessary?
+        amountTextField.delegate = self // for UITextFieldDelegate
+        nameTextField.delegate = self // for UITextViewDelegate
         categoryLabel.text = category
         
         if let expenseToEdit = expenseToEdit {
@@ -67,7 +68,7 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK: - Tableview delegates
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if indexPath.row == 2 && indexPath.section == 0 {
+        if indexPath.row == 0 && indexPath.section == 2 {
             return indexPath
         } else {
             return nil //make sure we disable cell selection if not the category cell
@@ -130,14 +131,17 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    //MARK: - TextField delegates
-    
+   //MARK: - UITextField Delegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let oldText = textField.text!
         let stringRange = Range(range, in: oldText)!
         let newText = oldText.replacingCharacters(in: stringRange, with: string)
-        doneBarButton.isEnabled = !newText.isEmpty
+        if !newText.isEmpty && !nameTextField.text.isEmpty {
+            doneBarButton.isEnabled = true
+        } else {
+            doneBarButton.isEnabled = false
+        }
         
         if textField.tag == 1003 {
             let invalidCharacters = CharacterSet(charactersIn: ".0123456789").inverted // limit to numerical characters only with allowance for decimals
@@ -151,6 +155,14 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate {
         //Can use this to set the Done button to disabled when user utilizes the keyboard bar's Clear button to clear out the textField's value
         doneBarButton.isEnabled = false
         return true
+    }
+    //MARK: - UITextView Delegate
+    func textViewDidChange(_ textView: UITextView) {
+        if !amountTextField.text!.isEmpty && !textView.text.isEmpty {
+            doneBarButton.isEnabled = true
+        } else {
+            doneBarButton.isEnabled = false
+        }
     }
     
 }
