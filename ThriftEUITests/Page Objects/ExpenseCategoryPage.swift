@@ -9,7 +9,7 @@
 import XCTest
 
 enum  ExpenseCategoryPage: String, CaseIterable {
-    case noCategory = "No Category"
+    case miscalleneous = "Misc"
     case car = "Car"
     case groceries = "Groceries"
     case health = "Health"
@@ -22,7 +22,7 @@ enum  ExpenseCategoryPage: String, CaseIterable {
     
     var element: XCUIElement {
         switch self {
-        case .noCategory, .car, .groceries, .health, .house, .relaxation,
+        case .miscalleneous, .car, .groceries, .health, .house, .relaxation,
              .restaurant, .services, .travel :
                 return XCUIApplication().cells[self.rawValue]
         case .addExpenseButton :

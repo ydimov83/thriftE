@@ -164,7 +164,6 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate, U
             doneBarButton.isEnabled = false
         }
     }
-    
 }
 
 //MARK: - UIPickerViewAccessibility Delegate

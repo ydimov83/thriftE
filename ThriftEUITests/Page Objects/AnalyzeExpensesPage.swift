@@ -15,7 +15,7 @@ enum AnalyzeExpensesPage: String {
     case expenseTotalLabel = "expenseTotalLabel"
     case expenseTotalValueLabel = "expenseTotalValueLabel"
     case noExpensesLabel = "noExpensesLabel"
-    case today = "Today"
+    case day = "Day"
     case week = "Week"
     case month = "Month"
     case year = "Year"
@@ -33,7 +33,7 @@ enum AnalyzeExpensesPage: String {
         switch self {
         case .expenseTotalLabel, .expenseTotalValueLabel, .noExpensesLabel :
             return XCUIApplication().staticTexts[self.rawValue]
-        case .today, .week, .month, .year :
+        case .day, .week, .month, .year :
             return XCUIApplication().buttons[self.rawValue]
         case .navBarTitle :
             return XCUIApplication().navigationBars.firstMatch.otherElements.firstMatch
