@@ -27,8 +27,10 @@ enum ExpenseDetailPage: String {
             return XCUIApplication().navigationBars.firstMatch.otherElements.firstMatch
         case .doneButton, .cancelButton :
             return XCUIApplication().navigationBars.buttons[self.rawValue]
-        case .nameTextField, .amountTextField :
+        case .amountTextField :
             return XCUIApplication().textFields[self.rawValue]
+        case .nameTextField :
+            return XCUIApplication().textViews[self.rawValue]
         case .categoryLabel, .categoryValueLabel :
             return XCUIApplication().staticTexts[self.rawValue]
         case .monthPickerWheel :

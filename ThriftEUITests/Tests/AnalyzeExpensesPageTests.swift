@@ -15,7 +15,7 @@ class AnalyzeExpensesPageTests: ThriftEUIBaseTestCase {
     
     func testUIWhenUserHasNoExpenseData() {
         TabBarPageObject.analyze.element.tap()
-        XCTAssert(AnalyzeExpensesPage.today.element.isSelected, "User should be on the 'Today' segment")
+        XCTAssert(AnalyzeExpensesPage.day.element.isSelected, "User should be on the 'Day' segment")
         assertsUserHasNoData()
         AnalyzeExpensesPage.week.element.tap()
         assertsUserHasNoData()

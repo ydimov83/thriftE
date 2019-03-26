@@ -8,18 +8,18 @@
 import XCTest
 
 extension XCUIElement {
-    func clearAndTypeText(text: String) {
+    func clearAndTypeText(text: String, deleteKeyIdentifier: String? = "delete") {
         if let charCount = (self.value as? String)?.count {
             for i in 0..<charCount {
-                XCUIApplication().keys["delete"].tap()
+                XCUIApplication().keys[deleteKeyIdentifier!].tap()
             }
         }
     }
     
-    func clearText() {
+    func clearText(deleteKeyIdentifier: String? = "delete") {
         if let charCount = (self.value as? String)?.count {
             for i in 0..<charCount {
-                XCUIApplication().keys["delete"].tap()
+                XCUIApplication().keys[deleteKeyIdentifier!].tap()
             }
         }
     }
