@@ -34,10 +34,11 @@
 		943170AD21E01A5C00109FC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 943170AB21E01A5C00109FC8 /* Main.storyboard */; };
 		943170AF21E01A5D00109FC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 943170AE21E01A5D00109FC8 /* Assets.xcassets */; };
 		943170B221E01A5D00109FC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 943170B021E01A5D00109FC8 /* LaunchScreen.storyboard */; };
-		943170BD21E01A5D00109FC8 /* ThriftETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170BC21E01A5D00109FC8 /* ThriftETests.swift */; };
+		943170BD21E01A5D00109FC8 /* AnalyzeExpensesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170BC21E01A5D00109FC8 /* AnalyzeExpensesViewControllerTests.swift */; };
 		943170C821E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943170C721E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift */; };
 		94906497224593F30037B83B /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94906496224593F30037B83B /* CalendarViewController.swift */; };
 		949064992245942F0037B83B /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949064982245942F0037B83B /* CustomCalendarCell.swift */; };
+		949064D9224C30470037B83B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949064D8224C30470037B83B /* CoreDataManager.swift */; };
 		949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */; };
 		94AECF90222322D800730707 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF8F222322D800730707 /* Functions.swift */; };
 		94AECF92222323F100730707 /* AnalyzeExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */; };
@@ -101,13 +102,14 @@
 		943170B121E01A5D00109FC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		943170B321E01A5D00109FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		943170B821E01A5D00109FC8 /* ThriftETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThriftETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		943170BC21E01A5D00109FC8 /* ThriftETests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThriftETests.swift; sourceTree = "<group>"; };
+		943170BC21E01A5D00109FC8 /* AnalyzeExpensesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeExpensesViewControllerTests.swift; sourceTree = "<group>"; };
 		943170BE21E01A5D00109FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		943170C321E01A5D00109FC8 /* ThriftEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThriftEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		943170C721E01A5D00109FC8 /* ThriftEUIBaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThriftEUIBaseTestCase.swift; sourceTree = "<group>"; };
 		943170C921E01A5D00109FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94906496224593F30037B83B /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		949064982245942F0037B83B /* CustomCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
+		949064D8224C30470037B83B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		949434CB2234834100B834DE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
 		94AECF8F222322D800730707 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				943170AE21E01A5D00109FC8 /* Assets.xcassets */,
 				9425855B223EB1C80054863F /* BaseExpenseListViewController.swift */,
 				94906496224593F30037B83B /* CalendarViewController.swift */,
+				949064D8224C30470037B83B /* CoreDataManager.swift */,
 				949064982245942F0037B83B /* CustomCalendarCell.swift */,
 				94E72DE3222DCF7E0035F789 /* DataModel.xcdatamodeld */,
 				94BE65EC223FF206004841B5 /* Date+Helpers.swift */,
@@ -247,7 +250,7 @@
 		943170BB21E01A5D00109FC8 /* ThriftETests */ = {
 			isa = PBXGroup;
 			children = (
-				943170BC21E01A5D00109FC8 /* ThriftETests.swift */,
+				943170BC21E01A5D00109FC8 /* AnalyzeExpensesViewControllerTests.swift */,
 				943170BE21E01A5D00109FC8 /* Info.plist */,
 			);
 			path = ThriftETests;
@@ -536,6 +539,7 @@
 				9425855A223E9F490054863F /* FilteredExpenseListViewController.swift in Sources */,
 				9403F944222DE8DE00E6159D /* Expense+CoreDataClass.swift in Sources */,
 				943170AA21E01A5C00109FC8 /* ExpenseListViewController.swift in Sources */,
+				949064D9224C30470037B83B /* CoreDataManager.swift in Sources */,
 				9425855C223EB1C80054863F /* BaseExpenseListViewController.swift in Sources */,
 				949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */,
 				9413D3842225B38E00040243 /* ExpenseCategoryPickerViewController.swift in Sources */,
@@ -554,7 +558,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				943170BD21E01A5D00109FC8 /* ThriftETests.swift in Sources */,
+				943170BD21E01A5D00109FC8 /* AnalyzeExpensesViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
