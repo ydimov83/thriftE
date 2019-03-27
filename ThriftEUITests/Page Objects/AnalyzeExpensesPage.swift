@@ -12,6 +12,8 @@ enum AnalyzeExpensesPage: String {
     
     case pieChartView = "pieChartView"
     case navBarTitle = "ThriftE"
+    case leftButton = "leftButton"
+    case rightButton = "rightButton"
     case expenseTotalLabel = "expenseTotalLabel"
     case expenseTotalValueLabel = "expenseTotalValueLabel"
     case noExpensesLabel = "noExpensesLabel"
@@ -19,7 +21,7 @@ enum AnalyzeExpensesPage: String {
     case week = "Week"
     case month = "Month"
     case year = "Year"
-    case noCategory = "No Category"
+    case miscellaneous = "Misc"
     case car = "Car"
     case groceries = "Groceries"
     case health = "Health"
@@ -33,13 +35,13 @@ enum AnalyzeExpensesPage: String {
         switch self {
         case .expenseTotalLabel, .expenseTotalValueLabel, .noExpensesLabel :
             return XCUIApplication().staticTexts[self.rawValue]
-        case .day, .week, .month, .year :
+        case .day, .week, .month, .year, .leftButton, .rightButton :
             return XCUIApplication().buttons[self.rawValue]
         case .navBarTitle :
             return XCUIApplication().navigationBars.firstMatch.otherElements.firstMatch
         case .pieChartView :
             return XCUIApplication().otherElements[self.rawValue]
-        case .noCategory, .car, .groceries, .health, .house, .relaxation,
+        case .miscellaneous, .car, .groceries, .health, .house, .relaxation,
              .restaurant, .services, .travel :
             //The pie chart labels are a grouped as an "other" element under the piechart element, so query below looks a bit messy but it does only search labels in the piechart which is the desired result
             return XCUIApplication().otherElements["pieChartView"].otherElements.containing(NSPredicate(format: "label BEGINSWITH %@", self.rawValue as CVarArg)).element

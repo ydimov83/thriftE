@@ -390,6 +390,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTG-Qp-Mdo">
                                 <rect key="frame" x="30" y="118" width="30" height="34"/>
+                                <accessibility key="accessibilityConfiguration" identifier="leftButton"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
                                 <state key="normal" title="&lt;">
                                     <color key="titleColor" red="1" green="0.93333333330000001" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -400,6 +401,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IgK-kx-ggE">
                                 <rect key="frame" x="315" y="118" width="30" height="34"/>
+                                <accessibility key="accessibilityConfiguration" identifier="rightButton"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
                                 <state key="normal" title="&gt;">
                                     <color key="titleColor" red="1" green="0.93333333330000001" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>

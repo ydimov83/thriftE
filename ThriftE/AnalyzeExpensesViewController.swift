@@ -12,20 +12,7 @@ import CoreData
 
 class AnalyzeExpensesViewController: UIViewController{
     
-    var managedObjectContext: NSManagedObjectContext! {
-        didSet {
-            //As soon as managedObjectContext gets a value, which happens at app launch through AppDelegate implementation, this bloc will execute and thus actively listen to changes in data store
-            NotificationCenter.default.addObserver(
-                forName: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-                object: managedObjectContext,
-                queue: OperationQueue.main) { notification in
-                    if self.isViewLoaded {
-                        //We only want to update the chart once the Analyze view is already loaded
-                        self.updateData()
-                    }
-            }
-        }
-    }
+    var managedObjectContext: NSManagedObjectContext = CoreDataManager.sharedManager.managedObjectContext
     var expenses = [Expense]()
     var categoryTotals = [Double]()
     var selectedPieChartCategory = ""
@@ -46,6 +33,16 @@ class AnalyzeExpensesViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //When this bloc  executes it will actively listen to changes in data store
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: managedObjectContext,
+            queue: OperationQueue.main) { notification in
+                if self.isViewLoaded {
+                    //We only want to update the chart once the Analyze view is already loaded
+                    self.updateData() }
+        }
+    
         formatter.dateStyle = DateFormatter.Style.short
         if selectedDateSegment == "" {
             //If selectedDateSegment has no value then it means it's the first time user sees Analyze screen so segmentedControlIndexChanged() has not run yet, set category to Today and predicate accordingly

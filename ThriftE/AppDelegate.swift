@@ -13,20 +13,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "DataModel")
-        container.loadPersistentStores(completionHandler: {
-            storeDescription, error in
-            if let error = error {
-                fatalError("Could not load data store: \(error)")
-            }
-        })
-        return container
-    }()
-    
-    lazy var managedObjectContext: NSManagedObjectContext = persistentContainer.viewContext
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         NSTimeZone.default = TimeZone(abbreviation: "MST")!
@@ -37,11 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationController1 = tabBarViewControllers[0] as! UINavigationController
             //First tab
             let controller1 = navigationController1.viewControllers[0] as! ExpenseListViewController
-            controller1.managedObjectContext = managedObjectContext
             //Second tab
             let navigationController2 = tabBarViewControllers[1] as! UINavigationController
             let controller2 = navigationController2.viewControllers[0] as! AnalyzeExpensesViewController
-            controller2.managedObjectContext = managedObjectContext
         }
         listenForFatalCoreDataNotifications()
         return true
