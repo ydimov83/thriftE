@@ -12,9 +12,23 @@ class BaseExpenseListViewController: UITableViewController {
     
     var cellIdentifier = ""
     
-    var managedObjectContext = CoreDataManager.sharedManager.managedObjectContext
-    //TODO: - I think the fetchedResultsController implementaiton might make more sense in invdividual view controllers as they already have to modify it
-    lazy var fetchedResultsController = CoreDataManager.sharedManager.fetchedResultsController
+    lazy var managedObjectContext = CoreDataManager.sharedManager.managedObjectContext
+    lazy var fetchedResultsController: NSFetchedResultsController<Expense> = {
+        let fetchRequest = NSFetchRequest<Expense>()
+
+        let entity = Expense.entity()
+        fetchRequest.entity = entity
+
+        let sortCategory = NSSortDescriptor(key: "category", ascending: true)
+        let sortDate = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [sortCategory, sortDate]
+
+        fetchRequest.fetchBatchSize = 20
+
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Expenses")
+        fetchedResultsController.delegate = self as? NSFetchedResultsControllerDelegate
+        return fetchedResultsController
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()

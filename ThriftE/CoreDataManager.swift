@@ -15,7 +15,6 @@ class CoreDataManager {
     static let sharedManager = CoreDataManager()
     private init() {}
     
-    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "DataModel")
         container.loadPersistentStores(completionHandler: {
@@ -28,29 +27,11 @@ class CoreDataManager {
     }()
     
     lazy var managedObjectContext: NSManagedObjectContext = persistentContainer.viewContext
+ 
     
-    //TODO: - Probably need to take out the fetchedResultsController property from this class
+    //MARK: - Helper functions for use with unit tests, actual insert/delete operations are handled by the NSFetchedResultsControllerDelegate implementation in BaseExpenseListViewController
     
-    lazy var fetchedResultsController: NSFetchedResultsController<Expense> = {
-        let fetchRequest = NSFetchRequest<Expense>()
-        
-        let entity = Expense.entity()
-        fetchRequest.entity = entity
-        
-        let sortCategory = NSSortDescriptor(key: "category", ascending: true)
-        let sortDate = NSSortDescriptor(key: "date", ascending: true)
-        fetchRequest.sortDescriptors = [sortCategory, sortDate]
-        
-        fetchRequest.fetchBatchSize = 20
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "category", cacheName: "Expenses")
-        fetchedResultsController.delegate = self as? NSFetchedResultsControllerDelegate
-        return fetchedResultsController
-    }()
-    
-    /* In cases we need to flush all data, call this method */
     func flushData() {
-        
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
         let objs = try! CoreDataManager.sharedManager.persistentContainer.viewContext.fetch(fetchRequest)
         for case let obj as NSManagedObject in objs {

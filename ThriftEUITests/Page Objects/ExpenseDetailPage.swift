@@ -34,14 +34,13 @@ enum ExpenseDetailPage: String {
         case .categoryLabel, .categoryValueLabel :
             return XCUIApplication().staticTexts[self.rawValue]
         case .monthPickerWheel :
-            return XCUIApplication().pickerWheels[getCurrentMonth(dateFormat: "LLLL")]
+            return XCUIApplication().pickerWheels.element(boundBy: 0)
         case .dayPickerWheel :
-            return XCUIApplication().pickerWheels[getCurrentDayOfMonth()]
+            return XCUIApplication().pickerWheels.element(boundBy: 1)
         case .yearPickerWheel :
-            return XCUIApplication().pickerWheels[getCurrentYear(dateFormat: "y")]
+            return XCUIApplication().pickerWheels.element(boundBy: 2)
         }
     }
-    
 }
 
 /**
