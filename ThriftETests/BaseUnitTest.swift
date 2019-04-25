@@ -13,11 +13,16 @@ import CoreData
 class BaseUnitTest: XCTestCase {
     var analyzeExpensesViewController: AnalyzeExpensesViewController?
     var expenseListViewController: ExpenseListViewController?
+    var filteredExpenseListViewController: FilteredExpenseListViewController?
     let coreDataManager = CoreDataManager.sharedManager
+    let dateFormatter = DateFormatter()
     
     override func setUp() {
         super.setUp()
          coreDataManager.flushData()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
         
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let tabBarController = storyboard.instantiateInitialViewController() as! MyTabBarController

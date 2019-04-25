@@ -32,8 +32,7 @@ class ExpenseDetailPageTests: ThriftEUIBaseTestCase {
         ExpenseDetailPage.amountTextField.element.typeText("30")
         XCTAssert(ExpenseDetailPage.doneButton.element.isEnabled, "Done button should be tappable since required input data is present")
      
-        //This seems a bit buggy if the software keyboard doesn't launch on the sim, then it can't find the delete key
-        ExpenseDetailPage.amountTextField.element.clearText(deleteKeyIdentifier: "Delete")
+        ExpenseDetailPage.amountTextFieldClearButton.element.tap()
         XCTAssert(!ExpenseDetailPage.doneButton.element.isEnabled, "Done button should NOT be tappable since required input data is NOT present")
         
         ExpenseDetailPage.amountTextField.element.typeText("30")

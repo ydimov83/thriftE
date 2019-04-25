@@ -40,5 +40,4 @@ class CoreDataManagerTests: BaseUnitTest {
         XCTAssertFalse((coreDataManager.isObjectInDataStore(name: "test3")), "Deleted object should not be found in the data store")
     }
     
-    
 }

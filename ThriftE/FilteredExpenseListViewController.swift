@@ -12,7 +12,6 @@ import CoreData
 class FilteredExpenseListViewController: BaseExpenseListViewController {
     
     //Actual values will be set via the segue from AnalyzeExpensesViewController
-    
     var categoryFilter = ""
     var fromDate =  Date()
     var toDate = Date()
@@ -21,7 +20,8 @@ class FilteredExpenseListViewController: BaseExpenseListViewController {
         super.viewDidLoad()
         cellIdentifier =  "FilteredExpenseListItem"
         self.title = categoryFilter
-        fetchedResultsController = setFetchedResultsController(fromDate: fromDate, toDate: toDate, categoryFilter: categoryFilter)
+        fetchedResultsController = setFetchedResultsController(
+            fromDate: fromDate, toDate: toDate, categoryFilter: categoryFilter)
         performFetch()
     }
     
@@ -38,22 +38,15 @@ class FilteredExpenseListViewController: BaseExpenseListViewController {
     }
     
     //MARK: - Helpers
-    func setFetchedResultsController(fromDate: Date, toDate: Date, categoryFilter: String) -> NSFetchedResultsController<Expense> {
-        
-        let fetchRequest = NSFetchRequest<Expense>()
-        
-        let entity = Expense.entity()
-        fetchRequest.entity = entity
-        
+    func setFetchedResultsController(fromDate: Date, toDate: Date, categoryFilter: String)
+        -> NSFetchedResultsController<Expense> {
+
         let predicate =  NSPredicate(format: "date >= %@ && date < %@ && category == %@", fromDate as CVarArg, toDate as CVarArg, categoryFilter)
-        fetchRequest.predicate = predicate
+        fetchedResultsController.fetchRequest.predicate = predicate
         
         let sortDate = NSSortDescriptor(key: "date", ascending: false)
-        fetchRequest.sortDescriptors = [sortDate]
-        fetchRequest.fetchBatchSize = 20
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Expenses")
-        fetchedResultsController.delegate = self
+        fetchedResultsController.fetchRequest.sortDescriptors = [sortDate]
+
         return fetchedResultsController
     }
 }

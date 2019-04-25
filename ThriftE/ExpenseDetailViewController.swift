@@ -87,8 +87,6 @@ class ExpenseDetailViewController: UITableViewController, UITextFieldDelegate, U
     }
     
     @IBAction func done() {
-        //TODO: - Add some checks here to make sure the Double cast doesn't crash app, and better enforce data requirement for it
-        
         let expense: Expense
 
         if let temp = expenseToEdit {
