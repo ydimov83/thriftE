@@ -43,6 +43,7 @@
 		949064DC224D20BB0037B83B /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949064DB224D20BB0037B83B /* CoreDataManagerTests.swift */; };
 		949064DE224D310B0037B83B /* ExpenseListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949064DD224D310B0037B83B /* ExpenseListViewControllerTests.swift */; };
 		949064E0224D316E0037B83B /* BaseUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949064DF224D316E0037B83B /* BaseUnitTest.swift */; };
+		949064E2224EAB800037B83B /* FilteredExpenseListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949064E1224EAB800037B83B /* FilteredExpenseListViewControllerTests.swift */; };
 		949FD71821E1337D00B4212D /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */; };
 		94AECF90222322D800730707 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF8F222322D800730707 /* Functions.swift */; };
 		94AECF92222323F100730707 /* AnalyzeExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AECF91222323F100730707 /* AnalyzeExpensesViewController.swift */; };
@@ -117,6 +118,7 @@
 		949064DB224D20BB0037B83B /* CoreDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTests.swift; sourceTree = "<group>"; };
 		949064DD224D310B0037B83B /* ExpenseListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewControllerTests.swift; sourceTree = "<group>"; };
 		949064DF224D316E0037B83B /* BaseUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUnitTest.swift; sourceTree = "<group>"; };
+		949064E1224EAB800037B83B /* FilteredExpenseListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredExpenseListViewControllerTests.swift; sourceTree = "<group>"; };
 		949434CB2234834100B834DE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		949FD71721E1337D00B4212D /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
 		94AECF8F222322D800730707 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				949064DD224D310B0037B83B /* ExpenseListViewControllerTests.swift */,
 				943170BE21E01A5D00109FC8 /* Info.plist */,
 				949064DF224D316E0037B83B /* BaseUnitTest.swift */,
+				949064E1224EAB800037B83B /* FilteredExpenseListViewControllerTests.swift */,
 			);
 			path = ThriftETests;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949064E2224EAB800037B83B /* FilteredExpenseListViewControllerTests.swift in Sources */,
 				943170BD21E01A5D00109FC8 /* AnalyzeExpensesViewControllerTests.swift in Sources */,
 				949064DE224D310B0037B83B /* ExpenseListViewControllerTests.swift in Sources */,
 				949064E0224D316E0037B83B /* BaseUnitTest.swift in Sources */,

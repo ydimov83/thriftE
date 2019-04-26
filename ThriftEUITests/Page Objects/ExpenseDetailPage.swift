@@ -20,6 +20,7 @@ enum ExpenseDetailPage: String {
     case monthPickerWheel = "m"
     case dayPickerWheel = "d"
     case yearPickerWheel = "y"
+    case amountTextFieldClearButton = "clearButton"
     
     var element: XCUIElement {
         switch self {
@@ -31,6 +32,9 @@ enum ExpenseDetailPage: String {
             return XCUIApplication().textFields[self.rawValue]
         case .nameTextField :
             return XCUIApplication().textViews[self.rawValue]
+        case .amountTextFieldClearButton :
+            return XCUIApplication().textFields[ExpenseDetailPage.amountTextField.rawValue]
+                .buttons.element(boundBy: 0)
         case .categoryLabel, .categoryValueLabel :
             return XCUIApplication().staticTexts[self.rawValue]
         case .monthPickerWheel :

@@ -13,11 +13,7 @@ import XCTest
 class ExpenseListViewControllerTests: BaseUnitTest {
     
     func testExpenseCellOrderingAndMetadataAndCorrect() {
-        let dateFormatter = DateFormatter()
         
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeZone = TimeZone.current
-        dateFormatter.locale = Locale.current
         let date1 = dateFormatter.date(from: "03/10/19")
         let date2 = dateFormatter.date(from: "03/08/19")
         let date3 = dateFormatter.date(from: "03/09/19")
